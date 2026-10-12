@@ -4,6 +4,55 @@ Project-level memory for AI coding agents. Update this file whenever a significa
 
 ---
 
+## Development Workflow — Non-Negotiable Rules
+
+**Rule: Issue-first, always.** No branch, no code, no commit without a GitHub Issue first.
+
+### Step-by-step
+
+```
+1. Create GitHub Issue
+   → comprehensive title + description + acceptance criteria
+   → add appropriate label (feature / bug / chore / ci/cd / refactor / documentation)
+
+2. Create branch from main
+   → naming: <type>/#<issue-id>/<short-description>
+   → examples: feat/#4/piano-note-detection
+               fix/#7/countdown-bar-flicker
+               ci/#9/release-signing
+
+3. Do the work, commit (conventional commits)
+
+4. Push + open PR
+   → first line of PR body: Closes #<issue-id>
+   → PR is auto-assigned to you + auto-labelled from branch prefix
+
+5. Merge PR → issue closes automatically
+```
+
+### Keywords that auto-close an issue on merge (GitHub)
+
+Any of these in the **PR body** (not commit message) will close the issue when merged to the default branch:
+`Closes`, `Close`, `Closed`, `Fixes`, `Fix`, `Fixed`, `Resolves`, `Resolve`, `Resolved`
+(case-insensitive, followed by `#<issue-id>`)
+
+### PR automation (`.github/workflows/pr-automation.yml`)
+
+Fires on every PR `opened` / `reopened`:
+- **Auto-assigns** PR to the author
+- **Auto-labels** from branch prefix:
+
+| Branch prefix | Label |
+|---|---|
+| `feat/` | `feature` |
+| `fix/` | `bug` |
+| `ci/` | `ci/cd` |
+| `chore/` | `chore` |
+| `docs/` | `documentation` |
+| `refactor/` | `refactor` |
+
+---
+
 ## Project Overview
 
 **Repo:** `journey-of-notes`

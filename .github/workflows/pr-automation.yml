@@ -1,0 +1,91 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# PR Automation
+#
+# Fires when a PR is opened or reopened. Does two things automatically:
+#   1. Assigns the PR to the person who opened it.
+#   2. Adds a label based on the branch-name prefix.
+#
+# Label map (branch prefix → label):
+#   feat/*      → feature
+#   fix/*       → bug
+#   ci/*        → ci/cd
+#   chore/*     → chore
+#   docs/*      → documentation
+#   refactor/*  → refactor
+# ─────────────────────────────────────────────────────────────────────────────
+
+name: PR Automation
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  automate:
+    name: Assign + Label PR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Assign to author and add label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const pr = context.payload.pull_request;
+            const branch = pr.head.ref;
+
+            // ── 1. Assign to PR author ─────────────────────────────────────
+            await github.rest.issues.addAssignees({
+              owner, repo,
+              issue_number: pr.number,
+              assignees: [pr.user.login],
+            });
+            console.log(`Assigned to ${pr.user.login}`);
+
+            // ── 2. Label based on branch prefix ───────────────────────────
+            const labelMap = [
+              { prefix: 'feat/',     label: 'feature'       },
+              { prefix: 'fix/',      label: 'bug'           },
+              { prefix: 'ci/',       label: 'ci/cd'         },
+              { prefix: 'chore/',    label: 'chore'         },
+              { prefix: 'docs/',     label: 'documentation' },
+              { prefix: 'refactor/', label: 'refactor'      },
+            ];
+
+            const match = labelMap.find(({ prefix }) => branch.startsWith(prefix));
+            if (!match) {
+              console.log(`No label match for branch: ${branch}`);
+              return;
+            }
+
+            // Create label if it doesn't exist (safe to call on existing labels)
+            const colors = {
+              feature:       '7057ff',
+              bug:           'd73a4a',
+              'ci/cd':       'e4e669',
+              chore:         'cfd3d7',
+              documentation: '0075ca',
+              refactor:      'a2eeef',
+            };
+
+            try {
+              await github.rest.issues.getLabel({ owner, repo, name: match.label });
+            } catch {
+              await github.rest.issues.createLabel({
+                owner, repo,
+                name: match.label,
+                color: colors[match.label] ?? 'ededed',
+              });
+              console.log(`Created label: ${match.label}`);
+            }
+
+            await github.rest.issues.addLabels({
+              owner, repo,
+              issue_number: pr.number,
+              labels: [match.label],
+            });
+            console.log(`Added label: ${match.label}`);

@@ -28,6 +28,10 @@ Project-level memory for AI coding agents. Update this file whenever a significa
    → PR is auto-assigned to you + auto-labelled from branch prefix
 
 5. Merge PR → issue closes automatically
+
+6. Run post-merge cleanup (from repo root):
+   ./scripts/post-merge.sh
+   → confirms PR merged, deletes remote + local branch, switches to main, pulls latest
 ```
 
 ### Keywords that auto-close an issue on merge (GitHub)

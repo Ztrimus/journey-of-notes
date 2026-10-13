@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import React from 'react';
+import { useUpdateCheck } from '../hooks/useUpdateCheck';
 
 // Error Boundary to catch and display errors
 class ErrorBoundary extends React.Component<
@@ -65,6 +66,10 @@ const errorStyles = StyleSheet.create({
 });
 
 export default function RootLayout() {
+  // Check for APK updates from GitHub Releases on every cold start.
+  // Silent on no internet, timeout, or any error — never breaks the app.
+  useUpdateCheck();
+
   return (
     <ErrorBoundary>
       <SafeAreaProvider style={styles.container}>

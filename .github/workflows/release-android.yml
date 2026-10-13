@@ -146,13 +146,13 @@ jobs:
           files: ${{ steps.ver.outputs.apk }}
 
   # ════════════════════════════════════════════════════════════════════════════
-  # JOB 2: Signed AAB → Play Store artifact  (runs only when secrets are set)
+  # JOB 2: Signed AAB → Play Store artifact
+  # Requires ANDROID_KEYSTORE_BASE64, ANDROID_KEY_ALIAS,
+  # ANDROID_KEY_PASSWORD, ANDROID_STORE_PASSWORD repo secrets.
   # ════════════════════════════════════════════════════════════════════════════
   aab-play-store:
     name: Signed AAB → Play Store
     runs-on: ubuntu-latest
-    # Only runs when the keystore secret has been added
-    if: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
 
     steps:
       - name: Checkout

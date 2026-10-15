@@ -48,10 +48,12 @@ permissions:
 jobs:
 
   # ════════════════════════════════════════════════════════════════════════════
-  # JOB 1: Debug APK → GitHub Release  (personal sideloading)
+  # JOB 1: Release APK → GitHub Release  (personal sideloading)
+  # Uses assembleRelease so JS is bundled — works on device without Metro.
+  # Signed with the same keystore as the AAB job.
   # ════════════════════════════════════════════════════════════════════════════
   apk-release:
-    name: Debug APK → GitHub Release
+    name: Release APK → GitHub Release
     runs-on: ubuntu-latest
 
     steps:
@@ -106,6 +108,29 @@ jobs:
           CI: "1"
         run: npx expo prebuild --platform android --clean --non-interactive
 
+      - name: Decode keystore
+        if: steps.check.outputs.exists == 'false'
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode \
+            > flute-tempo-trainer/android/app/release.keystore
+
+      - name: Inject signing config
+        if: steps.check.outputs.exists == 'false'
+        working-directory: flute-tempo-trainer/android/app
+        run: |
+          cat >> build.gradle << 'EOF'
+
+          android.signingConfigs {
+            release {
+              storeFile     file("release.keystore")
+              storePassword System.getenv("STORE_PASSWORD")
+              keyAlias      System.getenv("KEY_ALIAS")
+              keyPassword   System.getenv("KEY_PASSWORD")
+            }
+          }
+          android.buildTypes.release.signingConfig = android.signingConfigs.release
+          EOF
+
       - name: Cache Gradle
         if: steps.check.outputs.exists == 'false'
         uses: actions/cache@v4
@@ -116,17 +141,21 @@ jobs:
           key: gradle-${{ hashFiles('flute-tempo-trainer/android/**/*.gradle*') }}
           restore-keys: gradle-
 
-      - name: Build debug APK
+      - name: Build release APK
         if: steps.check.outputs.exists == 'false'
         working-directory: flute-tempo-trainer/android
+        env:
+          KEY_ALIAS:      ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD:   ${{ secrets.ANDROID_KEY_PASSWORD }}
+          STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleRelease --no-daemon
 
       - name: Rename APK
         if: steps.check.outputs.exists == 'false'
         run: |
-          cp flute-tempo-trainer/android/app/build/outputs/apk/debug/app-debug.apk \
+          cp flute-tempo-trainer/android/app/build/outputs/apk/release/app-release.apk \
              "${{ steps.ver.outputs.apk }}"
 
       - name: Create GitHub Release
@@ -141,7 +170,7 @@ jobs:
             2. Phone: **Settings → Install unknown apps** → allow browser/Files
             3. Tap the APK to install
 
-            > Debug-signed build — for personal sideloading only.
+            > Release-signed build — works standalone, no dev server needed.
             > Play Store build is a separate signed AAB (see aab-play-store job).
           files: ${{ steps.ver.outputs.apk }}
 

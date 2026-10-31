@@ -1,5 +1,7 @@
 # Journey of Notes — AGENTS.md
 
+**Read first:** This is an independent personal music-practice product. Use public standards and musician-centered UX, not UOPX institutional policies or branding. Read `web/docs/TASKS.md` for the live priorities and `web/docs/product-decisions.md` for current decisions before changing the browser app. The latest user instructions supersede older prototype notes below.
+
 Project-level memory for AI coding agents. Update this file whenever a significant architectural decision is made or a future sprint is scoped.
 
 ---
@@ -176,3 +178,23 @@ Allow user to set before starting an exercise:
 - `PIANO_NOTE_INTERVAL_MS` override (currently hardcoded to 2000ms)
 - Filter combinations: e.g. right hand only, specific octave range, natural notes only
 - Shuffle vs. systematic coverage (guarantee all 840 before repeating)
+
+## Browser feasibility experiment — issue #11
+
+`web/` is a standalone React + TypeScript + Vite prototype with no Expo or React Native dependency. The existing Android app remains in `flute-tempo-trainer/`. This is an experiment, not a completed migration. Browser audio uses Web Audio scheduling and optional local microphone analysis; amplitude onsets are experimental and do not measure pitch or accuracy. Login remains deferred. The user authorized a public experimental browser preview on 2026-10-31; retain visible audio/latency limitations while device trials remain pending. See `web/README.md` for checks and scope.
+
+### Guided learning follow-up — issue #11
+
+The browser experiment now includes six piano and six flute sequences, large note/key prompts, a self-check path, experimental monophonic microphone pitch validation, and local per-attempt history/export. Read `web/docs/learning-blueprint.md`, `web/docs/source-review.md`, and `web/docs/verification.md` before extending the syllabus or scoring. Keep correct/wrong/unclear/skipped/self-reported outcomes distinct. Audio never proves hand, finger, posture, hole placement or breath technique. The current build does not score rhythm or chords. Flute tonic is learner-configured and requires confirmation before microphone practice. Final pedagogy and real-instrument accuracy remain unverified.
+
+### Repeatable-level and recall update
+
+The user replaced the chapter model with repeatable practice levels. Read `web/docs/reflex-practice.md` for the latest behavior: a random recall level per instrument with constrained difficulty, hand/finger/octave/note cue, keyboard/staff/both views, and optional note hints. Upcoming recall targets stay hidden. Microphone recall attempts record approximate response and confirmation durations separately; self-check clicks never count as playing speed. Old history remains compatible. Do not describe the timing as calibrated reaction time or infer physical fingering correctness.
+
+## Personal-project boundary — explicit user direction
+
+Journey of Notes is an independent personal music-practice product owned by Ztrimus. It is not a University of Phoenix application or institutional education product. Its audience, visual design, language, pedagogy and product goals are musicians' practice needs; do not import UOPX branding, mission, curriculum assumptions, internal policies, team consultations, release gates, or corporate approval workflows. Use public standards and evidence-based web practice (semantic HTML, WCAG 2.2 accessibility guidance, platform documentation, and appropriate consumer-product UX). A bundled skill's organization-specific defaults are not project policy. Reuse a sound general technique only on its merits. Preserve this repository's independently stated personal GitHub/issue/signing rules and never alter global/work authentication for it.
+
+### Phone-access release follow-up — 2026-10-31
+
+Use Music sheet as the visible label; staff is only an internal notation/history identifier. Keep Piano / Flute (Bansuri) / More instruments soon navigation on non-session pages. The requested public preview lives under docs/practice, preserving legacy privacy-policy URLs; rebuild web/dist and copy its contents there for release. This static app uploads no microphone audio and stores history only in the visitor’s browser. Real-device accuracy and timing calibration remain pending.

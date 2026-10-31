@@ -1,0 +1,43 @@
+# Verification and remaining evidence
+
+## Performed
+
+- `npm run build`: TypeScript check and production bundle passed after the final changes.
+- `npm test`: 17 tests passed. Coverage includes common sample rates, exercise pitch/octave range, added harmonics, silence/DC/noise rejection, confidence gating, sustained-note deduplication, retries, drifting/sharp intonation, missing analysis frames, synthetic-wave-to-attempt flow, corrupt local-history schema handling, curriculum bounds, denial messaging, and releasing a stream granted after cancellation.
+- `git diff --check`: passed.
+- `openspec validate guided-practice-validation --strict`: passed.
+- Desktop browser QA at a separate origin (`127.0.0.1:5174`): completed the three-target self-check chapter, confirmed three self-reports with zero measured matches and no assigned accuracy; inspected per-target attempts; reloaded and verified persistence; exported JSON and checked its three distinct target indexes/outcomes; skipped a target and ended another sequence early, confirming one skip and incomplete status.
+- Responsive QA: inspected desktop and narrow rendering. At a requested 320px viewport, document scroll width equaled available client width (305px after the browser scrollbar), with no horizontal overflow. Chapter picker starts collapsed at narrow widths. Final representative screenshot saved separately with the deliverables.
+- Reviewed native control labels, heading hierarchy, status/error semantics, key-image accessible title, visible focus CSS, and outcome text. This is scoped implementation review, not complete accessibility certification.
+- Source review: both supplied PDFs (14 pages total); all 21 available course handouts (66 pages), text plus visual overviews. Original video content was not reviewed.
+
+QA test records are on port 5174, separate from the user-facing port 5173 preview. The prototype is not deployed.
+
+## Limits and manual checks
+
+Automatic approval review blocked a browser action that could start microphone mode because microphone access was not explicitly authorized. No live microphone permission or real-instrument accuracy test was completed. Synthetic tests are a safe alternative for code-level verification; they do not establish acoustic accuracy. The flute tonic confirmation branch is source-implemented but was not verified in a live microphone browser flow.
+
+Still test real acoustic/digital piano and flute notes on iPhone/iPad Safari, Android Chrome and desktop, using headphones and varied rooms. Include device audio processing, instrument decay, harmonics, octave confusions, low-volume attacks, ambient noise, permission grant/denial, start/stop/restart, hiding the tab, input revocation, screen locking and Bluetooth latency. Measure false accepts/rejects and unscorable rates against labeled examples before promoting this as reliable validation.
+
+Screen-reader operation, full keyboard traversal, 200%/400% zoom, text-spacing overrides, denied-storage/quota-error browser flows, and page-hidden/interruption flows need manual verification. Use public accessibility standards for this personal product. No company-policy compliance claim applies.
+
+The syllabus is an editable first proposal, not instructor-approved content. Source-image exercise ambiguities and specific flute fingering conventions remain documented in the blueprint/source review. Timed rhythm, chord validation, two-hand simultaneity, staff reading, advanced ornamentation, accounts and cross-device history are planned, not implemented.
+
+## Repeatable-level, notation and timing follow-up
+
+The updated production build and 25 tests pass. The additional tests cover constrained random pools and non-repeats, treble/bass placement and ledger lines, separation of response and confirmation time, first-wrong versus later-correct responses, exclusion of self-check/unclear timing, and backward-compatible history metadata.
+
+Desktop browser checks confirmed staff-only mode without visible note-name hints, combined staff/keyboard rendering, revealed prompt visibility and focus on start, random advancement and unscored self-check summaries. Phone-width checks found no horizontal overflow at a requested 320px viewport. Screenshot saved as a separate deliverable. No live microphone permission was requested; actual acoustic response timing remains uncalibrated. See `reflex-practice.md` for the new seven-level-per-instrument practice model.
+
+## Mobile-flow release candidate — 2026-10-31
+
+- Production build and all 34 tests pass. New coverage includes relative bansuri swars/registers, stable/noisy/reset tonic sampling, response/first-try metrics, timing invalidation, activity days, backup merge/deduplication, hash routes and reusable pitch buffers. OpenSpec strict validation also passed.
+- Browser UI checks used isolated origins 5174 in the previous session and 5175 in the release session, separate from user preview 5173. No microphone was activated or permission granted.
+- At 390×844, inspected home, connected maps, preparation defaults, focused session and results. At 320×740, both piano and bansuri combined-view sessions had scrollWidth=clientWidth=320 and scrollHeight=viewportHeight=740.
+- Bansuri preparation defaulted to Music sheet/Sargam/Microphone. Start was disabled before Sa confirmation and enabled after confirmation. C♯5 is among the manual options. Silent mode was explicitly selected before starting all UI-only drills.
+- Switching live View worked and displayed timing exclusion. A marked bansuri repetition appeared as one self-report with no measured accuracy/speed. Browser Back from a piano set returned to preparation and saved an interrupted history record. Previous-session checks verified reload persistence and backup import; those were not repeated in this release session.
+- New non-session instrument navigation exposes Piano, Flute · Bansuri and More instruments soon. Active practice omits this navigation. The preparation disclosure explains detection and cents.
+- Screenshot: mobile-practice-preview.png in outputs. This uses a silent UI trial, not proof of acoustic correctness.
+- Live acoustic accuracy, timing calibration, real mobile Safari/Chrome, assistive technology, storage quota/denial and the full manual accessibility matrix remain pending.
+
+The public Pages release is in preparation. Existing main/docs Pages source and Android privacy-policy URLs are retained; browser-specific privacy information is separate.

@@ -11,6 +11,8 @@ npm ci
 npm run dev
 npm run build
 npm test
+# To prepare the static Pages subtree:
+npm run build:pages
 ```
 
 Open the Local URL printed by Vite, normally http://127.0.0.1:5173/. `npm run preview` serves the production build. Relative assets and hash navigation support a static-hosting subdirectory. The public preview is prepared for https://ztrimus.github.io/journey-of-notes/practice/ using the existing main/docs Pages source. See verification.md for release status.

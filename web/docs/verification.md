@@ -41,3 +41,5 @@ Desktop browser checks confirmed staff-only mode without visible note-name hints
 - Live acoustic accuracy, timing calibration, real mobile Safari/Chrome, assistive technology, storage quota/denial and the full manual accessibility matrix remain pending.
 
 The public Pages release is in preparation. Existing main/docs Pages source and Android privacy-policy URLs are retained; browser-specific privacy information is separate.
+
+Release preparation uses `npm run build:pages`, which replaces only docs/practice and preserves the root and policy pages. Personal Git transport uses a per-command gh helper; repository-local signing settings match the original personal checkout. Global Git/authentication settings are unchanged.

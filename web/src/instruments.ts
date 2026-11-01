@@ -1,6 +1,7 @@
-import { piano, flute, type Lesson } from "./curriculum.ts";
+import { piano, flute, starterLevels, type Lesson } from "./curriculum.ts";
 import { reflexLevel, type Difficulty } from "./reflex.ts";
-export type InstrumentId = "piano" | "flute";
+import { instrumentIds, type InstrumentId } from "./catalog.ts";
+export type { InstrumentId } from "./catalog.ts";
 export interface InstrumentDefinition {
   id: InstrumentId;
   name: string;
@@ -35,6 +36,42 @@ export const instruments: Record<InstrumentId, InstrumentDefinition> = {
       reflexLevel("flute", difficulty, tonic),
     ],
   },
+  guitar: {
+    id: "guitar",
+    name: "Guitar",
+    subtitle: "Single strings and note recognition · pilot",
+    symbol: "🎸",
+    needsTonic: false,
+    notation: "western",
+    levels: (tonic, difficulty) => [
+      ...starterLevels("guitar", tonic),
+      reflexLevel("guitar", difficulty, tonic),
+    ],
+  },
+  "western-flute": {
+    id: "western-flute",
+    name: "Western flute",
+    subtitle: "C concert flute · single-note pilot",
+    symbol: "♪",
+    needsTonic: false,
+    notation: "western",
+    levels: (tonic, difficulty) => [
+      ...starterLevels("western-flute", tonic),
+      reflexLevel("western-flute", difficulty, tonic),
+    ],
+  },
+  vocal: {
+    id: "vocal",
+    name: "Vocals",
+    subtitle: "Gentle pitch matching · pilot",
+    symbol: "♫",
+    needsTonic: true,
+    notation: "western",
+    levels: (tonic, difficulty) => [
+      ...starterLevels("vocal", tonic),
+      reflexLevel("vocal", difficulty, tonic),
+    ],
+  },
 };
 export function orderedLevels(
   id: InstrumentId,
@@ -42,6 +79,7 @@ export function orderedLevels(
   difficulty: Difficulty,
 ) {
   const levels = instruments[id].levels(tonic, difficulty);
+  if (id !== "piano" && id !== "flute") return levels;
   const order =
     id === "piano"
       ? ["p1", "p3", "p4", "p2", "p5", "p0", "p6"]
@@ -49,7 +87,14 @@ export function orderedLevels(
   return order.map((key) => levels.find((x) => x.id === key)!);
 }
 export type Screen =
-  "home" | "map" | "prepare" | "session" | "results" | "history";
+  | "home"
+  | "flutes"
+  | "about"
+  | "map"
+  | "prepare"
+  | "session"
+  | "results"
+  | "history";
 export interface Route {
   screen: Screen;
   instrument: InstrumentId;
@@ -57,11 +102,22 @@ export interface Route {
 }
 export function parseRoute(hash: string): Route {
   const [name, id, levelId] = hash.replace(/^#\/?/, "").split("/");
-  const screens = ["home", "map", "prepare", "session", "results", "history"];
+  const screens = [
+    "home",
+    "flutes",
+    "about",
+    "map",
+    "prepare",
+    "session",
+    "results",
+    "history",
+  ];
   return {
     screen: screens.includes(name) ? (name as Screen) : "home",
-    instrument: id === "flute" ? "flute" : "piano",
-    levelId: levelId && /^[pf][0-6]$/.test(levelId) ? levelId : undefined,
+    instrument: instrumentIds.includes(id as InstrumentId)
+      ? (id as InstrumentId)
+      : "piano",
+    levelId: levelId && /^[pfvgw][0-6]$/.test(levelId) ? levelId : undefined,
   };
 }
 export const routeHash = (route: Route) =>

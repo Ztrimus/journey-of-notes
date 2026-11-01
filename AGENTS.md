@@ -202,3 +202,11 @@ Use Music sheet as the visible label; staff is only an internal notation/history
 ### Evidence/map discussion boundary — issue #13
 
 Read `web/docs/progress-and-map-proposal.md` before changing progress, recall scoring, connectors, map geometry or acoustic source recognition. These are proposals awaiting product decisions. The user explicitly said not to implement instrument recognition now and asked to decide metrics and map direction before implementation. Issue #13 only fixes the redundant home CTA and Feedback/View layout. Preserve the distinction between activity, measured pitch performance, recall and physical technique.
+
+### Public pilot expansion — issue #15, 2026-11-01
+
+The user approved performance-based rings and requested visual reports/history, instrument starters and launch research. Current implementation supersedes the proposal-only quality/map boundary above: rings show up to 30 comparable first-detected-attempt outcomes with count, recency/activity remain separate, connectors no longer imply quality growth. Correct-response timing only uses first-try correct unhinted microphone evidence. No skill decay or born-talent/fast-slow learner labels. Delayed recall needs deliberate future probes.
+
+Registry modes: piano, flute (legacy ID for Hindustani bansuri), western-flute (C concert), guitar, vocal. Preserve old history IDs/schema. New modes are limited single-note pilot drills, not validated courses. Guitar avoids low E2/chords and labels sounding-pitch sheet convention; vocals require comfortable range and no health assessment. Native SVG guidance never proves physical technique or sound source.
+
+History clear is app-key-only and requires an explicit user confirmation; never erase actual user records in QA. Use isolated QA origins/fixtures. No third-party analytics/replay, OAuth or cloud sync until the owner chooses a personal provider/project and privacy behavior. Read web/docs/pilot-launch-plan.md for exact research/testing and web/docs/TASKS.md for retained work.

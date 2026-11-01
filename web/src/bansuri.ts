@@ -31,8 +31,14 @@ export function heardName(
   midi: number,
   instrument: string,
   tonic: number | null,
+  notation?: "western" | "sargam",
 ) {
-  if (instrument !== "flute" || tonic === null) return noteName(midi);
+  if (
+    (instrument !== "flute" &&
+      !(instrument === "vocal" && notation === "sargam")) ||
+    tonic === null
+  )
+    return noteName(midi);
   const swar = swarForMidi(midi, tonic);
   return `${swar.register} ${swar.name} / ${swar.pitch}`;
 }

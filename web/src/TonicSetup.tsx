@@ -3,12 +3,14 @@ import { PracticeAudio, audioError } from "./audio";
 import { TonicSampler } from "./bansuri";
 import { noteName } from "./pitch";
 export function TonicSetup({
+  vocal = false,
   tonic,
   confirmed,
   onChange,
   onConfirm,
   onListening,
 }: {
+  vocal?: boolean;
   tonic: number;
   confirmed: boolean;
   onChange: (midi: number) => void;
@@ -23,7 +25,9 @@ export function TonicSetup({
     hz: number;
   } | null>(null);
   const [message, setMessage] = useState(
-    "Play your known middle Sa. We can detect its pitch, but cannot infer the fingering you used.",
+    vocal
+      ? "Choose a comfortable pitch. No range or loudness challenge."
+      : "Play your known middle Sa. We can detect its pitch, but cannot infer the fingering you used.",
   );
   function stop() {
     engine.current?.stop();
@@ -53,7 +57,11 @@ export function TonicSetup({
     setListening(true);
     onListening(true);
     onConfirm(false);
-    setMessage("Allow the microphone, then hold your middle Sa steadily.");
+    setMessage(
+      vocal
+        ? "Allow the microphone, then hum a comfortable steady note."
+        : "Allow the microphone, then hold your middle Sa steadily.",
+    );
     try {
       await audio.start(
         { bpm: 60, microphone: true, click: false, threshold: 0.06 },
@@ -65,7 +73,7 @@ export function TonicSetup({
             setCandidate(result);
             onChange(result.midi);
             setMessage(
-              `Detected ${noteName(result.midi)} at ${result.hz.toFixed(1)} Hz. Confirm only if you were playing middle Sa.`,
+              `Detected ${noteName(result.midi)} at ${result.hz.toFixed(1)} Hz. ${vocal ? "Confirm only if this is comfortable." : "Confirm only if you were playing middle Sa."}`,
             );
           }
         },
@@ -89,15 +97,21 @@ export function TonicSetup({
   }
   return (
     <section className="tonic-setup" aria-labelledby="tonic-title">
-      <h2 id="tonic-title">Find your Sa</h2>
+      <h2 id="tonic-title">
+        {vocal ? "Choose a comfortable starting note" : "Find your Sa"}
+      </h2>
       <p className="subtle">
-        For a typical Hindustani bansuri, middle Sa uses the three upper finger
-        holes closed. Confirm your flute’s convention; all-holes-closed can be a
-        different note.
+        {vocal
+          ? "Hum gently at a comfortable pitch or choose it below. Keep all drill notes comfortable; do not force your range. Stop if uncomfortable or hoarse."
+          : "For a typical Hindustani bansuri, middle Sa uses the three upper finger holes closed. Confirm your flute’s convention; all-holes-closed can be a different note."}
       </p>
       <div className="tonic-actions">
         <button type="button" onClick={listening ? stop : detect}>
-          {listening ? "Stop listening" : "Detect my Sa"}
+          {listening
+            ? "Stop listening"
+            : vocal
+              ? "Find my starting pitch"
+              : "Detect my Sa"}
         </button>
         <span className="tonic-reading">
           {candidate
@@ -108,7 +122,9 @@ export function TonicSetup({
       <p className="small status-copy" role="status">
         {message}
       </p>
-      <label htmlFor="tonic">Or select middle Sa</label>
+      <label htmlFor="tonic">
+        {vocal ? "Or select starting note" : "Or select middle Sa"}
+      </label>
       <select
         id="tonic"
         value={tonic}
@@ -132,7 +148,9 @@ export function TonicSetup({
           disabled={listening}
           onChange={(e) => onConfirm(e.target.checked)}
         />
-        I confirm this is my middle Sa.
+        {vocal
+          ? "This starting note and the small steps around it are comfortable for me."
+          : "I confirm this is my middle Sa."}
       </label>
     </section>
   );

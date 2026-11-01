@@ -4,12 +4,17 @@ import { NoteValidator, type Attempt } from "./validation";
 import {
   isReflex,
   responseTiming,
-  invalidateTargetTiming,
   type Difficulty,
   type DisplayMode,
 } from "./reflex";
 import type { Lesson } from "./curriculum";
 import type { SessionRecord } from "./history";
+import {
+  changeCue,
+  FeedbackGlowGate,
+  GLOW_DURATION_MS,
+  type GlowSignal,
+} from "./practiceFeedback";
 export interface PracticeOptions {
   lesson: Lesson;
   method: "microphone" | "self-check";
@@ -31,6 +36,7 @@ interface Run extends PracticeOptions {
   viewChanged: boolean;
   mixedViews: boolean;
   initialDisplay: DisplayMode;
+  initialHints: boolean;
 }
 const empty: Snapshot = { seconds: 0, beats: 0, onsets: 0, level: 0 };
 export function usePractice(onFinish: (record: SessionRecord) => void) {
@@ -39,11 +45,32 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
   const runtime = useRef<Run | null>(null);
   const audio = useRef<PracticeAudio | null>(null);
   const startTime = useRef(0);
+  const glowGate = useRef(new FeedbackGlowGate());
+  const glowTimer = useRef(0);
+  const [glow, setGlow] = useState<GlowSignal | null>(null);
+  function clearGlow() {
+    clearTimeout(glowTimer.current);
+    glowGate.current.reset();
+    setGlow(null);
+  }
+  function signalGlow(outcome: string) {
+    const signal = glowGate.current.signal(outcome, performance.now());
+    if (!signal) return;
+    setGlow(signal);
+    if (signal.fresh) {
+      clearTimeout(glowTimer.current);
+      glowTimer.current = window.setTimeout(
+        () => setGlow(null),
+        GLOW_DURATION_MS,
+      );
+    }
+  }
   const [phase, setPhase] = useState<"idle" | "starting" | "running">("idle");
   const [index, setIndex] = useState(0);
   const [snapshot, setSnapshot] = useState(empty);
   const [attempts, setAttempts] = useState<Attempt[]>([]);
   const [accepted, setAccepted] = useState(false);
+  const [liveHints, setLiveHints] = useState(false);
   const [feedback, setFeedback] = useState("Play the note when it appears.");
   const [outcome, setOutcome] = useState<
     "waiting" | "correct" | "wrong" | "unclear"
@@ -51,6 +78,7 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
   const [error, setError] = useState("");
   function finish(finished = false) {
     const r = runtime.current;
+    clearGlow();
     runtime.current = null;
     audio.current?.stop();
     audio.current = null;
@@ -65,7 +93,7 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
       instrument: r.lesson.instrument,
       method: r.method,
       displayMode: r.initialDisplay,
-      noteHints: r.hints,
+      noteHints: r.initialHints,
       notation: r.notation,
       mixedViews: r.mixedViews,
       difficulty: isReflex(r.lesson.id) ? r.difficulty : undefined,
@@ -89,6 +117,7 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
       viewChanged: r.viewChanged,
     });
     setAttempts([...r.attempts]);
+    if (r.method === "microphone") signalGlow(a.outcome);
     if (r.attempts.length >= 500) finish();
   }
   function next() {
@@ -103,6 +132,8 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
     r.quietSince = null;
     r.shownAt = null;
     r.viewChanged = false;
+    r.hints = r.initialHints;
+    setLiveHints(r.hints);
     r.validator = new NoteValidator(
       r.lesson.targets[r.index].midi,
       r.lesson.hold,
@@ -133,7 +164,7 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
     const a = r.validator.ingest(s.pitch ?? null, s.level, s.seconds);
     if (!a) return;
     const timing =
-      isReflex(r.lesson.id) && !r.viewChanged
+      isReflex(r.lesson.id) && !r.viewChanged && !r.hints
         ? responseTiming(
             a.outcome,
             a.onsetSeconds,
@@ -179,9 +210,12 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
       viewChanged: false,
       mixedViews: false,
       initialDisplay: options.display,
+      initialHints: options.hints,
     };
     runtime.current = r;
+    clearGlow();
     setIndex(0);
+    setLiveHints(options.hints);
     setAttempts([]);
     setSnapshot(empty);
     setAccepted(false);
@@ -216,23 +250,32 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
       setFeedback("Choose Retry or Silent practice.");
     }
   }
+  function updateCue(
+    change: { display?: DisplayMode; hints?: boolean },
+    message: string,
+  ) {
+    const current = runtime.current;
+    if (!current) return;
+    const changed = changeCue(current, change);
+    if (changed === current) return;
+    Object.assign(current, changed);
+    setLiveHints(current.hints);
+    setAttempts([...current.attempts]);
+    current.shownAt = null;
+    // The target pitch is unchanged. Preserve hold/dedup state so revealing
+    // a hint or switching views cannot count a sustained wrong note twice.
+    setFeedback(message);
+  }
   function changeDisplay(display: DisplayMode) {
-    const r = runtime.current;
-    if (!r) return;
-    if (r.display === display) return;
-    r.display = display;
-    r.mixedViews = true;
-    r.viewChanged = true;
-    r.attempts = invalidateTargetTiming(r.attempts, r.index);
-    setAttempts([...r.attempts]);
-    r.shownAt = null;
-    if (!r.accepted)
-      r.validator = new NoteValidator(
-        r.lesson.targets[r.index].midi,
-        r.lesson.hold,
-        r.index,
-      );
-    setFeedback("View changed. Timing is omitted for this target.");
+    updateCue({ display }, "View changed. Timing is omitted for this target.");
+  }
+  function changeHints(hints: boolean) {
+    updateCue(
+      { hints },
+      hints
+        ? "Hints shown. Timing is omitted for this target."
+        : "Hints hidden. This target remains excluded from speed scoring.",
+    );
   }
   function presented() {
     if (runtime.current) runtime.current.shownAt = performance.now();
@@ -273,11 +316,14 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
       document.removeEventListener("visibilitychange", hidden);
       window.removeEventListener("pagehide", leaving);
       clearInterval(timer);
+      clearTimeout(glowTimer.current);
       audio.current?.stop();
     };
   }, []);
   return {
     phase,
+    glow,
+    hints: liveHints,
     index,
     snapshot,
     attempts,
@@ -289,6 +335,7 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
     finish,
     next,
     changeDisplay,
+    changeHints,
     presented,
     manual,
   };

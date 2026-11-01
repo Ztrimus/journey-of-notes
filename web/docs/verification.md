@@ -67,3 +67,14 @@ Release preparation uses `npm run build:pages`, which replaces only docs/practic
 - Read `pilot-launch-plan.md` for primary research references, launch readiness, analytics/Google auth tradeoffs and the owner's real-note/phone/latency protocol. GitHub Pages/public-asset smoke verification is performed separately after publication.
 
 Final issue #15 review also checked chronological history normalization for imported/device timestamps and session-level hint exclusions for legacy timing metadata. History Timeline and Older sets navigation showed six items on page 2; no user data was removed.
+
+## Active feedback and hint controls — issue #17
+
+- Build and 46 tests pass. Five new tests cover clear-event-only glow, coalescing/interval/reset, cue-change timing invalidation preserving other targets/pitch evidence, and per-attempt hints overriding initial preferences while old hinted timings stay excluded.
+- Isolated QA origin 5182, no real microphone permission granted. Native-radio pills selected on click and ArrowRight; active radio retained keyboard focus rather than the prompt stealing it. Hints showed/hid octave/note and reset to preparation preference on advancement. Silent results remain unscored.
+- Phone-width checks: combined view at 320×740 had scrollWidth=clientWidth=320 and scrollHeight=740; 390×844 also fit. Saved screenshot drill-controls-preview.png shows the new sheet/hint/pill layout.
+- A temporary synthetic page rendered the production FeedbackWash and FeedbackGlowGate with explicit match/wrong buttons. Checked full viewport 1280×720 dimensions, correct green / wrong rose backgrounds, one-second animation, pointer-events:none and automatic element clearing. This was a simulated event check, not live acoustic feedback evidence. The fixture was removed and is not part of the release.
+- Peak background blends with the existing muted text color were calculated at approximately 4.60:1 (green) and 4.53:1 (rose); this is a scoped color check, not whole-product accessibility certification. No saturated full-intensity flash is used. Reduced-motion rule replaces animation with an edge cue; actual OS preference and full assistive-technology behavior need manual trials. Existing textual/icon feedback remains available.
+- Session history stores initial hint preference plus per-attempt changes. A revealed/hidden current target remains excluded from speed; pitch outcomes are retained. Future targets restore setup hints. Mixed-cue sets remain excluded from comparable baselines. Older schemas stay readable.
+
+Cue changes preserve the target validator’s hold/dedup state: changing a view or revealing a hint must not manufacture another wrong event for the same sustained note. Target advancement still resets validation.

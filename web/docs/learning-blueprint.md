@@ -4,6 +4,8 @@ This is a proposed product direction and execution plan, grounded in the two sup
 
 ## Product decision
 
+**Bansuri follow-up, 2026-11-01:** [the retained foundations](bansuri-foundations.md) and [practice proposal](bansuri-practice-plan.md) supersede this document's broad flute stage outline for current planning. Use repeatable skill families and the released behavior documented in TASKS.md, not older chapter/diagram descriptions below. The newer documents distinguish sound discovery, sustained-tone windows and connected transitions; those evaluators remain proposed.
+
 Build a practice companion with a clear learning route: **learn → see the target → play → receive evidence → retry → review**. Add one dimension of difficulty at a time. Being able to produce a pitch, locate a note, use an intended finger, keep time and play musically are different skills; a single percentage cannot establish all of them.
 
 Use a standalone browser app. Keep single-note analysis local. Introduce accounts and synchronization after the feedback loop proves useful on actual instruments and target devices.

@@ -4,6 +4,8 @@ Review date: 2026-10-30 (America/Phoenix). Source documents are reference materi
 
 ## Coverage and limits
 
+**New bansuri collection, reviewed 2026-11-01:** all 11 Divine Bansuri beginner lesson transcripts (21 tracks) are reviewed separately in [bansuri-foundations.md](bansuri-foundations.md), with source hashes/timestamps and alternate-track comparisons in [the manifest](bansuri-source-manifest.json). This adds caption evidence, not watched/listened demonstration evidence, and does not change the piano-video review limits below. [The new practice proposal](bansuri-practice-plan.md) is documentation only.
+
 Read both supplied PDFs: Exercises (2 pages) and Alankar & Warm up (12 pages). Inspected their rendered pages, including the image-based flute content. Reviewed the course index, downloaded all 21 available A4 handouts (lessons 1–20 plus Supplementary A), read extracted content and inspected page overviews of all 66 pages. Lesson 21 has no handout. Video pages did not expose usable lesson content in the web reader; this is a written-material review, not a claim to have watched or transcribed 22 videos. Spoken demonstrations and exact image-only handwritten patterns have not been turned into scored exercises.
 
 ## Supplied PDFs and images

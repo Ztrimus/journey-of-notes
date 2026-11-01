@@ -10,6 +10,25 @@ Owner: this repository. Updated 2026-11-01. This is the working source of truth 
 4. P1: real-device audio/pitch/latency evaluation and a free HTTPS release.
 5. P2: expand lessons/instruments and advanced evidence methods.
 
+## Current research and discussion — bansuri, issue #19
+
+Scope: study and document the supplied Divine Bansuri subtitles, then brainstorm the practice design. Documentation only; new drills, evaluators, scores and UI remain proposals for discussion. The live app is unchanged. Read `bansuri-foundations.md` and `bansuri-practice-plan.md` before the next bansuri implementation.
+
+| ID | Task / intended order | Status |
+|---|---|---|
+| BANSURI-R01 | Inventory every subtitle, remove rolling-caption repetition, compare alternate tracks, read all distinct lessons | COMPLETE: 21 tracks, 11 lessons; 10 alternate pairs have identical cleaned text |
+| BANSURI-R02 | Preserve technique knowledge, timestamps, caption uncertainty and convention changes | COMPLETE: bansuri-foundations.md and source manifest |
+| BANSURI-R03 | Audit current drill, diagram and validation limitations against the sources | COMPLETE: first-match latch, release-only advancement, register-blind masks and missing tone-window evidence documented |
+| BANSURI-R04 | Propose repeatable skill families, first-sound and sustained/transition drills, and visual feedback | PROPOSAL COMPLETE: bansuri-practice-plan.md; implementation TODO after discussion |
+| BANSURI-R05 | Design bounded local analysis, evaluator/history compatibility and metric definitions | PROPOSAL COMPLETE: separate objective evaluators, explicit coverage/unavailable states, versioned evidence and legacy adapters |
+| BANSURI-R06 | Document staged execution and real bansuri/teacher/device validation protocol | PLAN COMPLETE; demonstration review, consented recordings and device trials TODO |
+| BANSURI-R07 | Discuss hand orientation, visual demonstration gaps and measurement tradeoffs with the owner | Orientation ANSWERED: both, left hand nearest blowing hole default; selector implementation TODO. Three-drill pilot/clarity presentation open for discussion |
+| BANSURI-R08 | Update agent memory, check documentation consistency and report next decisions | COMPLETE: AGENTS.md and cross-links updated; all 21 hashes/coverage and local links checked; documentation-only change |
+
+Priority: foundation sound and continuity before speed; review register-specific fingering and half-hole guidance before adding further diagrams. Do not equate detected pitch or periodicity with crystal-clear tone, physical hole sealing or verified embouchure.
+
+Next implementation candidates, not shipped: BANSURI-P01 first-sound/steady-tone feasibility; BANSURI-P02 compatible tone-window records and observations; BANSURI-P03 reviewed one-hole transitions and orientation selector. Broader swars/registers, pulse and ornaments follow the dependencies in the proposal. No whole-subtitle redistribution, acoustic source classifier or automatic clarity score was added.
+
 ## P0 — current iteration
 
 | ID | Request / acceptance criterion | Status |

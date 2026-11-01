@@ -37,6 +37,8 @@ interface Run extends PracticeOptions {
   mixedViews: boolean;
   initialDisplay: DisplayMode;
   initialHints: boolean;
+  paused: boolean;
+  timingInterrupted: boolean;
 }
 const empty: Snapshot = { seconds: 0, beats: 0, onsets: 0, level: 0 };
 export function usePractice(onFinish: (record: SessionRecord) => void) {
@@ -65,7 +67,9 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
       );
     }
   }
-  const [phase, setPhase] = useState<"idle" | "starting" | "running">("idle");
+  const [phase, setPhase] = useState<
+    "idle" | "starting" | "running" | "paused"
+  >("idle");
   const [index, setIndex] = useState(0);
   const [snapshot, setSnapshot] = useState(empty);
   const [attempts, setAttempts] = useState<Attempt[]>([]);
@@ -76,12 +80,31 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
     "waiting" | "correct" | "wrong" | "unclear"
   >("waiting");
   const [error, setError] = useState("");
+  function pause(message: string) {
+    const r = runtime.current;
+    if (!r || r.paused) return;
+    r.paused = true;
+    r.shownAt = null;
+    r.quietSince = null;
+    if (!r.accepted) r.timingInterrupted = true;
+    r.validator.interrupt();
+    const engine = audio.current;
+    audio.current = null;
+    engine?.stop();
+    clearGlow();
+    setPhase("paused");
+    setOutcome("waiting");
+    setSnapshot((s) => ({ ...s, seconds: r.seconds, level: 0, pitch: null }));
+    setError("");
+    setFeedback(message);
+  }
   function finish(finished = false) {
     const r = runtime.current;
     clearGlow();
     runtime.current = null;
-    audio.current?.stop();
+    const engine = audio.current;
     audio.current = null;
+    engine?.stop();
     if (!r) return;
     setPhase("idle");
     setAccepted(false);
@@ -109,7 +132,7 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
   }
   function record(a: Attempt) {
     const r = runtime.current;
-    if (!r) return;
+    if (!r || r.paused) return;
     r.attempts.push({
       ...a,
       displayMode: r.display,
@@ -123,7 +146,7 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
   }
   function next() {
     const r = runtime.current;
-    if (!r) return;
+    if (!r || r.paused) return;
     if (r.index + 1 >= r.lesson.targets.length) {
       finish(true);
       return;
@@ -133,6 +156,7 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
     r.quietSince = null;
     r.shownAt = null;
     r.viewChanged = false;
+    r.timingInterrupted = false;
     r.hints = r.initialHints;
     setLiveHints(r.hints);
     r.validator = new NoteValidator(
@@ -151,7 +175,7 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
   }
   function process(s: Snapshot) {
     const r = runtime.current;
-    if (!r) return;
+    if (!r || r.paused) return;
     r.seconds = s.seconds;
     setSnapshot(s);
     if (r.shownAt === null) return;
@@ -165,7 +189,7 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
     const a = r.validator.ingest(s.pitch ?? null, s.level, s.seconds);
     if (!a) return;
     const timing =
-      !r.viewChanged && !r.hints
+      !r.viewChanged && !r.hints && !r.timingInterrupted
         ? responseTiming(
             a.outcome,
             a.onsetSeconds,
@@ -193,6 +217,61 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
       setFeedback("Unclear sound. Try one steady note.");
     }
   }
+  async function listen(r: Run, resuming = false) {
+    const engine = new PracticeAudio();
+    const offset = r.seconds;
+    audio.current = engine;
+    r.paused = false;
+    setPhase("starting");
+    setError("");
+    setFeedback(
+      resuming
+        ? "Reconnecting the microphone…"
+        : "Allow microphone access to begin.",
+    );
+    try {
+      await engine.start(
+        { bpm: 60, microphone: true, click: false, threshold: 0.06 },
+        (snapshot) => {
+          if (runtime.current !== r || audio.current !== engine || r.paused)
+            return;
+          process({ ...snapshot, seconds: offset + snapshot.seconds });
+        },
+        (reason) => {
+          if (runtime.current !== r || audio.current !== engine) return;
+          pause(
+            reason === "microphone-ended"
+              ? "The microphone disconnected. Your place is saved; resume when you’re ready."
+              : "Browser audio paused. Your place is saved; resume when you’re ready.",
+          );
+        },
+      );
+      if (runtime.current !== r || audio.current !== engine || r.paused) return;
+      setPhase("running");
+      setFeedback(
+        r.accepted
+          ? "Matched. Release the note to continue."
+          : resuming
+            ? "Resumed. Play and hold the same target. Timing is omitted for this note."
+            : "Play and hold the target, then release.",
+      );
+    } catch (e) {
+      engine.stop();
+      if (runtime.current !== r || audio.current !== engine) return;
+      audio.current = null;
+      if (resuming) {
+        pause(
+          "Listening could not resume. Try again, or end this set when you’re ready.",
+        );
+        setError(audioError(e));
+      } else {
+        runtime.current = null;
+        setPhase("idle");
+        setError(audioError(e));
+        setFeedback("Choose Retry or Silent practice.");
+      }
+    }
+  }
   async function start(options: PracticeOptions) {
     if (runtime.current) return;
     const r: Run = {
@@ -212,6 +291,8 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
       mixedViews: false,
       initialDisplay: options.display,
       initialHints: options.hints,
+      paused: false,
+      timingInterrupted: false,
     };
     runtime.current = r;
     clearGlow();
@@ -228,28 +309,20 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
       setFeedback("Silent practice. You report each repetition.");
       return;
     }
-    setPhase("starting");
-    setFeedback("Allow microphone access to begin.");
-    const engine = new PracticeAudio();
-    audio.current = engine;
-    try {
-      await engine.start(
-        { bpm: 60, microphone: true, click: false, threshold: 0.06 },
-        process,
-        () => finish(),
-      );
-      if (runtime.current !== r) return;
+    await listen(r);
+  }
+  async function resume() {
+    const r = runtime.current;
+    if (!r || !r.paused) return;
+    setError("");
+    if (r.method === "self-check") {
+      r.paused = false;
+      startTime.current = performance.now() - r.seconds * 1000;
       setPhase("running");
-      setFeedback("Play and hold the target, then release.");
-    } catch (e) {
-      engine.stop();
-      if (runtime.current !== r) return;
-      runtime.current = null;
-      audio.current = null;
-      setPhase("idle");
-      setError(audioError(e));
-      setFeedback("Choose Retry or Silent practice.");
+      setFeedback("Resumed. Continue with the same note.");
+      return;
     }
+    await listen(r, true);
   }
   function updateCue(
     change: { display?: DisplayMode; hints?: boolean },
@@ -279,11 +352,12 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
     );
   }
   function presented() {
-    if (runtime.current) runtime.current.shownAt = performance.now();
+    if (runtime.current && !runtime.current.paused)
+      runtime.current.shownAt = performance.now();
   }
   function manual(outcome: "self-reported" | "skipped") {
     const r = runtime.current;
-    if (!r) return;
+    if (!r || r.paused) return;
     if (outcome === "self-reported" && r.method !== "self-check") return;
     record({
       targetIndex: r.index,
@@ -300,14 +374,15 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
   }
   useEffect(() => {
     const hidden = () => {
-      if (document.hidden) finish();
+      if (document.hidden)
+        pause("Practice paused while this page was away. Resume to continue.");
     };
     document.addEventListener("visibilitychange", hidden);
     const leaving = () => finish();
     window.addEventListener("pagehide", leaving);
     const timer = window.setInterval(() => {
       const r = runtime.current;
-      if (r?.method === "self-check") {
+      if (r?.method === "self-check" && !r.paused) {
         r.seconds = (performance.now() - startTime.current) / 1000;
         const seconds = r.seconds;
         setSnapshot((s) => ({ ...s, seconds }));
@@ -318,7 +393,10 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
       window.removeEventListener("pagehide", leaving);
       clearInterval(timer);
       clearTimeout(glowTimer.current);
-      audio.current?.stop();
+      runtime.current = null;
+      const engine = audio.current;
+      audio.current = null;
+      engine?.stop();
     };
   }, []);
   return {
@@ -333,6 +411,7 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
     outcome,
     error,
     start,
+    resume,
     finish,
     next,
     changeDisplay,

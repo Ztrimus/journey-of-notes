@@ -2,6 +2,13 @@
 
 Owner: this repository. Updated 2026-11-01. This is the working source of truth for requests from the handoff, typed chat and voice session. Read it before planning or editing; update status and verification after each session. Do not silently drop deferred work. Status: TODO, IN PROGRESS, IMPLEMENTED (needs device trial), VERIFIED (named checks), DEFERRED.
 
+## Session closes immediately — issue #28
+
+- AUDIO-04: Replace automatic set completion on microphone/audio interruption or page hiding with a recoverable pause and explicit Resume. IMPLEMENTED; target, attempts and active elapsed time retained, capture released during pause.
+- AUDIO-05: Ignore delayed callbacks from stopped/older captures; detach listeners before releasing tracks. VERIFIED with lifecycle regression tests.
+- TIME-03: Exclude interrupted unconfirmed targets from response timing; preserve accepted evidence and time later untouched targets. VERIFIED through a controlled three-note browser drill (3 matches, 2 eligible response samples).
+- QA-28: 59 tests and production/Pages build; real local microphone stayed active beyond 17 seconds, plus controlled disconnect/audio-suspension/page-hide recovery, frozen timer, single final history entry and 390px recovery UI. See `verification.md`; real phone/browser and instrument latency calibration remain TODO. Release evidence belongs in the associated PR.
+
 ## Hover correction — issue #26
 
 - UI-08: Remove hover lift/shadow from plain links (including brand/History), disclosure summaries and borderless text buttons. Keep bounded-control feedback, focus indicators and reduced-motion rules. IMPLEMENTED; scoped browser/build verification below and deployment evidence in the associated PR.

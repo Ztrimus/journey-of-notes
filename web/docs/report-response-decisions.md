@@ -14,7 +14,7 @@ New sessions use optional `responseProtocol: prompt-v2` metadata. Existing histo
 
 The primary number is the arithmetic mean of first-try correct microphone targets with hints off and unchanged cues. Each target counts once. First errors followed by correction, changed cues, hinted targets, silent practice and absent samples cannot improve it. Confirmation hold is separate. The tooltip provides the median as a secondary explanation. Read the mean with accuracy and sample size; there is no aptitude label or normative ranking.
 
-Response comparisons require the same timing protocol and existing lesson/instrument/difficulty/view/hint/tonic/notation conditions. Protocol differences do not discard pitch history. Skill-board reflex time remains random-only. Hiding the document already ends the active set, avoiding a hidden-tab baseline.
+Response comparisons require the same timing protocol and existing lesson/instrument/difficulty/view/hint/tonic/notation conditions. Protocol differences do not discard pitch history. Skill-board reflex time remains random-only. Hiding the document now pauses the set and releases capture; Resume reconnects explicitly. Interrupted unconfirmed targets are excluded from response timing, preventing a hidden-tab or resumed-prompt baseline from entering the score. Already accepted response evidence remains intact; later untouched targets can be measured.
 
 Research context: a [primary study of pianists' visual monitoring](https://bop.unibe.ch/JEMR/article/view/8588) reports practice/structure effects and anticipation differences. Our product inference is to keep guided and surprise-note conditions separate. It does not validate our detector or a universal speed target. Real instrument/device calibration remains necessary.
 

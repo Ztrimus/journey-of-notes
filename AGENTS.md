@@ -18,6 +18,8 @@ Use one date-grouped history timeline; the owner removed the grid/layout switch.
 
 Hover feedback (issue #26): lift/shadow belongs only to bounded buttons/cards/circular controls and the bordered file action. Plain anchors, disclosure summaries and borderless text buttons stay flat. Keep borderless button variants excluded from the shared lift selector; retain focus outlines and reduced-motion handling. Never create a floating rectangle around unbounded text.
 
+Skill-board sizing (issue #30): `.skill-board` must override the legacy `.skill-map` narrow-path maximum width. Use automatic columns with a readable minimum width so desktop fills the content area; preserve the mobile two-column and very narrow one-column rules. Keep progress semantics and visual/focus order unchanged.
+
 ---
 
 ## Development Workflow — Non-Negotiable Rules

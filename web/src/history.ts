@@ -1,6 +1,7 @@
 import { instrumentIds } from "./catalog.ts";
 import type { Attempt } from "./validation.ts";
 export interface SessionRecord {
+  responseProtocol?: "prompt-v2";
   mixedViews?: boolean;
   notation?: "western" | "sargam";
   id: string;
@@ -28,6 +29,7 @@ export function validSession(x: unknown): x is SessionRecord {
     v === null ||
     (typeof v === "number" && Number.isFinite(v) && v >= 0);
   return (
+    (s.responseProtocol === undefined || s.responseProtocol === "prompt-v2") &&
     (s.notation === undefined || ["western", "sargam"].includes(s.notation)) &&
     (s.mixedViews === undefined || typeof s.mixedViews === "boolean") &&
     (s.displayMode === undefined ||

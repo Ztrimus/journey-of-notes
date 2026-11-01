@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { counts, type SessionRecord } from "./history";
-import { sessionMetrics, comparable } from "./metrics";
+import { sessionMetrics, comparableResponse, attemptShares } from "./metrics";
+import { MetricHelp } from "./MetricHelp";
+import { isReflex } from "./reflex";
 import { formatTime } from "./logic";
 import { heardName } from "./bansuri";
 import { instrumentName } from "./catalog";
 const percent = (n: number | null) =>
-  n === null ? "No evidence" : `${Math.round(n * 100)}%`;
+  n === null ? "—" : `${Math.round(n * 100)}%`;
 const seconds = (n: number | null) =>
-  n === null ? "Not measured" : `${(n / 1000).toFixed(2)}s`;
+  n === null ? "—" : `${(n / 1000).toFixed(2)}s`;
 export function Results({
   record,
   history,
@@ -16,23 +18,25 @@ export function Results({
   history: SessionRecord[];
 }) {
   const c = counts(record.attempts),
-    m = sessionMetrics(record),
-    scored = c.correct + c.wrong;
+    m = sessionMetrics(record);
+  const reflex = isReflex(record.lessonId);
   const prior = history.find(
     (r) =>
       r.id !== record.id &&
-      comparable(record, r) &&
-      sessionMetrics(r).correctMedianMs !== null,
+      comparableResponse(record, r) &&
+      sessionMetrics(r).correctMeanMs !== null,
   );
   const previous = prior ? sessionMetrics(prior) : null;
   const reason =
     record.method === "self-check"
-      ? "Silent practice is self-reported; pitch and speed are not measured."
-      : !/[pfvgw]0$/.test(record.lessonId)
-        ? "This guided drill measures pitch, not surprise-note response speed. Try Note reflex for timed recall."
-        : record.mixedViews
-          ? "Changing hints or view omits timing for affected targets."
-          : "Speed needs first-try correct microphone responses with hints off. Device delay remains uncalibrated.";
+      ? "Silent practice is self-reported; pitch and response time are not measured."
+      : !reflex && record.responseProtocol !== "prompt-v2"
+        ? "This saved set has no response measurements. New microphone sets can measure response with hints off."
+        : m.correctTimed === 0
+          ? "No eligible response samples: play a first-try correct note with hints off, without changing its view."
+          : reflex
+            ? "Random-note response estimate. Read speed together with first-try accuracy."
+            : "Guided response estimate: the sequence can be anticipated. Use Note reflex to practise surprise-note responses.";
   return (
     <>
       <div className="result-banner">
@@ -50,78 +54,35 @@ export function Results({
         </div>
       </div>
       {record.method === "microphone" ? (
-        <>
-          <div
-            className="outcome-graphic"
-            role="img"
-            aria-label={`${c.correct} matched attempts and ${c.wrong} wrong attempts; ${c.unclear} unclear, ${c.skipped} skipped.`}
-          >
-            <div className="outcome-key">
-              <span className="positive">
-                ✓ <strong>{c.correct}</strong> matched attempts{" "}
-                {scored ? `· ${Math.round((c.correct / scored) * 100)}%` : ""}
-              </span>
-              <span className="negative">
-                × <strong>{c.wrong}</strong> wrong{" "}
-                {scored ? `· ${Math.round((c.wrong / scored) * 100)}%` : ""}
-              </span>
-            </div>
-            <div className="outcome-bar" aria-hidden="true">
-              {scored ? (
-                <>
-                  <span
-                    className="match-fill"
-                    style={{ width: `${(c.correct / scored) * 100}%` }}
-                  />
-                  <span
-                    className="wrong-fill"
-                    style={{ width: `${(c.wrong / scored) * 100}%` }}
-                  />
-                </>
-              ) : (
-                <span className="no-fill" />
-              )}
-            </div>
-            <small>
-              Percentages of clear detected attempts, including retries.
-            </small>
-          </div>
-          <div className="score-grid visual-scores">
-            <Metric
-              label="First-try match"
-              value={percent(m.firstRate)}
-              detail={`${m.firstMatches}/${m.firstTargets} scorable targets`}
-              help="The first stable detected pitch per target matched. Short wrong sounds may be missed. Unclear/skipped targets are reported separately; this is not anatomical technique or innate ability."
-            />
-            <Metric
-              label="Targets matched"
-              value={`${m.matched}/${record.targetCount}`}
-              detail="Including corrected targets"
-              help="Each target counts once if its pitch was eventually matched, even after retries. A matched target can still have a wrong first attempt."
-            />
-            <Metric
-              label="Retries"
-              value={`${m.retries}`}
-              detail={`${m.recovered}/${m.initiallyWrong} wrong-first targets recovered`}
-              help="Extra clear-pitch attempts after the first for a target. Recovery is a target initially wrong and later matched; it does not erase the first error."
-            />
-            {m.correctMedianMs !== null ? (
-              <Metric
-                label="Typical response"
-                value={seconds(m.correctMedianMs)}
-                detail={`${m.correctTimed} first-try correct targets`}
-                help={`Median means the middle response after sorting. It is less affected by one long pause than an average. Confirmation hold is excluded. Approximate, uncalibrated. Average for these correct responses: ${seconds(m.correctMeanMs)}.`}
-              />
-            ) : (
-              <Metric
-                label="Pitch coverage"
-                value={percent(m.signalCoverage)}
-                detail="Targets with clear evidence"
-                help="Targets with a correct or wrong stable detected attempt divided by all planned targets in the set, including an unfinished set. Missing evidence is not evidence of a wrong note."
-              />
-            )}
-          </div>
-        </>
+        <div className="score-grid visual-scores">
+          <AttemptRing correct={c.correct} wrong={c.wrong} />
+          <Metric
+            label="First-try match"
+            value={percent(m.firstRate)}
+            detail={
+              m.firstTargets
+                ? `${m.firstMatches}/${m.firstTargets} scorable targets`
+                : "No clear pitch evidence"
+            }
+            help="How often your first detected attempt matched the target. Each target counts once. Unclear and skipped targets are separate; short sounds may be missed."
+          />
+          <Metric
+            label="Response time"
+            value={seconds(m.correctMeanMs)}
+            detail={
+              m.correctTimed
+                ? `Average · ${m.correctTimed} first-try correct`
+                : "Not measured in this set"
+            }
+            help={`Average time from the note appearing to your first-try correct note. Confirmation hold, retries, hints and changed views are excluded. Approximate and uncalibrated; device/audio delay remains.${m.correctTimed ? ` Middle response (median): ${seconds(m.correctMedianMs)}.` : ""}`}
+          />
+          <Metric
+            label="Retries"
+            value={`${m.retries}`}
+            detail={`${m.recovered}/${m.initiallyWrong} wrong-first targets recovered`}
+            help="Extra clear-pitch attempts after the first attempt at a target. Recovery means you matched a target after a wrong first attempt; it does not erase that first error."
+          />
+        </div>
       ) : (
         <p className="notice">
           ○ {c["self-reported"]} repetitions self-reported. No measured pitch
@@ -129,6 +90,11 @@ export function Results({
         </p>
       )}
       <p className="small muted timing-reason">{reason}</p>
+      {record.method === "microphone" && m.correctTimed > 0 && (
+        <p className="small muted">
+          Approximate and uncalibrated; device/audio delay remains.
+        </p>
+      )}
       <div className="secondary-outcomes">
         <span>? {c.unclear} unclear</span>
         <span>↷ {c.skipped} skipped</span>
@@ -137,23 +103,30 @@ export function Results({
         )}
       </div>
       {previous &&
-        m.correctMedianMs !== null &&
-        previous.correctMedianMs !== null &&
-        Math.abs(m.correctMedianMs - previous.correctMedianMs) >= 10 && (
+        m.correctMeanMs !== null &&
+        previous.correctMeanMs !== null &&
+        Math.abs(m.correctMeanMs - previous.correctMeanMs) >= 10 && (
           <p className="comparison">
-            Typical correct response is{" "}
+            Average correct response is{" "}
             {Math.abs(
-              (m.correctMedianMs - previous.correctMedianMs) / 1000,
+              (m.correctMeanMs - previous.correctMeanMs) / 1000,
             ).toFixed(2)}
-            s{" "}
-            {m.correctMedianMs <= previous.correctMedianMs
-              ? "faster"
-              : "slower"}{" "}
+            s {m.correctMeanMs <= previous.correctMeanMs ? "faster" : "slower"}{" "}
             than your last comparable set. Read with accuracy and sample count.
           </p>
         )}
       <details className="explanation">
         <summary>How to read this report</summary>
+        {record.method === "microphone" && (
+          <p>
+            {m.matched}/{record.targetCount} unique targets matched, including
+            corrections. {percent(m.signalCoverage)} of planned targets had
+            clear pitch evidence. The ring counts attempts, including retries,
+            so its count can be higher than the number of targets. Its rounded
+            percentages add to 100%. Unclear and skipped attempts are outside
+            the ring.
+          </p>
+        )}
         <p>
           First-try accuracy, recovery and activity measure different things. A
           missed day does not prove lost skill. These measurements cannot
@@ -161,12 +134,73 @@ export function Results({
           fingering, posture or tone quality.
         </p>
         <p>
-          Timing appears only for random reflex sets with eligible microphone
-          evidence. Guided drills have known targets; silent clicks are not
-          playing speed. Changed views and note hints can exclude samples.
+          Response time uses first-try correct microphone evidence with hints
+          off. Guided sequences and random reflex drills are different
+          conditions; compare the same drill, view and settings. One small set
+          is only a snapshot. Times exclude the confirmation hold and remain
+          approximate and uncalibrated.
         </p>
       </details>
     </>
+  );
+}
+function AttemptRing({ correct, wrong }: { correct: number; wrong: number }) {
+  const shares = attemptShares(correct, wrong);
+  const fraction = shares?.fraction ?? 0;
+  return (
+    <div className="score attempt-score">
+      <div className="metric-heading">
+        <span>Attempts</span>
+        <MetricHelp label="Attempts">
+          Matched and wrong attempts, including retries. Percentages use only
+          clear detected attempts; unclear and skipped attempts are separate.
+          These are pitch matches, not proof of technique.
+        </MetricHelp>
+      </div>
+      <div
+        className="attempt-ring"
+        role="img"
+        aria-label={
+          shares
+            ? `${correct} matched attempts (${shares.matched}%); ${wrong} wrong attempts (${shares.wrong}%).`
+            : "No clear detected attempts."
+        }
+      >
+        <svg viewBox="0 0 180 180" aria-hidden="true">
+          <circle className="ring-track" cx="90" cy="90" r="83" />
+          {shares && (
+            <>
+              <circle className="ring-wrong" cx="90" cy="90" r="83" />
+              <circle
+                className="ring-match"
+                cx="90"
+                cy="90"
+                r="83"
+                pathLength="100"
+                strokeDasharray={`${fraction * 100} 100`}
+                transform="rotate(-90 90 90)"
+              />
+            </>
+          )}
+        </svg>
+        <div className="ring-values">
+          <div className="positive">
+            <small>Matched</small>
+            <strong>{shares ? `${shares.matched}%` : "—"}</strong>
+            <small>
+              {correct} {correct === 1 ? "try" : "tries"}
+            </small>
+          </div>
+          <div className="negative">
+            <small>Wrong</small>
+            <strong>{shares ? `${shares.wrong}%` : "—"}</strong>
+            <small>
+              {wrong} {wrong === 1 ? "try" : "tries"}
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 function Metric({
@@ -184,12 +218,7 @@ function Metric({
     <div className="score">
       <div className="metric-heading">
         <span>{label}</span>
-        <details className="metric-help">
-          <summary aria-label={`About ${label}`} title={`About ${label}`}>
-            i
-          </summary>
-          <p>{help}</p>
-        </details>
+        <MetricHelp label={label}>{help}</MetricHelp>
       </div>
       <strong>{value}</strong>
       <small>{detail}</small>

@@ -10,22 +10,22 @@ The first recall level generates ten targets for each set, with no immediate sam
 
 The default compact cue reads **hand → finger → octave → note**, following the user's final requested order. Decorative visual cues support persistent text labels and finger numbers. The note remains visually prominent. A highlighted piano key is preserved.
 
-Before a set, choose Key diagram, Music staff, or Both. Staff-only mode hides visible note/octave answers by default, with optional note-name hints. Staff placement uses scientific pitch notation, automatic treble/bass clef, ledger lines and sharp signs; clef does not determine hand. Quarter notes identify pitch here, not a timed rhythm requirement. The staff image has a descriptive accessible name. Display controls remain fixed during a set to keep prompt conditions consistent.
+Music sheet is the default. Choose Music sheet, the instrument diagram, or Both before a set or through the active drill pills. Sheet-only mode hides visible note/octave answers by default, with optional note-name hints. Staff placement uses scientific pitch notation, automatic treble/bass clef, ledger lines and sharp signs; clef does not determine hand. Quarter notes identify pitch here, not a timed rhythm requirement. The staff image has a descriptive accessible name. View and hint changes invalidate timing for the affected target while preserving pitch evidence; the next target restores the setup hint preference.
 
 Random recall hides the upcoming target. The first actual target is revealed only after starting. On start and target changes the prompt is brought into view and receives programmatic focus. This avoids timing from a note that is above the viewport while the learner is looking at the Start button.
 
 ## Response timing and limits
 
-Acoustic recall attempts store two approximate durations:
+Unhinted microphone attempts in new guided and random sets store two approximate durations:
 
 - **Response:** estimated first frame of the eventually classified note candidate, relative to prompt presentation. This excludes the confirmation hold.
 - **Confirmation:** time until the stable pitch/hold classification is produced. This includes the hold and processing delay.
 
 The visual baseline uses two animation-frame callbacks following the prompt state update and scroll/focus. Browser callbacks are not direct measurements of photons appearing on a display. The input baseline uses the first stable pitch-candidate timestamp; it is not a calibrated physical key-press or precise acoustic-attack sensor. Microphone buffering, frame sampling, display refresh, scheduling and pitch confidence add delay. The app labels these estimates as approximate and uncalibrated.
 
-Timing applies to random recall. Predictable guided sequences keep their pitch/hold checks but are not treated as surprise-note benchmarks. Signals observed before the presentation baseline, unclear audio, skipped targets and self-report button presses do not acquire instrument response scores.
+New sets marked `responseProtocol: prompt-v2` capture guided responses as well as random recall. Guided sequences can be anticipated, so their response estimates are never called surprise-note reflex scores. Older guided records without this marker retain no response score; nothing is backfilled. Signals observed before the presentation baseline, unclear audio, skipped targets and self-report button presses do not acquire instrument response scores.
 
-Each attempt retains response and confirmation durations. The summary separates the mean first response per target from mean time to reaching a correct note after retries. A wrong early response can therefore be fast while a later correct response takes longer. Wrong/unclear/skipped/self-reported categories remain distinct. History also retains display mode, hint setting and recall difficulty so different conditions need not be confused. Old records without timing metadata remain readable.
+Each attempt retains response and confirmation durations. The report shows the average among first-try correct, unhinted microphone targets with unchanged cues, alongside the sample count. A corrected first error never improves this speed metric. Median (middle value) is in the tooltip. Response comparisons require the same timing protocol and comparable drill/settings. Skill-board reflex trends remain random-only. Wrong/unclear/skipped/self-reported categories and old history remain distinct and readable.
 
 ## Verification
 

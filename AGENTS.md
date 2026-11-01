@@ -4,6 +4,10 @@
 
 Project-level memory for AI coding agents. Update this file whenever a significant architectural decision is made or a future sprint is scoped.
 
+### Compact reports and public copy — issue #22
+
+Read `web/docs/report-response-decisions.md` before changing report metrics. New guided microphone sets can store approximate unhinted first-try response evidence using `responseProtocol: prompt-v2`; guided response is not surprise-note reflex speed. Preserve old records without backfilling, exclude corrected first errors/hints/cue changes from the primary average, and compare response protocols separately. Keep attempts distinct from unique targets. Tooltips float without reflow and support hover, focus, touch and Escape. Public copy explains practical use and honest limits, without algorithm names/internal thresholds; the repository and browser code remain public. Share only the public project link/caption, never a learner's records, and never post automatically.
+
 ---
 
 ## Development Workflow — Non-Negotiable Rules

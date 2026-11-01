@@ -1178,7 +1178,7 @@ footer {
     margin-top: 4px;
   }
   .session-footnote {
-    font-size: 0.59rem;
+    font-size: 0.65rem;
   }
   .result-banner {
     gap: 15px;
@@ -1460,47 +1460,36 @@ footer {
 }
 .metric-help {
   flex: 0 0 auto;
-}
-.metric-help summary {
-  cursor: pointer;
-  list-style: none;
+  cursor: help;
   display: grid;
   place-items: center;
   width: 26px;
   height: 26px;
+  min-height: 26px;
+  padding: 0;
   border: 1px solid #718470;
   border-radius: 50%;
-  font-family: Georgia, serif;
-  font-weight: bold;
+  background: transparent;
+  color: var(--forest);
+  font:
+    bold 0.8rem Georgia,
+    serif;
 }
-.metric-help summary::-webkit-details-marker {
-  display: none;
-}
-.metric-help[open] {
-  flex: 1;
-  min-width: 0;
-}
-.metric-help p {
-  font-size: 0.72rem;
+.metric-tooltip {
+  position: fixed;
+  z-index: 1000;
+  width: min(280px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  overflow: auto;
+  padding: 12px 14px;
+  border: 1px solid #344c3c;
+  border-radius: 8px;
+  background: #263e31;
+  color: #fffef7;
+  box-shadow: 0 5px 16px rgb(20 40 25 / 0.2);
+  font-size: 0.78rem;
   line-height: 1.6;
-  margin: 10px 0 0;
-}
-.outcome-graphic {
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 20px;
-  background: var(--paper);
-}
-.outcome-key {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-  align-items: baseline;
-}
-.outcome-key strong {
-  font-size: 2rem;
-  font-family: Manrope, sans-serif;
+  overflow-wrap: break-word;
 }
 .positive {
   color: #28553b;
@@ -1508,27 +1497,65 @@ footer {
 .negative {
   color: #923b39;
 }
-.outcome-bar {
-  display: flex;
-  height: 20px;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #e3e7dd;
-  margin: 12px 0;
+.attempt-ring {
+  position: relative;
+  width: min(100%, 140px);
+  aspect-ratio: 1;
+  align-self: center;
+  margin-block: auto;
 }
-.match-fill {
-  background: #436f4d;
-}
-.wrong-fill {
-  background: #b45c56;
-}
-.no-fill {
+.attempt-ring svg {
+  display: block;
   width: 100%;
-  background: #d8dfd0;
 }
-.outcome-graphic > small {
-  font-size: 0.7rem;
-  color: var(--muted);
+.attempt-ring circle {
+  fill: none;
+  stroke-width: 10;
+}
+.ring-track {
+  stroke: #dce3d7;
+}
+.ring-match {
+  stroke: #436f4d;
+}
+.ring-wrong {
+  stroke: #b45c56;
+}
+.ring-values {
+  position: absolute;
+  inset: 18% 8%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  text-align: center;
+}
+.ring-values > div {
+  display: grid;
+  gap: 2px;
+}
+.ring-values > div + div {
+  border-left: 1px solid var(--line);
+}
+.ring-values strong {
+  font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+}
+.ring-values small {
+  color: inherit;
+  font-size: 0.65rem;
+}
+.visual-scores .score > strong {
+  margin-block: auto;
+}
+.share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.share-project {
+  margin-block: 30px;
+}
+.share-project [role="status"]:empty {
+  display: none;
 }
 .secondary-outcomes {
   display: flex;
@@ -1789,12 +1816,6 @@ footer {
   .history-grid .attempt-grid {
     grid-template-columns: 1fr;
   }
-}
-.metric-heading:has(.metric-help[open]) {
-  display: block;
-}
-.metric-help[open] {
-  margin-top: 8px;
 }
 .home-hero > .pilot-label {
   font-size: 0.74rem !important;

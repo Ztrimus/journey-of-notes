@@ -2,6 +2,17 @@
 
 Owner: this repository. Updated 2026-11-01. This is the working source of truth for requests from the handoff, typed chat and voice session. Read it before planning or editing; update status and verification after each session. Do not silently drop deferred work. Status: TODO, IN PROGRESS, IMPLEMENTED (needs device trial), VERIFIED (named checks), DEFERRED.
 
+## Current report/About follow-up — issue #22
+
+- REPORT-04: Floating metric tooltips without card expansion. IMPLEMENTED; keyboard focus, click toggle, Escape and 320/390px positioning checked. Pointer-hover persistence and assistive technology remain manual device follow-up.
+- REPORT-05: Compact matched/wrong ring among four primary cards; rounded shares total 100%. Unique-target count/coverage moved to explanation. IMPLEMENTED; zero/all-wrong/hinted/legacy/silent synthetic cases checked.
+- RESPONSE-01: Always-visible average response card; new guided microphone capture with explicit protocol; first-try correct/unhinted/unchanged-cue evidence only. IMPLEMENTED; legacy data not backfilled; six added metric/import tests pass. Guided estimates remain distinct from random reflex; real instrument latency calibration TODO.
+- ABOUT-01: Owner's music/dance story and share/copy controls; concise home device disclaimer. IMPLEMENTED; no automatic social posting.
+- COPY-01: Remove public algorithm names/internal thresholds while retaining practical privacy/accuracy limits. IMPLEMENTED; public source remains inspectable.
+- RELEASE-22: Pages candidate regenerated with this change; deployment evidence belongs in its associated PR. Research-only PR #20 remains separate, open and unmerged.
+
+Read `report-response-decisions.md` for the definitions and research behind these changes. Earlier verification entries below describe earlier versions and are retained as history.
+
 ## Execution order
 
 1. P0: protect data, establish a clear mobile flow and honest measurement.

@@ -78,3 +78,12 @@ Final issue #15 review also checked chronological history normalization for impo
 - Session history stores initial hint preference plus per-attempt changes. A revealed/hidden current target remains excluded from speed; pitch outcomes are retained. Future targets restore setup hints. Mixed-cue sets remain excluded from comparable baselines. Older schemas stay readable.
 
 Cue changes preserve the target validator’s hold/dedup state: changing a view or revealing a hint must not manufacture another wrong event for the same sustained note. Target advancement still resets validation.
+
+
+## Report and About follow-up — issue #22
+
+- Unit suite: 52 tests pass, including six new tests for response mean/median, first-try exclusions and deduplication, old guided history, timing-protocol imports/comparisons and balanced ring rounding. Existing permission-release/audio/validator tests remain passing.
+- Isolated local preview uses synthetic records and production report components, without modifying public-origin history or requesting microphone access. Guided, legacy, random, all-wrong, empty, hinted and silent reports were inspected.
+- Requested viewport checks: 320×740 and 390×844 two-column report, 1280×900 four-column report; no horizontal overflow. Tooltips stayed inside the phone viewport, card-grid height was identical before/after opening (352.78125px at 390px), Escape retained trigger focus, Tab opened the next metric help, and click toggling/outside interactions worked. Browser console returned no warning/error logs.
+- Actual About route includes the owner's story, current capability/privacy limits and share controls. Copy-post action displayed success. Native system-share UI and actual social posting were not exercised.
+- No full accessibility certification: pointer-hover traversal, screen reader announcements, real phone browsers/text zoom, live instrument accuracy and latency calibration remain manual follow-up. Temporary QA entry points/records must be removed before building Pages.

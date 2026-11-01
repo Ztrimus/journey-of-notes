@@ -1,3 +1,4 @@
+import { ShareProject } from "./ShareProject";
 import { FeedbackWash, ViewPills } from "./PracticeControls";
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from "react";
 import { createRoot } from "react-dom/client";
@@ -418,8 +419,7 @@ function App() {
                   keep your skills moving.
                 </p>
                 <p className="pilot-label">
-                  Public pilot · One note at a time. Pitch accuracy and response
-                  estimates vary by device.
+                  Pitch accuracy and response estimates vary by device.
                 </p>
                 <div className="hero-notes" aria-hidden="true">
                   <span>Sa</span>
@@ -501,13 +501,35 @@ function App() {
           )}
           {route.screen === "about" && (
             <>
-              <h1 tabIndex={-1}>Small sets. Musical growth.</h1>
+              <h1 tabIndex={-1}>Music makes me feel alive.</h1>
+              <p className="eyebrow">A PERSONAL PROJECT BY SAURABH ZINJAD</p>
               <p>
-                Journey of Notes is a personal project by Saurabh Zinjad: a
-                practice gym for repeatable music skills, available in your
-                browser.
+                I've always been fascinated by music. Growing up, I danced a
+                lot, listened to music constantly, and took part in many dance
+                competitions. Music is still how I wind down — a passion, a
+                little spiritual relief, and something that makes me feel alive.
               </p>
-              <h2>A public pilot</h2>
+              <h2>Practice needs a listening ear</h2>
+              <p>
+                When I started learning to play, YouTube lessons kept returning
+                to the same advice: practise, practise, practise. But practising
+                alone left me wondering: am I doing this correctly? Without
+                feedback, an unnoticed mistake can become a habit.
+              </p>
+              <p>
+                That's why I'm building Journey of Notes: a practice gym that
+                listens and gives useful feedback. Short, repeatable sets and
+                clear metrics can help us notice pitch mistakes, practise with
+                intention, and see changes over time. Showing up matters; how we
+                practise matters too.
+              </p>
+              <p>
+                I've also noticed how rusty I can feel after a break. I want to
+                explore how practice changes our skills, and reflect that back
+                honestly. This is a beginning, built from my own wish for an
+                extra listening ear during riyaz.
+              </p>
+              <h2>What you can practise today</h2>
               <p>
                 Piano and bansuri have guided and random pitch drills. Guitar, C
                 concert flute and vocals have limited starter drills. We check
@@ -525,6 +547,7 @@ function App() {
                 No account is needed. Export/import transfers a backup manually;
                 there is no automatic cloud sync, analytics or session replay.
               </p>
+              <ShareProject />
               <h2>Help shape the next set</h2>
               <p>
                 <a href="https://github.com/Ztrimus/journey-of-notes/issues/new?title=Pilot%20feedback">
@@ -703,7 +726,7 @@ function App() {
                         ? "Easy uses C4, D4 and E4 with the right thumb. Medium adds the C4–G4 five-finger position. Hard mixes C3–G5 and hands."
                         : "Medium widens the note pool. Hard adds lower and higher register positions. All sets remain available to repeat."
                       : "Recall starts with a small note pool. Guitar uses three open treble strings; vocals use a comfortable starting note."
-                    : "This is a self-paced pitch exercise. Its order is deliberate; it does not score surprise-note response time."}
+                    : "This is a self-paced pitch exercise with a deliberate sequence. Response estimates describe this guided set; use Note reflex for surprise-note practice."}
                 </p>
                 <p>
                   Use headphones and one note at a time. First sound and
@@ -711,31 +734,28 @@ function App() {
                   microphone checks sound, not fingers or lip placement.
                 </p>
                 <p>
-                  Pitch trial: A4=440 Hz, within ±45 cents, held for{" "}
-                  {chosen.hold}s. Response estimates exclude that confirmation
-                  hold and remain uncalibrated.
+                  Play one clear note and hold it until it is registered.
+                  Response estimates exclude the confirmation hold and remain
+                  approximate and uncalibrated; device/audio delay remains.
                 </p>
               </details>
               <details className="explanation">
-                <summary>How does note detection work?</summary>
+                <summary>About microphone feedback</summary>
                 <p>
-                  With your permission, your microphone sends sound to Web Audio
-                  in this browser. A YIN-style algorithm finds the repeating
-                  waveform, estimates its frequency, then maps it to a note and
-                  octave. No microphone audio is recorded or uploaded.
+                  With your permission, the app listens for one note at a time.
+                  Your microphone audio stays in this browser; it is not
+                  recorded or uploaded. Heard shows the latest pitch estimate.
                 </p>
                 <p>
-                  Heard shows the latest estimate. A counted attempt needs a
-                  stable pitch: a wrong note for about 0.3 seconds, or the
-                  target held for this exercise’s confirmation time. Fast notes
-                  can be missed. One held note counts once. Play one note at a
-                  time; chords, noise and harmonics can confuse this prototype.
+                  Hold a note clearly until you see feedback, then release it
+                  before the next target. Short notes, chords, background noise
+                  and overtones can confuse detection. A pitch match does not
+                  verify which instrument, hand or finger made the sound.
                 </p>
                 <p>
-                  Cents measure fine tuning: 100 cents equals one semitone, such
-                  as C to C♯. Positive means higher (sharp), negative means
-                  lower (flat), and zero means on the reference pitch. The
-                  ±45-cent trial tolerance is not a professional tuning target.
+                  Cents describe fine tuning: 100 cents is one semitone, such as
+                  C to C♯. Sharp means slightly higher than the reference; flat
+                  means lower. Zero is on the reference pitch.
                 </p>
               </details>
             </>

@@ -92,6 +92,7 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
       lessonTitle: r.lesson.title,
       instrument: r.lesson.instrument,
       method: r.method,
+      responseProtocol: "prompt-v2",
       displayMode: r.initialDisplay,
       noteHints: r.initialHints,
       notation: r.notation,
@@ -164,7 +165,7 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
     const a = r.validator.ingest(s.pitch ?? null, s.level, s.seconds);
     if (!a) return;
     const timing =
-      isReflex(r.lesson.id) && !r.viewChanged && !r.hints
+      !r.viewChanged && !r.hints
         ? responseTiming(
             a.outcome,
             a.onsetSeconds,

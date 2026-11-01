@@ -38,10 +38,13 @@ const quantile = (values: number[], p: number) => {
 };
 export function sessionMetrics(record: SessionRecord) {
   const first = new Map<number, string>();
+  const firstClear: SessionRecord["attempts"] = [];
   const matched = new Set<number>();
   for (const a of record.attempts) {
-    if (["correct", "wrong"].includes(a.outcome) && !first.has(a.targetIndex))
+    if (["correct", "wrong"].includes(a.outcome) && !first.has(a.targetIndex)) {
       first.set(a.targetIndex, a.outcome);
+      firstClear.push(a);
+    }
     if (a.outcome === "correct") matched.add(a.targetIndex);
   }
   const firstMatches = [...first.values()].filter(
@@ -60,7 +63,7 @@ export function sessionMetrics(record: SessionRecord) {
   const scorable = record.attempts.filter((a) =>
     ["correct", "wrong"].includes(a.outcome),
   ).length;
-  const correctTimes = record.attempts
+  const correctTimes = firstClear
     .filter(
       (a) =>
         a.outcome === "correct" &&
@@ -69,7 +72,8 @@ export function sessionMetrics(record: SessionRecord) {
         !a.viewChanged &&
         !(a.noteHints ?? record.noteHints ?? false) &&
         record.method === "microphone" &&
-        /^[pfvgw]0$/.test(record.lessonId),
+        (record.responseProtocol === "prompt-v2" ||
+          /^[pfvgw]0$/.test(record.lessonId)),
     )
     .map((a) => a.responseMs!);
   const initiallyWrong = [...first.entries()]
@@ -99,6 +103,16 @@ export function sessionMetrics(record: SessionRecord) {
     retries: Math.max(0, scorable - first.size),
     unclear: record.attempts.filter((a) => a.outcome === "unclear").length,
   };
+}
+// Keep timing-protocol changes out of comparisons without discarding pitch history.
+export function comparableResponse(a: SessionRecord, b: SessionRecord) {
+  return comparable(a, b) && a.responseProtocol === b.responseProtocol;
+}
+export function attemptShares(correct: number, wrong: number) {
+  const total = correct + wrong;
+  if (!total) return null;
+  const matched = Math.round((100 * correct) / total);
+  return { matched, wrong: 100 - matched, fraction: correct / total };
 }
 export function comparable(a: SessionRecord, b: SessionRecord) {
   return (

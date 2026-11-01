@@ -53,6 +53,10 @@ Hosted microphone use requires HTTPS; plain HTTP on a laptop's LAN address usual
 - [Product decisions, detector explanation, bansuri notation, storage, hosting and future sensing](docs/product-decisions.md)
 - [Syllabus proposal and original execution plan](docs/learning-blueprint.md)
 - [Review of supplied PDFs and course handouts](docs/source-review.md)
+- [Bansuri knowledge and all 11 subtitle lessons reviewed](docs/bansuri-foundations.md)
+- [Bansuri tone, continuity and technique proposal](docs/bansuri-practice-plan.md)
+- [Piano knowledge and all 29 subtitle videos reviewed](docs/piano-foundations.md)
+- [Piano practice gym and evidence proposal](docs/piano-practice-plan.md)
 - [Response-time model](docs/reflex-practice.md)
 - [Verification evidence and limits](docs/verification.md)
 

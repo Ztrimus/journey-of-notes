@@ -4,6 +4,10 @@ Review date: 2026-10-30 (America/Phoenix). Source documents are reference materi
 
 ## Coverage and limits
 
+**New piano collection, reviewed 2026-11-01:** all 29 supplied video transcripts, including the numbered course, Supplementary A, adult-learning advice and jazz pieces, are reviewed in [piano-foundations.md](piano-foundations.md). [The manifest](piano-source-manifest.json) records 70 files, 44 distinct cleaned texts and differing caption versions; [the practice proposal](piano-practice-plan.md) retains implications and evidence limits. This supersedes the earlier lack of spoken-content evidence below through caption review only. Hand demonstrations and actual performances were not watched/listened to, and full subtitles/scores are not redistributed.
+
+**New bansuri collection, reviewed 2026-11-01:** all 11 Divine Bansuri beginner lesson transcripts (21 tracks) are reviewed separately in [bansuri-foundations.md](bansuri-foundations.md), with source hashes/timestamps and alternate-track comparisons in [the manifest](bansuri-source-manifest.json). This adds caption evidence, not watched/listened demonstration evidence, and does not change the piano-video review limits below. [The new practice proposal](bansuri-practice-plan.md) is documentation only.
+
 Read both supplied PDFs: Exercises (2 pages) and Alankar & Warm up (12 pages). Inspected their rendered pages, including the image-based flute content. Reviewed the course index, downloaded all 21 available A4 handouts (lessons 1–20 plus Supplementary A), read extracted content and inspected page overviews of all 66 pages. Lesson 21 has no handout. Video pages did not expose usable lesson content in the web reader; this is a written-material review, not a claim to have watched or transcribed 22 videos. Spoken demonstrations and exact image-only handwritten patterns have not been turned into scored exercises.
 
 ## Supplied PDFs and images

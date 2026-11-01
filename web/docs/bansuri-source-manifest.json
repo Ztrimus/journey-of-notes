@@ -1,0 +1,214 @@
+{
+  "review_date": "2026-11-01",
+  "playlist": "https://www.youtube.com/playlist?list=PLWp4JCKvWekoWGmBRbE8Lx3hkG2uv0liF",
+  "source": "User-supplied local Divine Bansuri WebVTT collection; captions read, audio/video not reviewed",
+  "subtitle_files": 21,
+  "distinct_lessons": 11,
+  "normalization": "Strip WebVTT cue/inline markup, HTML-unescape, collapse whitespace, remove maximal previous-cue suffix/current-cue prefix overlap. Retain cue start times; not a verified score transcription.",
+  "lessons": [
+    {
+      "lesson": 1,
+      "title": "Divine Bansuri - Tutorial 1 - Introduction - Flute Lessons Beginner Basics",
+      "url": "https://www.youtube.com/watch?v=CyGMAjzryLs",
+      "last_caption_time": "00:06:46.840",
+      "tracks": [
+        {
+          "filename": "01 - Divine Bansuri - Tutorial 1 - Introduction - Flute Lessons Beginner Basics [CyGMAjzryLs].en-orig.vtt",
+          "sha256": "0bccc22eeb13e69b07895f9e11ff416d231969bf7b9414fee1ce2027e326b096",
+          "cleaned_sha256": "f33b9cb369c609abbb8eca1fa7a3e63091770bfc58227c8885a95473412965f8"
+        },
+        {
+          "filename": "01 - Divine Bansuri - Tutorial 1 - Introduction - Flute Lessons Beginner Basics [CyGMAjzryLs].en.vtt",
+          "sha256": "0bccc22eeb13e69b07895f9e11ff416d231969bf7b9414fee1ce2027e326b096",
+          "cleaned_sha256": "f33b9cb369c609abbb8eca1fa7a3e63091770bfc58227c8885a95473412965f8"
+        }
+      ],
+      "alternate_cleaned_text_identical": true
+    },
+    {
+      "lesson": 2,
+      "title": "Divine Bansuri - Tutorial 2 - Holding and Producing Sound - Flute Lessons Beginner Basics",
+      "url": "https://www.youtube.com/watch?v=nH8n4gHHPgY",
+      "last_caption_time": "00:15:10.079",
+      "tracks": [
+        {
+          "filename": "02 - Divine Bansuri - Tutorial 2 - Holding and Producing Sound - Flute Lessons Beginner Basics [nH8n4gHHPgY].en-orig.vtt",
+          "sha256": "9cde35c1acd07579527c2b0bdeeb49024b6a051296b33fa040b61f6c6458efe1",
+          "cleaned_sha256": "8412d17f0db84223e19ca5ddd7c45508a548b61ea9e0349a2bad79b891adba7d"
+        },
+        {
+          "filename": "02 - Divine Bansuri - Tutorial 2 - Holding and Producing Sound - Flute Lessons Beginner Basics [nH8n4gHHPgY].en.vtt",
+          "sha256": "9cde35c1acd07579527c2b0bdeeb49024b6a051296b33fa040b61f6c6458efe1",
+          "cleaned_sha256": "8412d17f0db84223e19ca5ddd7c45508a548b61ea9e0349a2bad79b891adba7d"
+        }
+      ],
+      "alternate_cleaned_text_identical": true
+    },
+    {
+      "lesson": 3,
+      "title": "Divine Bansuri - Tutorial 3 - Playing Lower and Higher Pitches in Bansuri - Flute Lessons Beginners",
+      "url": "https://www.youtube.com/watch?v=0b4AheTg1DA",
+      "last_caption_time": "00:14:52.430",
+      "tracks": [
+        {
+          "filename": "03 - Divine Bansuri - Tutorial 3 - Playing Lower and Higher Pitches in Bansuri - Flute Lessons Beginners [0b4AheTg1DA].en-orig.vtt",
+          "sha256": "757c13e9ef8c3c439d06a8b70e9ef99c27cd8687e051e08d67ec6e2a640895ba",
+          "cleaned_sha256": "96c9d4894f08b8181f9cd9e1693cccff3f974d8965cedb3f32a5018416c1c797"
+        },
+        {
+          "filename": "03 - Divine Bansuri - Tutorial 3 - Playing Lower and Higher Pitches in Bansuri - Flute Lessons Beginners [0b4AheTg1DA].en.vtt",
+          "sha256": "757c13e9ef8c3c439d06a8b70e9ef99c27cd8687e051e08d67ec6e2a640895ba",
+          "cleaned_sha256": "96c9d4894f08b8181f9cd9e1693cccff3f974d8965cedb3f32a5018416c1c797"
+        }
+      ],
+      "alternate_cleaned_text_identical": true
+    },
+    {
+      "lesson": 4,
+      "title": "Divine Bansuri - Tutorial 4 - How to play Sa Re Ga Ma Pa & Theory of Key - Flute Lessons Beginners",
+      "url": "https://www.youtube.com/watch?v=q2Xw6C7fglY",
+      "last_caption_time": "00:12:45.310",
+      "tracks": [
+        {
+          "filename": "04 - Divine Bansuri - Tutorial 4 - How to play Sa Re Ga Ma Pa & Theory of Key - Flute Lessons Beginners [q2Xw6C7fglY].en-orig.vtt",
+          "sha256": "3a67ac152c955cd6cd3abc55a01fab98da2b6b224f27e23c603477ed4e9d75b3",
+          "cleaned_sha256": "7341b203140b296641a73d99bcb8a0fd67718885c283ed4f1d1d98cb84d87043"
+        },
+        {
+          "filename": "04 - Divine Bansuri - Tutorial 4 - How to play Sa Re Ga Ma Pa & Theory of Key - Flute Lessons Beginners [q2Xw6C7fglY].en.vtt",
+          "sha256": "3a67ac152c955cd6cd3abc55a01fab98da2b6b224f27e23c603477ed4e9d75b3",
+          "cleaned_sha256": "7341b203140b296641a73d99bcb8a0fd67718885c283ed4f1d1d98cb84d87043"
+        }
+      ],
+      "alternate_cleaned_text_identical": true
+    },
+    {
+      "lesson": 5,
+      "title": "Divine Bansuri - Tutorial 5 - Theory ： Musical Notes, Octave, Sargam, Saptak - Flute Lessons",
+      "url": "https://www.youtube.com/watch?v=uIZPziC4qww",
+      "last_caption_time": "00:17:54.710",
+      "tracks": [
+        {
+          "filename": "05 - Divine Bansuri - Tutorial 5 - Theory ： Musical Notes, Octave, Sargam, Saptak - Flute Lessons [uIZPziC4qww].en-orig.vtt",
+          "sha256": "e5a07f84bb99d87854c1ebcf90ff8b19dcdb1243a8a9b269c952675a137c728e",
+          "cleaned_sha256": "21a86282b2868c7454cbdaf2964def49162078f51c21840317e503eee79f73f0"
+        },
+        {
+          "filename": "05 - Divine Bansuri - Tutorial 5 - Theory ： Musical Notes, Octave, Sargam, Saptak - Flute Lessons [uIZPziC4qww].en.vtt",
+          "sha256": "e5a07f84bb99d87854c1ebcf90ff8b19dcdb1243a8a9b269c952675a137c728e",
+          "cleaned_sha256": "21a86282b2868c7454cbdaf2964def49162078f51c21840317e503eee79f73f0"
+        }
+      ],
+      "alternate_cleaned_text_identical": true
+    },
+    {
+      "lesson": 6,
+      "title": "Divine Bansuri - Tutorial 6 - Alankars, Playing Correct Pa,Ma to Pa Transition - Flute Lessons",
+      "url": "https://www.youtube.com/watch?v=P2MBTF3LPmM",
+      "last_caption_time": "00:17:39.350",
+      "tracks": [
+        {
+          "filename": "06 - Divine Bansuri - Tutorial 6 - Alankars, Playing Correct Pa,Ma to Pa Transition - Flute Lessons [P2MBTF3LPmM].en-orig.vtt",
+          "sha256": "3034dcc760318a6e91e1d091697188ebadfa655f874a848249efbc51e280cf26",
+          "cleaned_sha256": "6e313927a4e69d9094bfffab0f0bff23b97cabf8026c054e6a93412b7a990d99"
+        },
+        {
+          "filename": "06 - Divine Bansuri - Tutorial 6 - Alankars, Playing Correct Pa,Ma to Pa Transition - Flute Lessons [P2MBTF3LPmM].en.vtt",
+          "sha256": "3034dcc760318a6e91e1d091697188ebadfa655f874a848249efbc51e280cf26",
+          "cleaned_sha256": "6e313927a4e69d9094bfffab0f0bff23b97cabf8026c054e6a93412b7a990d99"
+        }
+      ],
+      "alternate_cleaned_text_identical": true
+    },
+    {
+      "lesson": 7,
+      "title": "Divine Bansuri - Tutorial 7 - Ornamentation Kan Meend Khatka Zamzama Murki Andolan Vibrato Tounging",
+      "url": "https://www.youtube.com/watch?v=OKQjBpvnRSM",
+      "last_caption_time": "00:16:49.390",
+      "tracks": [
+        {
+          "filename": "07 - Divine Bansuri - Tutorial 7 - Ornamentation Kan Meend Khatka Zamzama Murki Andolan Vibrato Tounging [OKQjBpvnRSM].en-orig.vtt",
+          "sha256": "368e6eb13609c746dc279eded6b124b2faba7070fabde9621209513883b33ee9",
+          "cleaned_sha256": "c759da93cc20e5f7c296edc3250a29e96398699a1c2cf44163f69d15dbdb884a"
+        },
+        {
+          "filename": "07 - Divine Bansuri - Tutorial 7 - Ornamentation Kan Meend Khatka Zamzama Murki Andolan Vibrato Tounging [OKQjBpvnRSM].en.vtt",
+          "sha256": "368e6eb13609c746dc279eded6b124b2faba7070fabde9621209513883b33ee9",
+          "cleaned_sha256": "c759da93cc20e5f7c296edc3250a29e96398699a1c2cf44163f69d15dbdb884a"
+        }
+      ],
+      "alternate_cleaned_text_identical": true
+    },
+    {
+      "lesson": 8,
+      "title": "Divine Bansuri - Tutorial 8 - Gamak in Bansuri - Ornamentation - Flute Lessons Beginner Basics",
+      "url": "https://www.youtube.com/watch?v=yylboTEeAy8",
+      "last_caption_time": "00:08:08.780",
+      "tracks": [
+        {
+          "filename": "08 - Divine Bansuri - Tutorial 8 - Gamak in Bansuri - Ornamentation - Flute Lessons Beginner Basics [yylboTEeAy8].en-orig.vtt",
+          "sha256": "f4b139bc7a9de6f63fbc2933dc67d43223fbaecb9216511c5b3b43f3fc857cd2",
+          "cleaned_sha256": "7f6ce314b5df993b35087a2b54fd7c53197861d2beecb55c79287964496f81ad"
+        }
+      ],
+      "alternate_cleaned_text_identical": false
+    },
+    {
+      "lesson": 9,
+      "title": "Divine Bansuri - Tutorial 9 - Komal Swar ( Half Notes ) in Bansuri - Flute Lessons Beginner Basics",
+      "url": "https://www.youtube.com/watch?v=heKmA72MkJY",
+      "last_caption_time": "00:15:23.550",
+      "tracks": [
+        {
+          "filename": "09 - Divine Bansuri - Tutorial 9 - Komal Swar ( Half Notes ) in Bansuri - Flute Lessons Beginner Basics [heKmA72MkJY].en-orig.vtt",
+          "sha256": "ebee773c59b89a77fdecb468d4ebe8c4f4af8a01af66e7b02367965cf97ac44c",
+          "cleaned_sha256": "a3656989969a3593655bd52491a5ca19d8b076e62d998fc20d486efcdc9f48cf"
+        },
+        {
+          "filename": "09 - Divine Bansuri - Tutorial 9 - Komal Swar ( Half Notes ) in Bansuri - Flute Lessons Beginner Basics [heKmA72MkJY].en.vtt",
+          "sha256": "ebee773c59b89a77fdecb468d4ebe8c4f4af8a01af66e7b02367965cf97ac44c",
+          "cleaned_sha256": "a3656989969a3593655bd52491a5ca19d8b076e62d998fc20d486efcdc9f48cf"
+        }
+      ],
+      "alternate_cleaned_text_identical": true
+    },
+    {
+      "lesson": 10,
+      "title": "Divine Bansuri - Tutorial 10 - Android Apps Tanpura Droid Metronome Beats Pocket Raga - Flute Lesson",
+      "url": "https://www.youtube.com/watch?v=PpyWhGawxZE",
+      "last_caption_time": "00:12:13.120",
+      "tracks": [
+        {
+          "filename": "10 - Divine Bansuri - Tutorial 10 - Android Apps Tanpura Droid Metronome Beats Pocket Raga - Flute Lesson [PpyWhGawxZE].en-orig.vtt",
+          "sha256": "e1c85591c53c7f679511ebcc5a18887710ef52d186c189d0ff3b20fd3412c1df",
+          "cleaned_sha256": "dde73e4d05f7dcea021a9282167caf2d28fac041e5865cce6cf8f8a66fca5284"
+        },
+        {
+          "filename": "10 - Divine Bansuri - Tutorial 10 - Android Apps Tanpura Droid Metronome Beats Pocket Raga - Flute Lesson [PpyWhGawxZE].en.vtt",
+          "sha256": "e1c85591c53c7f679511ebcc5a18887710ef52d186c189d0ff3b20fd3412c1df",
+          "cleaned_sha256": "dde73e4d05f7dcea021a9282167caf2d28fac041e5865cce6cf8f8a66fca5284"
+        }
+      ],
+      "alternate_cleaned_text_identical": true
+    },
+    {
+      "lesson": 11,
+      "title": "Divine Bansuri - Tutorial 11 - How & Where to Purchase a Bansuri - Flute Lessons Beginner Basics",
+      "url": "https://www.youtube.com/watch?v=Iz16-1fsbKo",
+      "last_caption_time": "00:10:18.830",
+      "tracks": [
+        {
+          "filename": "11 - Divine Bansuri - Tutorial 11 - How & Where to Purchase a Bansuri - Flute Lessons Beginner Basics [Iz16-1fsbKo].en-orig.vtt",
+          "sha256": "c49bd9590e91521f9eeafc83030eb575ad89b66429dc0cab14122c9b6c432ebb",
+          "cleaned_sha256": "15f16da9b7c7132b5a18bd1f14802c1399d163319a87cf224356b09c6e73e268"
+        },
+        {
+          "filename": "11 - Divine Bansuri - Tutorial 11 - How & Where to Purchase a Bansuri - Flute Lessons Beginner Basics [Iz16-1fsbKo].en.vtt",
+          "sha256": "c49bd9590e91521f9eeafc83030eb575ad89b66429dc0cab14122c9b6c432ebb",
+          "cleaned_sha256": "15f16da9b7c7132b5a18bd1f14802c1399d163319a87cf224356b09c6e73e268"
+        }
+      ],
+      "alternate_cleaned_text_identical": true
+    }
+  ]
+}

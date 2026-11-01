@@ -41,7 +41,7 @@ Owner: this repository. Updated 2026-10-31. This is the working source of truth 
 | DATA-02 | Local-first prototype, latest 100 sessions and export; add validated merge import so local data can move to hosted origin | IMPLEMENTED (device checks pending; see verification.md) |
 | DATA-03 | Revisit IndexedDB for larger history and accounts/database only when cross-device synchronization is needed | DEFERRED |
 | HOST-01 | Recommend free HTTPS static hosting; prepare relative/subpath build; preserve existing Pages privacy-policy URL | IMPLEMENTED (device checks pending; see verification.md) |
-| HOST-02 | Publish source/deploy, verify HTTPS microphone and mobile Safari/Chrome before announcing public availability | IN PROGRESS — user requested phone-accessible public site on 2026-10-31 |
+| HOST-02 | Publish source/deploy, verify HTTPS microphone and mobile Safari/Chrome before announcing public availability | PUBLISHED — HTTPS page/assets checked; real mobile/audio trial pending |
 | AUDIO-03 | Evaluate labeled real flute/piano notes, noise/harmonics/decay, false accepts/rejects, 60ms analysis spacing, timing bias and latency; remove unreliable speed claims | TODO |
 | ACCESS-01 | Manual screen-reader, keyboard-only, zoom/text-spacing checks and real phones/tablets | TODO |
 
@@ -77,7 +77,18 @@ Journey of Notes is independent of UOPX. Apply public web/accessibility standard
 
 ## Phone-access and clarity follow-up — 2026-10-31
 
-- RELEASE-01: Publish the prototype on existing personal GitHub Pages, preserving privacy-policy URLs. IN PROGRESS.
+- RELEASE-01: Publish the prototype on existing personal GitHub Pages, preserving privacy-policy URLs. VERIFIED: public URL and assets return HTTP 200, Pages built release 7a7b188.
 - UI-04: Piano / Flute (Bansuri) navigation plus More instruments soon on non-session pages; active sets stay focused. IMPLEMENTED.
 - HELP-01: Plain-language detector/hold explanation and cents definition on preparation. IMPLEMENTED; explain directly in chat too.
 - Terminology: Music sheet is the visible product label; internal staff identifiers remain compatible with saved records.
+
+Public preview verified on 2026-10-31: https://ztrimus.github.io/journey-of-notes/practice/ (PR #12 merged). Published prototype is available without the laptop. Real-device acoustic/latency and assistive-technology checks remain open; advanced technique sensing, broader instruments and accounts/sync remain deferred.
+
+## Preparation and evidence follow-up — issue #13
+
+- UI-05: Remove redundant home scroll-only Choose your instrument CTA; keep direct instrument cards. IMPLEMENTED; release checks below.
+- UI-06: Feedback and View share a responsive row at ordinary widths; stack only with insufficient container width. Challenge and bansuri notation retained. IMPLEMENTED.
+- EVIDENCE-01: Voice/flute can pass piano pitch validation. Source recognition research and optional MIDI/timbre approach documented. PROPOSAL ONLY; user explicitly said do not implement this part.
+- METRIC-02: Separate activity, first-detected-attempt quality, correct-response latency, recovery, delayed recall and evidence coverage. PROPOSAL ONLY; no scoring or map growth formula changed.
+- MAP-03: Compare adaptive horizontal skill board, grouped branches and swipe track; recommend wrapping board with labels under nodes and no separate arrow. PROPOSAL ONLY; agree metrics/layout before implementation.
+- Read progress-and-map-proposal.md before any future scoring, source-recognition or map change; do not treat the proposal as implementation authorization.

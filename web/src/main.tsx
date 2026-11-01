@@ -380,24 +380,6 @@ function App() {
                   A quiet space to train your ear, sharpen your reflexes, and
                   keep your skills moving.
                 </p>
-                <button
-                  className="primary"
-                  onClick={() => {
-                    document
-                      .getElementById("instrument-title")
-                      ?.scrollIntoView({
-                        behavior: matchMedia("(prefers-reduced-motion: reduce)")
-                          .matches
-                          ? "auto"
-                          : "smooth",
-                      });
-                    document
-                      .getElementById("instrument-title")
-                      ?.focus({ preventScroll: true });
-                  }}
-                >
-                  Choose your instrument <span aria-hidden="true">↓</span>
-                </button>
                 <div className="hero-notes" aria-hidden="true">
                   <span>Sa</span>
                   <span>♪</span>
@@ -492,7 +474,7 @@ function App() {
               </div>
               <div className="settings-grid">
                 {isReflex(chosen.id) && (
-                  <div>
+                  <div className="wide-setting">
                     <label htmlFor="challenge">Challenge</label>
                     <select
                       id="challenge"
@@ -518,8 +500,6 @@ function App() {
                     <option value="self-check">Silent practice</option>
                   </select>
                 </div>
-              </div>
-              <div className="view-preference">
                 <ViewSelect
                   id="prepare-view"
                   value={display}
@@ -527,7 +507,7 @@ function App() {
                   instrument={route.instrument}
                 />
                 {instrument.needsTonic && (
-                  <div>
+                  <div className="wide-setting">
                     <label htmlFor="notation">Notation</label>
                     <select
                       id="notation"

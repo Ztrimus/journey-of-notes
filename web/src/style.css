@@ -1875,20 +1875,22 @@ footer {
   font-size: 0.74rem;
 }
 @media (hover: hover) and (pointer: fine) {
-  button:enabled,
-  a[href],
-  summary,
+  /* Lift bounded controls; text-only actions stay on the page surface. */
+  button:enabled:not(:where(.quiet-button, .back-link, .history-title)),
   .file-button {
     transition:
       transform 0.15s ease,
       box-shadow 0.15s ease;
   }
-  button:enabled:hover,
-  a[href]:hover,
-  summary:hover,
+  button:enabled:not(:where(.quiet-button, .back-link, .history-title)):hover,
   .file-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgb(30 55 35 / 0.1);
+  }
+  a[href]:not(.brand):hover,
+  summary:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 }
 @media (max-width: 760px) {
@@ -1924,15 +1926,11 @@ footer {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  button:enabled,
-  a[href],
-  summary,
+  button:enabled:not(:where(.quiet-button, .back-link, .history-title)),
   .file-button {
     transition: none !important;
   }
-  button:enabled:hover,
-  a[href]:hover,
-  summary:hover,
+  button:enabled:not(:where(.quiet-button, .back-link, .history-title)):hover,
   .file-button:hover {
     transform: none !important;
   }

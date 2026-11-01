@@ -2,6 +2,11 @@
 
 Owner: this repository. Updated 2026-11-01. This is the working source of truth for requests from the handoff, typed chat and voice session. Read it before planning or editing; update status and verification after each session. Do not silently drop deferred work. Status: TODO, IN PROGRESS, IMPLEMENTED (needs device trial), VERIFIED (named checks), DEFERRED.
 
+## Personal story and attribution — issue #32
+
+- ABOUT-02: Refine the opening About story around the owner's joy in music/dance, learning, solo-practice feedback and riyaz; retain honest capability limits. IMPLEMENTED.
+- ABOUT-03: Exact copyright “© 2026 Saurabh Zinjad”; X, LinkedIn and GitHub profile links beneath the story. VERIFIED at 320/390/1280px: exact destinations/text, 44px link targets, no horizontal overflow and visible ordered keyboard focus. Production/Pages build verified; deployment evidence belongs in the associated PR.
+
 ## Desktop skill-map sizing — issue #30
 
 - UI-09: Remove the legacy narrow-path width cap from the skill board; let desktop cards fill the content width with content-sized automatic columns. IMPLEMENTED; existing mobile two-column/narrow one-column rules retained.

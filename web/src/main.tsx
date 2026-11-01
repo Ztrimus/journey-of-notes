@@ -504,31 +504,51 @@ function App() {
               <h1 tabIndex={-1}>Music makes me feel alive.</h1>
               <p className="eyebrow">A PERSONAL PROJECT BY SAURABH ZINJAD</p>
               <p>
-                I've always been fascinated by music. Growing up, I danced a
-                lot, listened to music constantly, and took part in many dance
-                competitions. Music is still how I wind down — a passion, a
-                little spiritual relief, and something that makes me feel alive.
+                Music has always made me feel more alive. As a dancer, I've felt
+                its joy through movement, hours of listening, and the excitement
+                of dance competitions. It's also where I find calm: a way to
+                wind down, express myself, and feel a little more connected to
+                who I am.
+              </p>
+              <p>
+                Now I'm learning to make music myself. There's a quiet happiness
+                in finding a clear note on the bansuri or the right key on a
+                piano. Those small moments of progress make me want to pick up
+                my instrument and try again.
               </p>
               <h2>Practice needs a listening ear</h2>
               <p>
-                When I started learning to play, YouTube lessons kept returning
-                to the same advice: practise, practise, practise. But practising
-                alone left me wondering: am I doing this correctly? Without
-                feedback, an unnoticed mistake can become a habit.
+                Learning through YouTube kept bringing me back to the same
+                advice: practise, practise, practise. I wanted to put in the
+                time. What I missed was a listening ear: someone to help me
+                notice when a note was right, or catch a mistake before it
+                became a habit.
               </p>
               <p>
-                That's why I'm building Journey of Notes: a practice gym that
-                listens and gives useful feedback. Short, repeatable sets and
-                clear metrics can help us notice pitch mistakes, practise with
-                intention, and see changes over time. Showing up matters; how we
-                practise matters too.
+                That's why I'm building Journey of Notes. I want practising
+                alone to feel more supported: play a note, get feedback,
+                understand what needs attention, and come back with a clearer
+                sense of direction. The numbers matter to me because they can
+                make small changes visible and help us practise with more
+                awareness.
               </p>
               <p>
-                I've also noticed how rusty I can feel after a break. I want to
-                explore how practice changes our skills, and reflect that back
-                honestly. This is a beginning, built from my own wish for an
-                extra listening ear during riyaz.
+                I also know how rusty I can feel after a break. I want to
+                understand how our musical skills grow with practice and change
+                when we step away. This project starts with my own riyaz, but
+                I'm excited to build it in public and share the journey with
+                anyone who finds joy in learning music.
               </p>
+              <nav
+                className="social-links"
+                aria-label="Saurabh Zinjad on social media"
+              >
+                <a href="https://x.com/saurabhzinjad">X (Twitter)</a>
+                <a href="https://www.linkedin.com/in/saurabhzinjad/">
+                  LinkedIn
+                </a>
+                <a href="https://github.com/ztrimus">GitHub</a>
+              </nav>
               <h2>What you can practise today</h2>
               <p>
                 Piano and bansuri have guided and random pitch drills. Guitar, C
@@ -1064,9 +1084,7 @@ function App() {
         </main>
         {!live && (
           <footer>
-            <span>
-              © {new Date().getFullYear()} Saurabh Zinjad · Journey of Notes
-            </span>
+            <span>© 2026 Saurabh Zinjad</span>
             <a href="https://ztrimus.github.io/journey-of-notes/web-privacy.html">
               Privacy
             </a>

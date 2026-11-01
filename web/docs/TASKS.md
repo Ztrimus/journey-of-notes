@@ -2,6 +2,11 @@
 
 Owner: this repository. Updated 2026-11-01. This is the working source of truth for requests from the handoff, typed chat and voice session. Read it before planning or editing; update status and verification after each session. Do not silently drop deferred work. Status: TODO, IN PROGRESS, IMPLEMENTED (needs device trial), VERIFIED (named checks), DEFERRED.
 
+## Desktop skill-map sizing — issue #30
+
+- UI-09: Remove the legacy narrow-path width cap from the skill board; let desktop cards fill the content width with content-sized automatic columns. IMPLEMENTED; existing mobile two-column/narrow one-column rules retained.
+- QA-30: Browser widths 320, 390, 768, 1024, 1440 and 1920 checked: no horizontal overflow or clipped card content; board aligns with its summary. Wide desktop shows four columns, laptop three, tablet/phone two where space permits. Keyboard focus and preparation navigation checked. Production/Pages build and existing 59-test suite verified; release evidence belongs in the associated PR.
+
 ## Session closes immediately — issue #28
 
 - AUDIO-04: Replace automatic set completion on microphone/audio interruption or page hiding with a recoverable pause and explicit Resume. IMPLEMENTED; target, attempts and active elapsed time retained, capture released during pause.

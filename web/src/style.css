@@ -1344,7 +1344,9 @@ footer {
 }
 .skill-board {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  /* The board replaces the narrow legacy path; let it use the whole screen. */
+  max-width: none;
   gap: 18px;
   padding: 0;
   margin: 24px 0;

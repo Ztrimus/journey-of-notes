@@ -60,7 +60,31 @@ export function sessionMetrics(record: SessionRecord) {
   const scorable = record.attempts.filter((a) =>
     ["correct", "wrong"].includes(a.outcome),
   ).length;
+  const correctTimes = record.attempts
+    .filter(
+      (a) =>
+        a.outcome === "correct" &&
+        first.get(a.targetIndex) === "correct" &&
+        typeof a.responseMs === "number" &&
+        !a.viewChanged &&
+        !a.noteHints &&
+        !record.noteHints &&
+        record.method === "microphone" &&
+        /^[pfvgw]0$/.test(record.lessonId),
+    )
+    .map((a) => a.responseMs!);
+  const initiallyWrong = [...first.entries()]
+    .filter(([, o]) => o === "wrong")
+    .map(([index]) => index);
   return {
+    correctMedianMs: quantile(correctTimes, 0.5),
+    correctMeanMs: correctTimes.length
+      ? correctTimes.reduce((a, b) => a + b, 0) / correctTimes.length
+      : null,
+    correctTimed: correctTimes.length,
+    recovered: initiallyWrong.filter((i) => matched.has(i)).length,
+    initiallyWrong: initiallyWrong.length,
+    signalCoverage: first.size / record.targetCount,
     firstMatches,
     firstTargets: first.size,
     firstRate: first.size ? firstMatches / first.size : null,
@@ -105,4 +129,72 @@ export function mergeHistory(
   return [...current, ...added]
     .sort((a, b) => Date.parse(b.startedAt) - Date.parse(a.startedAt))
     .slice(0, 100);
+}
+
+export function skillEvidence(records: SessionRecord[], levelId: string) {
+  const ordered = [...records].sort(
+    (a, b) => Date.parse(b.startedAt) - Date.parse(a.startedAt),
+  );
+  const latest = ordered.find(
+    (r) =>
+      r.lessonId === levelId &&
+      r.method === "microphone" &&
+      !r.mixedViews &&
+      sessionMetrics(r).firstTargets > 0,
+  );
+  if (!latest)
+    return {
+      rate: null as number | null,
+      n: 0,
+      correct: 0,
+      response: null as number | null,
+      last: null as string | null,
+      recall: false,
+      delta: null as number | null,
+    };
+  const recent = records
+    .filter((r) => comparable(latest, r))
+    .sort((a, b) => Date.parse(b.startedAt) - Date.parse(a.startedAt));
+  const trials: { correct: boolean; time: number | null }[] = [];
+  for (const r of recent) {
+    const seen = new Set<number>();
+    const current: { correct: boolean; time: number | null }[] = [];
+    for (const a of r.attempts)
+      if (
+        ["correct", "wrong"].includes(a.outcome) &&
+        !seen.has(a.targetIndex)
+      ) {
+        seen.add(a.targetIndex);
+        current.push({
+          correct: a.outcome === "correct",
+          time:
+            a.outcome === "correct" &&
+            !a.viewChanged &&
+            !a.noteHints &&
+            !r.noteHints &&
+            /^[pfvgw]0$/.test(r.lessonId)
+              ? (a.responseMs ?? null)
+              : null,
+        });
+      }
+    trials.push(...current.reverse());
+  }
+  const sample = trials.slice(0, 30),
+    correct = sample.filter((t) => t.correct).length;
+  const prior = trials.slice(30, 60);
+  return {
+    rate: sample.length ? correct / sample.length : null,
+    n: sample.length,
+    correct,
+    response: quantile(
+      sample.flatMap((t) => (t.time === null ? [] : [t.time])),
+      0.5,
+    ),
+    last: latest.startedAt,
+    recall: /^[pfvgw]0$/.test(levelId) && !latest.noteHints,
+    delta:
+      sample.length === 30 && prior.length === 30
+        ? correct / 30 - prior.filter((t) => t.correct).length / 30
+        : null,
+  };
 }

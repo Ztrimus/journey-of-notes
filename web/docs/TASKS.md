@@ -1,6 +1,6 @@
 # Journey of Notes — durable product backlog
 
-Owner: this repository. Updated 2026-10-31. This is the working source of truth for requests from the handoff, typed chat and voice session. Read it before planning or editing; update status and verification after each session. Do not silently drop deferred work. Status: TODO, IN PROGRESS, IMPLEMENTED (needs device trial), VERIFIED (named checks), DEFERRED.
+Owner: this repository. Updated 2026-11-01. This is the working source of truth for requests from the handoff, typed chat and voice session. Read it before planning or editing; update status and verification after each session. Do not silently drop deferred work. Status: TODO, IN PROGRESS, IMPLEMENTED (needs device trial), VERIFIED (named checks), DEFERRED.
 
 ## Execution order
 
@@ -78,7 +78,7 @@ Journey of Notes is independent of UOPX. Apply public web/accessibility standard
 ## Phone-access and clarity follow-up — 2026-10-31
 
 - RELEASE-01: Publish the prototype on existing personal GitHub Pages, preserving privacy-policy URLs. VERIFIED: public URL and assets return HTTP 200, Pages built release 7a7b188.
-- UI-04: Piano / Flute (Bansuri) navigation plus More instruments soon on non-session pages; active sets stay focused. IMPLEMENTED.
+- UI-04: Secondary instrument navigation was implemented, then REMOVED at user request in issue #15; home remains the instrument hub.
 - HELP-01: Plain-language detector/hold explanation and cents definition on preparation. IMPLEMENTED; explain directly in chat too.
 - Terminology: Music sheet is the visible product label; internal staff identifiers remain compatible with saved records.
 
@@ -89,6 +89,34 @@ Public preview verified on 2026-10-31: https://ztrimus.github.io/journey-of-note
 - UI-05: Remove redundant home scroll-only Choose your instrument CTA; keep direct instrument cards. IMPLEMENTED; release checks below.
 - UI-06: Feedback and View share a responsive row at ordinary widths; stack only with insufficient container width. Challenge and bansuri notation retained. IMPLEMENTED.
 - EVIDENCE-01: Voice/flute can pass piano pitch validation. Source recognition research and optional MIDI/timbre approach documented. PROPOSAL ONLY; user explicitly said do not implement this part.
-- METRIC-02: Separate activity, first-detected-attempt quality, correct-response latency, recovery, delayed recall and evidence coverage. PROPOSAL ONLY; no scoring or map growth formula changed.
-- MAP-03: Compare adaptive horizontal skill board, grouped branches and swipe track; recommend wrapping board with labels under nodes and no separate arrow. PROPOSAL ONLY; agree metrics/layout before implementation.
+- METRIC-02: Separate activity, first-detected-attempt quality, correct-response latency, recovery, delayed recall and evidence coverage. APPROVED/IMPLEMENTED in issue #15 for recent quality, correct response, recovery and coverage; delayed recall probes remain TODO.
+- MAP-03: Compare adaptive horizontal skill board, grouped branches and swipe track; recommend wrapping board with labels under nodes and no separate arrow. APPROVED/IMPLEMENTED as a responsive repeatable skill board in issue #15.
 - Read progress-and-map-proposal.md before any future scoring, source-recognition or map change; do not treat the proposal as implementation authorization.
+
+## Public pilot follow-up — issue #15, 2026-11-01
+
+| ID | User request | State |
+|---|---|---|
+| CUE-01 | Original six-hole bansuri diagram with dark closed/light open/half-hole guidance, register caveat | IMPLEMENTED; teacher/device trial pending |
+| CUE-02 | Hand orientation and finger-specific cue | IMPLEMENTED as mirrored hand SVG + highlighted finger; no ambiguous/offensive emoji |
+| UI-07 | Remove home-card arrows and secondary instrument bar; hover lift only on actions | IMPLEMENTED; fine-pointer and reduced-motion rules |
+| REPORT-01 | Visual matched/wrong distribution, up to four primary metrics, secondary unclear/skips, metric help | IMPLEMENTED; synthetic/browser checked |
+| REPORT-02 | Explain guided/silent/view/hint timing exclusions and median vs average | IMPLEMENTED; actual calibration TODO |
+| REPORT-03 | Shared compact color+icon attempt grid, heard wrong note, pagination in history and results | IMPLEMENTED |
+| HISTORY-01 | Export / Clear / Import; clear only app records with safe confirmation and error handling | IMPLEMENTED; unit storage checks and browser Cancel/Escape; no user data deleted |
+| HISTORY-02 | Instrument labels, Grid/Timeline, six-set pagination, open saved full report | IMPLEMENTED |
+| METRIC-03 | Quality ring with count and comparable conditions, separate recency/activity, no wrong-set growth or fabricated decay | IMPLEMENTED; not mastery certification |
+| METRIC-04 | Personal improvement trend with evidence; no born-talent/fast-slow learner identity inference | IMPLEMENTED recent 30 vs prior 30 percentage-point change; aptitude labels intentionally excluded |
+| RETENTION-01 | Fresh unhinted probes across days for retention, and note/register breakdown with adequate samples | TODO; not implied by recent quality ring |
+| INSTRUMENT-01 | Guitar single-note starter and string/fret prompts; standard tuning, no chords/low E2 | IMPLEMENTED pilot; sounding-pitch sheet explicitly labeled |
+| INSTRUMENT-02 | Flute family → Hindustani bansuri / Western C concert flute | IMPLEMENTED, limited Western starter drills |
+| INSTRUMENT-03 | Vocal pitch starters, comfortable starting note, Western/Sargam, gentle/rest guidance | IMPLEMENTED pilot; instructor/real-voice trials TODO |
+| LAUNCH-01 | Public pilot readiness, social draft, real instrument/device and latency test instructions | DOCUMENTED in pilot-launch-plan.md; tests require owner/testers |
+| ANALYTICS-01 | Multiple lightweight visitor/funnel/replay/feedback options and recommended minimal events | RESEARCH COMPLETE; provider/account/consent setup pending, nothing activated |
+| IDENTITY-01 | Google login and database tradeoffs | RESEARCH COMPLETE; optional Firebase Auth + Firestore recommended later, not implemented |
+| BRAND-01 | Saurabh Zinjad copyright/creator credit, About/Feedback/Privacy | IMPLEMENTED; feedback uses public GitHub Issues (account required) |
+| NAV-01 | Repeat / Next skill / Practice map after a set | IMPLEMENTED; next opens preparation, no auto-start; last skill has no next |
+
+No social posts, analytics/replay scripts, OAuth projects, database accounts or microphone recording uploads were created. No private contact address was published. Source recognition remains deferred as instructed earlier. The user approved performance-ring improvements; this supersedes issue #13's proposal-only boundary for quality display and skill board, not its source-classifier boundary.
+
+- VOCAL-02: Optional reference-tone playback/ear-training. TODO: design it so the microphone cannot score speaker playback as the learner; suppress validation and timing while reference audio and its room tail play. Current vocal starters can begin from the learner’s own detected comfortable hum.

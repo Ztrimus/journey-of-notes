@@ -21,7 +21,7 @@ Open the Local URL printed by Vite, normally http://127.0.0.1:5173/. `npm run pr
 
 Home → instrument → connected activity map → set preparation → focused practice → results. History is a separate screen.
 
-- Piano and Indian bansuri each have seven repeatable skill workouts; none is permanently completed or locked.
+- Piano and Indian bansuri each have seven repeatable skill workouts. Guitar, Western C concert flute and vocals have four limited starter/pitch workouts each. None is permanently completed or locked.
 - Music sheet and microphone are defaults. Piano uses Western notation; bansuri defaults to sargam, with an optional Western sheet.
 - Compact View controls remain available during practice. Changing the cue invalidates that target's timing and marks the set as mixed-view.
 - Random reflex practice hides all upcoming targets; fixed patterns retain their defined sequence.
@@ -57,3 +57,7 @@ Hosted microphone use requires HTTPS; plain HTTP on a laptop's LAN address usual
 - [Verification evidence and limits](docs/verification.md)
 
 The original Android checkout remains separate. Personal GitHub access uses per-command authentication; no global/work authentication changes were performed.
+
+## Public pilot follow-up — issue #15
+
+Read [pilot-launch-plan.md](docs/pilot-launch-plan.md) for device/audio testing, launch claims, analytics/provider options, Google sign-in and report-design research. Results and history share compact attempt cards; history offers Grid/Timeline, pagination and a scoped Clear History confirmation. Performance rings show up to 30 comparable first-detected-attempt outcomes, with evidence count; activity is separate. Delayed recall needs a dedicated future probe. No talent labels, third-party analytics, OAuth, cloud sync or source classifier are implemented.

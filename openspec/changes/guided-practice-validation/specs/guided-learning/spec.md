@@ -87,3 +87,31 @@ The app SHALL offer confirmed chromatic Sa selection or stable pitch sampling an
 #### Scenario: Unconfirmed tonic
 - **WHEN** bansuri microphone practice has no confirmed middle Sa
 - **THEN** Start is disabled and explains how to enable practice.
+
+### Requirement: Pilot instrument modes
+The app SHALL retain existing piano/bansuri history and offer limited single-note guitar, Western C concert flute and vocal workouts with explicit technique/range limits.
+
+#### Scenario: Choose flute family
+- **WHEN** a musician selects Flute
+- **THEN** bansuri and Western concert flute choices lead to their respective notation and setup.
+
+### Requirement: Quality evidence board
+The app SHALL display recent comparable first-detected-attempt match rates with evidence counts and separate activity/recency, without volume-based success or innate-aptitude claims.
+
+#### Scenario: Repeated wrong attempts
+- **WHEN** recorded first attempts are all wrong
+- **THEN** quality remains zero despite recorded activity, and corrections do not rewrite first-attempt outcomes.
+
+### Requirement: Clear scoped history
+The app SHALL offer export, clear and import in that order, with a visible confirmation before app-history deletion and no deletion of unrelated browser data.
+
+#### Scenario: Cancel clear
+- **WHEN** the musician cancels or presses Escape in confirmation
+- **THEN** history is retained and focus returns to the clear action.
+
+### Requirement: Compact visual reports
+The app SHALL share paginated color-and-symbol attempt cards between history and results, distinguish attempts from unique targets, and explain absent response measurements.
+
+#### Scenario: Guided practice
+- **WHEN** a known-sequence guided pitch drill ends
+- **THEN** the report shows pitch outcomes and explains that surprise-response speed is not measured.

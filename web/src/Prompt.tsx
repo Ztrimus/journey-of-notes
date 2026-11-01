@@ -1,3 +1,4 @@
+import { HandCue, BansuriDiagram, GuitarDiagram } from "./InstrumentVisuals";
 import type { Target } from "./curriculum";
 import { noteName } from "./pitch";
 import { staffGeometry, type DisplayMode } from "./reflex";
@@ -157,7 +158,7 @@ export function TargetDisplay({
           <>
             <div>
               <span className="cue-icon" aria-hidden="true">
-                🖐️
+                <HandCue hand={target.hand} />
               </span>
               <small>Hand</small>
               <strong>
@@ -172,7 +173,7 @@ export function TargetDisplay({
             </div>
             <div>
               <span className="cue-icon" aria-hidden="true">
-                ☝️
+                <HandCue hand={target.hand} finger={target.finger} />
               </span>
               <small>Finger</small>
               <strong>{target.finger || "Any"}</strong>
@@ -199,21 +200,49 @@ export function TargetDisplay({
               <span className="cue-icon" aria-hidden="true">
                 ♪
               </span>
-              <small>{instrument === "flute" ? "Swar" : "Note"}</small>
-              <strong>{target.swar || name.slice(0, -1)}</strong>
-              {target.swar && <span className="cue-caption">{name}</span>}
+              <small>
+                {instrument === "flute" || notation === "sargam"
+                  ? "Swar"
+                  : "Note"}
+              </small>
+              <strong>
+                {instrument === "flute" || notation === "sargam"
+                  ? target.swar || swarForMidi(target.midi, tonic).name
+                  : name.slice(0, -1)}
+              </strong>
+              {(target.swar || notation === "sargam") && (
+                <span className="cue-caption">{name}</span>
+              )}
             </div>
           </>
         )}
       </div>
       {display !== "keyboard" &&
-        (instrument === "flute" && notation === "sargam" ? (
+        ((instrument === "flute" || instrument === "vocal") &&
+        notation === "sargam" ? (
           <Sargam target={target.midi} tonic={tonic} />
         ) : (
           <Staff target={target.midi} />
         ))}
+      {instrument === "guitar" && display !== "keyboard" && (
+        <p className="small muted">
+          Sheet shows sounding (concert) pitch in this pilot.
+        </p>
+      )}
       {display !== "staff" && instrument === "piano" && (
         <Keyboard target={target.midi} />
+      )}
+      {display !== "staff" && instrument === "flute" && (
+        <BansuriDiagram target={target.midi} tonic={tonic} />
+      )}
+      {display !== "staff" && instrument === "guitar" && (
+        <GuitarDiagram string={target.string} fret={target.fret} />
+      )}
+      {instrument === "guitar" && (
+        <p className="small">
+          String {target.string ?? "—"} ·{" "}
+          {target.fret === 0 ? "Open" : `Fret ${target.fret ?? "—"}`}
+        </p>
       )}
       {!compact && instrument === "flute" && (
         <p className="flute-context">

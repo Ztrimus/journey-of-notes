@@ -1,12 +1,15 @@
+import type { InstrumentId } from "./catalog.ts";
 export interface Target {
   midi: number;
+  string?: number;
+  fret?: number;
   hand?: "Left" | "Right";
   finger?: number;
   swar?: string;
 }
 export interface Lesson {
   id: string;
-  instrument: "piano" | "flute";
+  instrument: InstrumentId;
   title: string;
   goal: string;
   hint: string;
@@ -162,5 +165,103 @@ export function flute(tonic: number): Lesson[] {
       hold: 0.7,
       source: "Alankar & Warm up PDF p1–2: register changes",
     },
+  ];
+}
+
+// Pilot drills use single notes inside the existing detector's 100–2000 Hz range.
+export function starterLevels(
+  id: "guitar" | "western-flute" | "vocal",
+  tonic: number,
+): Lesson[] {
+  const prefix = id === "guitar" ? "g" : id === "vocal" ? "v" : "w";
+  const make = (
+    n: number,
+    title: string,
+    midis: number[],
+    hint: string,
+    targets?: Target[],
+  ): Lesson => ({
+    id: prefix + n,
+    instrument: id,
+    title,
+    goal: "One note at a time. Release between repetitions; repeat whenever useful.",
+    hint,
+    targets: targets || midis.map((midi) => ({ midi })),
+    hold: 0.4,
+    source:
+      "Original limited-range pilot pitch drills; technique requires self/teacher review",
+  });
+  if (id === "guitar")
+    return [
+      make(
+        1,
+        "High E · one string",
+        [64, 64, 64],
+        "Standard tuning: gently pluck the open first (thinnest) string, E4. Mute the others. The pilot sheet shows sounding pitch, rather than conventional octave-transposed guitar notation.",
+        [0, 0, 0].map(() => ({ midi: 64, string: 1, fret: 0 })),
+      ),
+      make(
+        2,
+        "Three open strings",
+        [55, 59, 64, 59, 55],
+        "Standard tuning: open strings 3 (G3), 2 (B3), 1 (E4). Single notes only; lower bass strings and chords are outside this pilot.",
+        [55, 59, 64, 59, 55].map((midi, i) => ({
+          midi,
+          string: [3, 2, 1, 2, 3][i],
+          fret: 0,
+        })),
+      ),
+      make(
+        3,
+        "First-string steps",
+        [64, 65, 67, 65, 64],
+        "String 1: open E4, fret 1 F4, fret 3 G4. Keep pressure comfortable; fret/string placement is not verified.",
+        [64, 65, 67, 65, 64].map((midi, i) => ({
+          midi,
+          string: 1,
+          fret: [0, 1, 3, 1, 0][i],
+        })),
+      ),
+    ];
+  if (id === "western-flute")
+    return [
+      make(
+        1,
+        "Steady B4",
+        [71, 71, 71],
+        "For C concert flute. Use your teacher's B4 fingering and comfortable air. This checks concert pitch, not embouchure or keys.",
+      ),
+      make(
+        2,
+        "B · A · G",
+        [71, 69, 67, 69, 71],
+        "Move between B4, A4 and G4, with a comfortable breath whenever needed. Use Western concert flute fingering; this is not a bansuri diagram.",
+      ),
+      make(
+        3,
+        "G major · five notes",
+        [67, 69, 71, 72, 74, 72, 71, 69, 67],
+        "Play G4 to D5 and return. Self-paced pitch only; articulation and air technique need your own check.",
+      ),
+    ];
+  return [
+    make(
+      1,
+      "A comfortable hum",
+      [tonic, tonic, tonic],
+      "Choose a comfortable starting pitch first. Hum gently; stop if uncomfortable or hoarse. No loudness, breath-length or range challenge.",
+    ),
+    make(
+      2,
+      "Three-note return",
+      [tonic, tonic + 2, tonic + 4, tonic + 2, tonic],
+      "Gently sing Do Re Mi Re Do, or Sa Re Ga Re Sa. Choose a starting note that keeps all three pitches comfortable; rest between attempts.",
+    ),
+    make(
+      3,
+      "Small pitch steps",
+      [tonic, tonic + 2, tonic, tonic - 2, tonic],
+      "Small steps around a comfortable pitch. Avoid forcing low or high notes. This measures steady pitch, not vocal health, timbre or singing ability.",
+    ),
   ];
 }

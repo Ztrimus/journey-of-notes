@@ -1,8 +1,9 @@
+import type { InstrumentId } from "./catalog.ts";
 import type { Lesson, Target } from "./curriculum.ts";
 export type Difficulty = "easy" | "medium" | "hard";
 export type DisplayMode = "keyboard" | "staff" | "both";
 export function reflexLevel(
-  instrument: "piano" | "flute",
+  instrument: InstrumentId,
   difficulty: Difficulty,
   tonic = 60,
   random = Math.random,
@@ -26,7 +27,7 @@ export function reflexLevel(
           finger: difficulty === "easy" ? 1 : hand === "Right" ? i + 1 : 5 - i,
         });
       }
-  } else {
+  } else if (instrument === "flute" || instrument === "vocal") {
     const steps =
       difficulty === "easy"
         ? [0, 2, 4]
@@ -36,6 +37,39 @@ export function reflexLevel(
     const names = ["Sa", "Re", "Ga", "Ma", "Pa", "Dha", "Ni", "Sa ↑"];
     pool = steps.map((step, i) => ({ midi: tonic + step, swar: names[i] }));
   }
+  if (instrument === "guitar")
+    pool =
+      difficulty === "hard"
+        ? [
+            { midi: 55, string: 3, fret: 0 },
+            { midi: 59, string: 2, fret: 0 },
+            { midi: 60, string: 2, fret: 1 },
+            { midi: 62, string: 2, fret: 3 },
+            { midi: 64, string: 1, fret: 0 },
+            { midi: 65, string: 1, fret: 1 },
+            { midi: 67, string: 1, fret: 3 },
+          ]
+        : (difficulty === "easy" ? [59, 64] : [55, 59, 64]).map((midi) => ({
+            midi,
+            string: midi === 55 ? 3 : midi === 59 ? 2 : 1,
+            fret: 0,
+          }));
+  if (instrument === "western-flute")
+    pool = (
+      difficulty === "easy"
+        ? [67, 69, 71]
+        : difficulty === "medium"
+          ? [67, 69, 71, 72, 74]
+          : [67, 69, 71, 72, 74, 76, 78, 79]
+    ).map((midi) => ({ midi }));
+  if (instrument === "vocal")
+    pool = (
+      difficulty === "easy"
+        ? [0, 2]
+        : difficulty === "medium"
+          ? [0, 2, 4]
+          : [-4, -2, 0, 2, 4]
+    ).map((n) => ({ midi: tonic + n }));
   const targets: Target[] = [];
   for (let i = 0; i < 10; i++) {
     const choices = pool.filter((t) => t.midi !== targets.at(-1)?.midi);
@@ -46,21 +80,29 @@ export function reflexLevel(
     targets.push({ ...choice });
   }
   return {
-    id: instrument === "piano" ? "p0" : "f0",
+    id: {
+      piano: "p0",
+      flute: "f0",
+      guitar: "g0",
+      "western-flute": "w0",
+      vocal: "v0",
+    }[instrument],
     instrument,
-    title: instrument === "piano" ? "Note reflex" : "Swar reflex",
+    title: instrument === "flute" ? "Swar reflex" : "Note reflex",
     goal: "Recognize a fresh target, play it accurately, and repeat. Ten prompts per set.",
     hint:
       instrument === "piano"
         ? "Read hand → finger → octave → note. Aim for accurate responses before faster ones. Fingering remains your own check."
-        : "Identify the swar relative to your confirmed Sa. Accuracy comes before speed; hole placement is your own check.",
+        : instrument === "flute"
+          ? "Identify the swar relative to your confirmed Sa. Accuracy comes before speed; hole placement is your own check."
+          : "Match one fresh pitch at a time. Choose a comfortable range; accuracy comes before speed. Physical technique is not verified.",
     targets,
     hold: 0.35,
     source:
       "Original repeatable retrieval drill based on the requested practice-gym model",
   };
 }
-export const isReflex = (id: string) => id === "p0" || id === "f0";
+export const isReflex = (id: string) => /^[pfvgw]0$/.test(id);
 // Diatonic geometry uses scientific pitch notation; clef is independent of hand.
 export function staffGeometry(midi: number) {
   const pc = ((midi % 12) + 12) % 12;

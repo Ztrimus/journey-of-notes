@@ -1,11 +1,13 @@
+import { useEffect, useState } from "react";
 import { counts, type SessionRecord } from "./history";
 import { sessionMetrics, comparable } from "./metrics";
 import { formatTime } from "./logic";
 import { heardName } from "./bansuri";
+import { instrumentName } from "./catalog";
 const percent = (n: number | null) =>
-  n === null ? "—" : `${Math.round(n * 100)}%`;
+  n === null ? "No evidence" : `${Math.round(n * 100)}%`;
 const seconds = (n: number | null) =>
-  n === null ? "—" : `${(n / 1000).toFixed(2)}s`;
+  n === null ? "Not measured" : `${(n / 1000).toFixed(2)}s`;
 export function Results({
   record,
   history,
@@ -14,14 +16,23 @@ export function Results({
   history: SessionRecord[];
 }) {
   const c = counts(record.attempts),
-    m = sessionMetrics(record);
+    m = sessionMetrics(record),
+    scored = c.correct + c.wrong;
   const prior = history.find(
     (r) =>
       r.id !== record.id &&
       comparable(record, r) &&
-      sessionMetrics(r).medianMs !== null,
+      sessionMetrics(r).correctMedianMs !== null,
   );
   const previous = prior ? sessionMetrics(prior) : null;
+  const reason =
+    record.method === "self-check"
+      ? "Silent practice is self-reported; pitch and speed are not measured."
+      : !/[pfvgw]0$/.test(record.lessonId)
+        ? "This guided drill measures pitch, not surprise-note response speed. Try Note reflex for timed recall."
+        : record.mixedViews
+          ? "Changing the view omits timing for affected targets."
+          : "Speed needs first-try correct microphone responses with hints off. Device delay remains uncalibrated.";
   return (
     <>
       <div className="result-banner">
@@ -29,85 +40,130 @@ export function Results({
         <div>
           <h1 tabIndex={-1}>
             {record.finished
-              ? "Another set in the bank."
-              : "Every bit of practice counts."}
+              ? "Set complete. Keep growing."
+              : "A little practice counts."}
           </h1>
           <p>
-            {record.lessonTitle} · {formatTime(record.seconds)} ·{" "}
-            {record.method === "microphone"
-              ? "Microphone trial"
-              : "Silent self-report"}
+            {instrumentName(record.instrument)} · {record.lessonTitle} ·{" "}
+            {formatTime(record.seconds)}
           </p>
         </div>
       </div>
-      <div className="score-grid">
-        <Metric
-          label="First-try match"
-          value={percent(m.firstRate)}
-          detail={`${m.firstMatches}/${m.firstTargets} targets with clear pitch evidence`}
-        />
-        <Metric
-          label="Median response"
-          value={seconds(m.medianMs)}
-          detail={`${m.timedTargets} measured targets · approximate`}
-        />
-        <Metric
-          label="Targets matched"
-          value={
-            record.method === "microphone"
-              ? `${m.matched}/${record.targetCount}`
-              : "—"
-          }
-          detail="Unique targets with matched pitch"
-        />
-        <Metric
-          label="Average response"
-          value={seconds(m.meanMs)}
-          detail="Excludes confirmation hold"
-        />
-      </div>
-      <div className="outcome-totals">
-        {[
-          ["✓", "Matched", c.correct],
-          ["×", "Wrong", c.wrong],
-          ["?", "Unclear", c.unclear],
-          ["↷", "Skipped", c.skipped],
-          ["○", "Self-reported", c["self-reported"]],
-        ].map(([icon, label, count]) => (
-          <div key={label}>
-            <span aria-hidden="true">{icon}</span>
-            <strong>{count}</strong>
-            <small>{label}</small>
+      {record.method === "microphone" ? (
+        <>
+          <div
+            className="outcome-graphic"
+            role="img"
+            aria-label={`${c.correct} matched attempts and ${c.wrong} wrong attempts; ${c.unclear} unclear, ${c.skipped} skipped.`}
+          >
+            <div className="outcome-key">
+              <span className="positive">
+                ✓ <strong>{c.correct}</strong> matched attempts{" "}
+                {scored ? `· ${Math.round((c.correct / scored) * 100)}%` : ""}
+              </span>
+              <span className="negative">
+                × <strong>{c.wrong}</strong> wrong{" "}
+                {scored ? `· ${Math.round((c.wrong / scored) * 100)}%` : ""}
+              </span>
+            </div>
+            <div className="outcome-bar" aria-hidden="true">
+              {scored ? (
+                <>
+                  <span
+                    className="match-fill"
+                    style={{ width: `${(c.correct / scored) * 100}%` }}
+                  />
+                  <span
+                    className="wrong-fill"
+                    style={{ width: `${(c.wrong / scored) * 100}%` }}
+                  />
+                </>
+              ) : (
+                <span className="no-fill" />
+              )}
+            </div>
+            <small>
+              Percentages of clear detected attempts, including retries.
+            </small>
           </div>
-        ))}
-      </div>
-      {previous && m.medianMs !== null && previous.medianMs !== null && (
-        <p className="comparison">
-          {Math.abs((m.medianMs - previous.medianMs) / 1000).toFixed(2)}s{" "}
-          {m.medianMs <= previous.medianMs ? "faster" : "slower"} than your
-          previous comparable set. Read this alongside accuracy and the number
-          of measured targets.
+          <div className="score-grid visual-scores">
+            <Metric
+              label="First-try match"
+              value={percent(m.firstRate)}
+              detail={`${m.firstMatches}/${m.firstTargets} scorable targets`}
+              help="The first stable detected pitch per target matched. Short wrong sounds may be missed. Unclear/skipped targets are reported separately; this is not anatomical technique or innate ability."
+            />
+            <Metric
+              label="Targets matched"
+              value={`${m.matched}/${record.targetCount}`}
+              detail="Including corrected targets"
+              help="Each target counts once if its pitch was eventually matched, even after retries. A matched target can still have a wrong first attempt."
+            />
+            <Metric
+              label="Retries"
+              value={`${m.retries}`}
+              detail={`${m.recovered}/${m.initiallyWrong} wrong-first targets recovered`}
+              help="Extra clear-pitch attempts after the first for a target. Recovery is a target initially wrong and later matched; it does not erase the first error."
+            />
+            {m.correctMedianMs !== null ? (
+              <Metric
+                label="Typical response"
+                value={seconds(m.correctMedianMs)}
+                detail={`${m.correctTimed} first-try correct targets`}
+                help={`Median means the middle response after sorting. It is less affected by one long pause than an average. Confirmation hold is excluded. Approximate, uncalibrated. Average for these correct responses: ${seconds(m.correctMeanMs)}.`}
+              />
+            ) : (
+              <Metric
+                label="Pitch coverage"
+                value={percent(m.signalCoverage)}
+                detail="Targets with clear evidence"
+                help="Targets with a correct or wrong stable detected attempt divided by all planned targets in the set, including an unfinished set. Missing evidence is not evidence of a wrong note."
+              />
+            )}
+          </div>
+        </>
+      ) : (
+        <p className="notice">
+          ○ {c["self-reported"]} repetitions self-reported. No measured pitch
+          score.
         </p>
       )}
+      <p className="small muted timing-reason">{reason}</p>
+      <div className="secondary-outcomes">
+        <span>? {c.unclear} unclear</span>
+        <span>↷ {c.skipped} skipped</span>
+        {c["self-reported"] > 0 && (
+          <span>○ {c["self-reported"]} self-reported</span>
+        )}
+      </div>
+      {previous &&
+        m.correctMedianMs !== null &&
+        previous.correctMedianMs !== null &&
+        Math.abs(m.correctMedianMs - previous.correctMedianMs) >= 10 && (
+          <p className="comparison">
+            Typical correct response is{" "}
+            {Math.abs(
+              (m.correctMedianMs - previous.correctMedianMs) / 1000,
+            ).toFixed(2)}
+            s{" "}
+            {m.correctMedianMs <= previous.correctMedianMs
+              ? "faster"
+              : "slower"}{" "}
+            than your last comparable set. Read with accuracy and sample count.
+          </p>
+        )}
       <details className="explanation">
-        <summary>What these numbers mean</summary>
+        <summary>How to read this report</summary>
         <p>
-          First-try match means the first scorable pitch attempt for a target
-          matched. Unclear signals, silence and skips do not count as wrong
-          notes. This is not a complete test of musical recall or technique.
+          First-try accuracy, recovery and activity measure different things. A
+          missed day does not prove lost skill. These measurements cannot
+          determine talent, learning speed relative to other people, physical
+          fingering, posture or tone quality.
         </p>
         <p>
-          Retries: {m.retries} · 90th-percentile response: {seconds(m.p90Ms)}.
-          Response times are approximate microphone estimates. Confirmation
-          includes the stability hold; response does not.{" "}
-          {record.mixedViews
-            ? "Views changed during this set. Affected targets have no speed score and this set is excluded from prior-set comparisons."
-            : "Comparisons require the same level, challenge, notation, view, hints and tonic."}
-        </p>
-        <p>
-          Microphone pitch does not verify hand, finger, posture or hole
-          placement. Silent practice is self-reported and has no pitch or
-          playing-speed score.
+          Timing appears only for random reflex sets with eligible microphone
+          evidence. Guided drills have known targets; silent clicks are not
+          playing speed. Changed views and note hints can exclude samples.
         </p>
       </details>
     </>
@@ -117,42 +173,108 @@ function Metric({
   label,
   value,
   detail,
+  help,
 }: {
   label: string;
   value: string;
   detail: string;
+  help: string;
 }) {
   return (
     <div className="score">
-      <span>{label}</span>
+      <div className="metric-heading">
+        <span>{label}</span>
+        <details className="metric-help">
+          <summary aria-label={`About ${label}`} title={`About ${label}`}>
+            i
+          </summary>
+          <p>{help}</p>
+        </details>
+      </div>
       <strong>{value}</strong>
       <small>{detail}</small>
     </div>
   );
 }
 export function AttemptList({ record }: { record: SessionRecord }) {
+  const [page, setPage] = useState(0);
+  useEffect(() => setPage(0), [record.id]);
+  const size = 12,
+    pages = Math.max(1, Math.ceil(record.attempts.length / size));
+  const symbols = {
+    correct: "✓",
+    wrong: "×",
+    unclear: "?",
+    skipped: "↷",
+    "self-reported": "○",
+  };
   return (
-    <ol className="attempt-list">
-      {record.attempts.map((a, i) => (
-        <li key={i}>
-          <strong>
-            Target {a.targetIndex + 1} ·{" "}
-            {heardName(a.target, record.instrument, record.tonic)}
-          </strong>
-          <span>
-            {a.outcome}
-            {a.detected !== null
-              ? ` · Heard ${heardName(a.detected, record.instrument, record.tonic)}`
-              : ""}
+    <div className="attempt-flow">
+      <ol className="attempt-list attempt-grid" start={page * size + 1}>
+        {record.attempts.slice(page * size, (page + 1) * size).map((a, i) => (
+          <li key={page * size + i} data-outcome={a.outcome}>
+            <div className="attempt-heading">
+              <span className="attempt-symbol" aria-hidden="true">
+                {symbols[a.outcome]}
+              </span>
+              <time>{formatTime(a.seconds)}</time>
+            </div>
+            <strong>
+              {heardName(
+                a.target,
+                record.instrument,
+                record.tonic,
+                record.notation,
+              )}
+            </strong>
+            <span className="attempt-status">
+              {a.outcome === "correct"
+                ? "Matched"
+                : a.outcome === "self-reported"
+                  ? "Self-reported"
+                  : a.outcome === "wrong"
+                    ? "Wrong pitch"
+                    : a.outcome === "skipped"
+                      ? "Skipped"
+                      : "Unclear"}
+            </span>
+            {a.detected !== null && a.outcome === "wrong" && (
+              <span>
+                Heard{" "}
+                {heardName(
+                  a.detected,
+                  record.instrument,
+                  record.tonic,
+                  record.notation,
+                )}
+              </span>
+            )}
+            {typeof a.responseMs === "number" && (
+              <small>
+                {seconds(a.responseMs)} response ·{" "}
+                {seconds(a.confirmationMs ?? null)} confirmed
+              </small>
+            )}
+          </li>
+        ))}
+      </ol>
+      {!record.attempts.length && <p>No attempts were recorded.</p>}
+      {pages > 1 && (
+        <nav className="pagination" aria-label="Attempt pages">
+          <button disabled={page === 0} onClick={() => setPage((p) => p - 1)}>
+            Previous attempts
+          </button>
+          <span role="status">
+            {page + 1}/{pages}
           </span>
-          {typeof a.responseMs === "number" && (
-            <small>
-              {seconds(a.responseMs)} response ·{" "}
-              {seconds(a.confirmationMs ?? null)} confirmation
-            </small>
-          )}
-        </li>
-      ))}
-    </ol>
+          <button
+            disabled={page + 1 >= pages}
+            onClick={() => setPage((p) => p + 1)}
+          >
+            Next attempts
+          </button>
+        </nav>
+      )}
+    </div>
   );
 }

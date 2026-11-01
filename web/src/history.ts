@@ -1,3 +1,4 @@
+import { instrumentIds } from "./catalog.ts";
 import type { Attempt } from "./validation.ts";
 export interface SessionRecord {
   mixedViews?: boolean;
@@ -37,7 +38,7 @@ export function validSession(x: unknown): x is SessionRecord {
     typeof s.id === "string" &&
     typeof s.lessonId === "string" &&
     typeof s.lessonTitle === "string" &&
-    ["piano", "flute"].includes(s.instrument) &&
+    (instrumentIds as readonly string[]).includes(s.instrument) &&
     ["microphone", "self-check"].includes(s.method) &&
     (s.tonic === null || Number.isFinite(s.tonic)) &&
     typeof s.startedAt === "string" &&
@@ -81,7 +82,9 @@ export function parseHistory(raw: string | null): SessionRecord[] {
     throw new Error(
       "Saved practice history could not be read. New results will remain available for export.",
     );
-  return data.slice(0, 100);
+  return data
+    .sort((a, b) => Date.parse(b.startedAt) - Date.parse(a.startedAt))
+    .slice(0, 100);
 }
 export function loadHistory() {
   return parseHistory(localStorage.getItem(KEY));
@@ -96,4 +99,8 @@ export function counts(attempts: Attempt[]) {
       attempts.filter((a) => a.outcome === outcome).length,
     ]),
   ) as Record<Attempt["outcome"], number>;
+}
+
+export function clearSavedHistory() {
+  localStorage.removeItem(KEY);
 }

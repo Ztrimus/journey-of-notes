@@ -20,6 +20,7 @@ import {
 import {
   loadHistory,
   saveHistory,
+  clearSavedHistory,
   parseHistory,
   type SessionRecord,
 } from "./history";
@@ -29,6 +30,8 @@ import { TargetDisplay } from "./Prompt";
 import { TonicSetup } from "./TonicSetup";
 import { ActivityMap } from "./ActivityMap";
 import { Results, AttemptList } from "./Results";
+import { HistoryPanel, ClearHistoryButton } from "./HistoryPanel";
+import { instrumentName } from "./catalog";
 import { heardName } from "./bansuri";
 import type { Lesson } from "./curriculum";
 import "./style.css";
@@ -48,7 +51,9 @@ function App() {
   const [notation, setNotation] = useState<"western" | "sargam">(() =>
     parseRoute(location.hash).instrument === "flute" ? "sargam" : "western",
   );
-  const [tonic, setTonic] = useState(67);
+  const [tonic, setTonic] = useState(
+    parseRoute(location.hash).instrument === "vocal" ? 60 : 67,
+  );
   const [tonicConfirmed, setTonicConfirmed] = useState(false);
   const [tonicListening, setTonicListening] = useState(false);
   const [records, setRecords] = useState<SessionRecord[]>([]);
@@ -98,7 +103,9 @@ function App() {
   }
   const practice = usePractice((record) => {
     setSummary(record);
-    const next = [record, ...recordStore.current].slice(0, 100);
+    const next = [record, ...recordStore.current]
+      .sort((a, b) => Date.parse(b.startedAt) - Date.parse(a.startedAt))
+      .slice(0, 100);
     recordStore.current = next;
     setRecords(next);
     if (readable.current) {
@@ -131,7 +138,9 @@ function App() {
       recordStore.current = saved;
       setRecords(saved);
       const latest = saved.find(
-        (r) => r.instrument === "flute" && r.tonic !== null,
+        (r) =>
+          r.instrument === parseRoute(location.hash).instrument &&
+          r.tonic !== null,
       );
       if (latest?.tonic !== null && latest?.tonic !== undefined)
         setTonic(latest.tonic);
@@ -160,6 +169,18 @@ function App() {
     };
   }, []);
   useEffect(() => {
+    if (
+      route.screen !== "results" &&
+      instruments[route.instrument].needsTonic
+    ) {
+      const saved = recordStore.current.find(
+        (r) => r.instrument === route.instrument && r.tonic !== null,
+      );
+      setTonic(saved?.tonic ?? (route.instrument === "vocal" ? 60 : 67));
+      setTonicConfirmed(false);
+    }
+  }, [route.instrument]);
+  useEffect(() => {
     if (route.screen === "prepare") {
       setMethod("microphone");
       setDisplay("staff");
@@ -168,7 +189,7 @@ function App() {
     }
   }, [route.screen, route.instrument, route.levelId]);
   useEffect(() => {
-    document.title = `${{ home: "Practice gym", map: `${instrument.name} practice map`, prepare: "Prepare your set", session: "Practice", results: "Your results", history: "Practice history" }[route.screen]} — Journey of Notes`;
+    document.title = `${{ home: "Practice gym", flutes: "Choose a flute", about: "About", map: `${instrument.name} practice map`, prepare: "Prepare your set", session: "Practice", results: "Your results", history: "Practice history" }[route.screen]} — Journey of Notes`;
     if (route.screen !== "session") {
       window.scrollTo({ top: 0, behavior: "auto" });
       const heading = main.current?.querySelector<HTMLElement>("h1");
@@ -188,6 +209,13 @@ function App() {
     };
   }, [route.screen, practice.phase, practice.index, display]);
   function chooseInstrument(id: InstrumentId) {
+    if (instruments[id].needsTonic) {
+      const latest = recordStore.current.find(
+        (r) => r.instrument === id && r.tonic !== null,
+      );
+      setTonic(latest?.tonic ?? (id === "vocal" ? 60 : 67));
+      setTonicConfirmed(false);
+    }
     setMethod("microphone");
     setDisplay("staff");
     setNotation(instruments[id].notation);
@@ -219,6 +247,23 @@ function App() {
   function changeView(value: DisplayMode) {
     setDisplay(value);
     practice.changeDisplay(value);
+  }
+  function clearHistory() {
+    try {
+      clearSavedHistory();
+      recordStore.current = [];
+      setRecords([]);
+      setSummary(null);
+      readable.current = true;
+      setStorageMessage("");
+      setImportMessage("History cleared in this browser.");
+      return true;
+    } catch {
+      setStorageMessage(
+        "History could not be cleared. Existing records are unchanged.",
+      );
+      return false;
+    }
   }
   function exportData() {
     const blob = new Blob(
@@ -274,6 +319,7 @@ function App() {
     (instrument.needsTonic && method === "microphone" && !tonicConfirmed);
   const todaySets = records.filter(
     (r) =>
+      r.instrument === route.instrument &&
       new Date(r.startedAt).toDateString() === new Date().toDateString() &&
       r.attempts.length > 0,
   ).length;
@@ -332,29 +378,6 @@ function App() {
             </button>
           )}
         </header>
-        {!live && (
-          <nav className="instrument-nav" aria-label="Instruments">
-            {Object.values(instruments).map((item) => (
-              <a
-                key={item.id}
-                href={`#/map/${item.id}`}
-                aria-current={
-                  route.screen !== "home" && route.instrument === item.id
-                    ? "true"
-                    : undefined
-                }
-                onClick={(event) => {
-                  event.preventDefault();
-                  chooseInstrument(item.id);
-                }}
-              >
-                <span aria-hidden="true">{item.symbol}</span>{" "}
-                {item.id === "flute" ? "Flute · Bansuri" : item.name}
-              </a>
-            ))}
-            <span className="instruments-soon">More instruments soon</span>
-          </nav>
-        )}
         <main
           id="main"
           tabIndex={-1}
@@ -380,6 +403,10 @@ function App() {
                   A quiet space to train your ear, sharpen your reflexes, and
                   keep your skills moving.
                 </p>
+                <p className="pilot-label">
+                  Public pilot · One note at a time. Pitch accuracy and response
+                  estimates vary by device.
+                </p>
                 <div className="hero-notes" aria-hidden="true">
                   <span>Sa</span>
                   <span>♪</span>
@@ -395,11 +422,24 @@ function App() {
                   What will you play today?
                 </h2>
                 <div className="instrument-grid">
-                  {Object.values(instruments).map((item) => (
+                  {[
+                    instruments.piano,
+                    instruments.guitar,
+                    {
+                      ...instruments.flute,
+                      name: "Flute",
+                      subtitle: "Bansuri or Western concert flute",
+                    },
+                    instruments.vocal,
+                  ].map((item) => (
                     <button
                       className="instrument-choice"
                       key={item.id}
-                      onClick={() => chooseInstrument(item.id)}
+                      onClick={() =>
+                        item.id === "flute"
+                          ? go("flutes")
+                          : chooseInstrument(item.id)
+                      }
                     >
                       <span
                         className={`instrument-symbol ${item.id}`}
@@ -409,9 +449,6 @@ function App() {
                       </span>
                       <strong>{item.name}</strong>
                       <small>{item.subtitle}</small>
-                      <span className="choice-arrow" aria-hidden="true">
-                        ↗
-                      </span>
                     </button>
                   ))}
                 </div>
@@ -420,6 +457,79 @@ function App() {
                   browser.
                 </p>
               </section>
+            </>
+          )}
+          {route.screen === "flutes" && (
+            <>
+              <button className="back-link" onClick={() => go("home")}>
+                ← Instruments
+              </button>
+              <h1 tabIndex={-1}>Which flute will you play?</h1>
+              <p>Each has its own notation, setup and fingering conventions.</p>
+              <div className="instrument-grid">
+                {[instruments.flute, instruments["western-flute"]].map(
+                  (item) => (
+                    <button
+                      key={item.id}
+                      className="instrument-choice"
+                      onClick={() => chooseInstrument(item.id)}
+                    >
+                      <span aria-hidden="true" className="instrument-symbol">
+                        ♪
+                      </span>
+                      <strong>{item.name}</strong>
+                      <small>{item.subtitle}</small>
+                    </button>
+                  ),
+                )}
+              </div>
+            </>
+          )}
+          {route.screen === "about" && (
+            <>
+              <h1 tabIndex={-1}>Small sets. Musical growth.</h1>
+              <p>
+                Journey of Notes is a personal project by Saurabh Zinjad: a
+                practice gym for repeatable music skills, available in your
+                browser.
+              </p>
+              <h2>A public pilot</h2>
+              <p>
+                Piano and bansuri have guided and random pitch drills. Guitar, C
+                concert flute and vocals have limited starter drills. We check
+                one pitch at a time; this is not a full music course or a
+                substitute for a teacher.
+              </p>
+              <p>
+                Microphone processing stays in this browser. It cannot verify
+                which instrument, hand or finger made a sound, breath technique,
+                vocal health, chords or rhythm. Response times remain
+                approximate and uncalibrated.
+              </p>
+              <h2>Your history belongs to this browser</h2>
+              <p>
+                No account is needed. Export/import transfers a backup manually;
+                there is no automatic cloud sync, analytics or session replay.
+              </p>
+              <h2>Help shape the next set</h2>
+              <p>
+                <a href="https://github.com/Ztrimus/journey-of-notes/issues/new?title=Pilot%20feedback">
+                  Send feedback on GitHub
+                </a>{" "}
+                (public; GitHub account required). Include device/browser,
+                instrument, drill, expected and heard note, and whether the
+                problem repeats. Do not include private recordings or
+                credentials.
+              </p>
+              <p>
+                <a href="https://www.nidcd.nih.gov/health/taking-care-your-voice">
+                  Voice care guidance
+                </a>{" "}
+                ·{" "}
+                <a href="https://bansuri.com/learn-bansuri/swaras-symbols/">
+                  Bansuri fingering convention
+                </a>
+              </p>
             </>
           )}
           {route.screen === "map" && (
@@ -439,7 +549,7 @@ function App() {
                   <strong>{todaySets}</strong> sets today
                 </span>
                 <span className="map-legend">
-                  Rings show active days in the last week.
+                  Rings show recent first-try pitch matches.
                 </span>
               </div>
               <ActivityMap
@@ -450,10 +560,13 @@ function App() {
               <details className="explanation">
                 <summary>How the map works</summary>
                 <p>
-                  A ring fills for the days you practiced a skill in the last
-                  seven days. Connections grow with recent sets. This shows
-                  practice activity, not certified skill or measured forgetting.
-                  Silent practice counts as activity, but not pitch evidence.
+                  Rings show first detected attempt accuracy over up to 30
+                  recent comparable targets, with the evidence count below. An
+                  empty neutral ring means no measured evidence; 0% means
+                  measured attempts did not match. A full ring is not permanent
+                  completion. Active days are separate. Missing days do not
+                  reduce accuracy automatically. Skills remain available to
+                  repeat; no score estimates innate talent.
                 </p>
               </details>
             </>
@@ -539,6 +652,7 @@ function App() {
                   onChange={setTonic}
                   onConfirm={setTonicConfirmed}
                   onListening={setTonicListening}
+                  vocal={route.instrument === "vocal"}
                 />
               )}
               <button
@@ -553,7 +667,7 @@ function App() {
                 {tonicListening
                   ? "Finish or stop Sa detection before starting."
                   : blocked
-                    ? "Confirm your middle Sa above to enable practice."
+                    ? "Confirm your comfortable starting note above to enable practice."
                     : method === "microphone"
                       ? "Your browser asks for microphone permission after you press Start."
                       : "No microphone. You will mark each note practiced yourself."}
@@ -566,7 +680,7 @@ function App() {
                       ? difficulty === "easy"
                         ? "Easy uses C4, D4 and E4 with the right thumb. Medium adds the C4–G4 five-finger position. Hard mixes C3–G5 and hands."
                         : "Medium widens the note pool. Hard adds lower and higher register positions. All sets remain available to repeat."
-                      : "Swar recall starts with Sa, Re and Ga, then expands the register."
+                      : "Recall starts with a small note pool. Guitar uses three open treble strings; vocals use a comfortable starting note."
                     : "This is a self-paced pitch exercise. Its order is deliberate; it does not score surprise-note response time."}
                 </p>
                 <p>
@@ -680,6 +794,7 @@ function App() {
                           practice.snapshot.pitch.midi,
                           route.instrument,
                           options.tonic,
+                          options.notation,
                         )
                       : "—"}
                   </strong>
@@ -771,6 +886,31 @@ function App() {
                     >
                       Repeat this skill ↻
                     </button>
+                    {(() => {
+                      const choices = orderedLevels(
+                        summary.instrument as InstrumentId,
+                        summary.tonic ?? tonic,
+                        difficulty,
+                      );
+                      const next =
+                        choices[
+                          choices.findIndex((l) => l.id === summary.lessonId) +
+                            1
+                        ];
+                      return next ? (
+                        <button
+                          onClick={() =>
+                            go(
+                              "prepare",
+                              summary.instrument as InstrumentId,
+                              next.id,
+                            )
+                          }
+                        >
+                          Next skill
+                        </button>
+                      ) : null;
+                    })()}
                     <button
                       onClick={() =>
                         go("map", summary.instrument as InstrumentId)
@@ -813,6 +953,10 @@ function App() {
                 <button disabled={!records.length} onClick={exportData}>
                   Export backup
                 </button>
+                <ClearHistoryButton
+                  disabled={!records.length && readable.current}
+                  onClear={clearHistory}
+                />
                 <label className="file-button">
                   Import backup
                   <input
@@ -826,17 +970,45 @@ function App() {
                 {importMessage ||
                   "Latest 100 sessions retained. Browser clearing or private mode can remove data. No audio is stored."}
               </p>
-              <History records={records} />
+              <HistoryPanel
+                records={records}
+                onReview={(record) => {
+                  if (record.tonic !== null) {
+                    setTonic(record.tonic);
+                    setTonicConfirmed(false);
+                  }
+                  setDifficulty(record.difficulty ?? "easy");
+                  setSummary(record);
+                  go(
+                    "results",
+                    record.instrument as InstrumentId,
+                    record.lessonId,
+                  );
+                }}
+              />
             </>
           )}
         </main>
         {!live && (
           <footer>
-            <span>Journey of Notes</span>
+            <span>
+              © {new Date().getFullYear()} Saurabh Zinjad · Journey of Notes
+            </span>
             <a href="https://ztrimus.github.io/journey-of-notes/web-privacy.html">
               Privacy
             </a>
-            <span>Small sets. Steady practice.</span>
+            <a
+              href="#/about/piano"
+              onClick={(e) => {
+                e.preventDefault();
+                go("about");
+              }}
+            >
+              About
+            </a>
+            <a href="https://github.com/Ztrimus/journey-of-notes/issues/new?title=Pilot%20feedback">
+              Feedback
+            </a>
           </footer>
         )}
       </div>
@@ -864,46 +1036,17 @@ function ViewSelect({
       >
         <option value="staff">Music sheet</option>
         <option value="keyboard">
-          {instrument === "piano" ? "Key diagram" : "Swar cue"}
+          {instrument === "piano"
+            ? "Key diagram"
+            : instrument === "flute"
+              ? "Hole diagram"
+              : instrument === "guitar"
+                ? "Fretboard"
+                : "Note cue"}
         </option>
         <option value="both">Both</option>
       </select>
     </div>
-  );
-}
-function History({ records }: { records: SessionRecord[] }) {
-  const [limit, setLimit] = useState(10);
-  return (
-    <>
-      {!records.length && (
-        <p>No saved sets yet. Choose an instrument to start.</p>
-      )}
-      {records.slice(0, limit).map((record) => (
-        <HistoryCard key={record.id} record={record} />
-      ))}
-      {records.length > limit && (
-        <button onClick={() => setLimit((n) => n + 10)}>Show more sets</button>
-      )}
-    </>
-  );
-}
-function HistoryCard({ record }: { record: SessionRecord }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <article className="history-card">
-      <div>
-        <h2>{record.lessonTitle}</h2>
-        <p>
-          {new Date(record.startedAt).toLocaleString()} ·{" "}
-          {record.method === "microphone" ? "Microphone" : "Silent practice"} ·{" "}
-          {record.finished ? "Set finished" : "Ended early"}
-        </p>
-      </div>
-      <details onToggle={(e) => setOpen(e.currentTarget.open)}>
-        <summary>View {record.attempts.length} attempts</summary>
-        {open && <AttemptList record={record} />}
-      </details>
-    </article>
   );
 }
 createRoot(document.getElementById("root")!).render(<App />);

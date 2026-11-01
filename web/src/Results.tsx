@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+export { AttemptList } from "./AttemptTrail";
 import { counts, type SessionRecord } from "./history";
 import { sessionMetrics, comparableResponse, attemptShares } from "./metrics";
 import { MetricHelp } from "./MetricHelp";
 import { isReflex } from "./reflex";
 import { formatTime } from "./logic";
-import { heardName } from "./bansuri";
 import { instrumentName } from "./catalog";
 const percent = (n: number | null) =>
   n === null ? "—" : `${Math.round(n * 100)}%`;
@@ -222,88 +221,6 @@ function Metric({
       </div>
       <strong>{value}</strong>
       <small>{detail}</small>
-    </div>
-  );
-}
-export function AttemptList({ record }: { record: SessionRecord }) {
-  const [page, setPage] = useState(0);
-  useEffect(() => setPage(0), [record.id]);
-  const size = 12,
-    pages = Math.max(1, Math.ceil(record.attempts.length / size));
-  const symbols = {
-    correct: "✓",
-    wrong: "×",
-    unclear: "?",
-    skipped: "↷",
-    "self-reported": "○",
-  };
-  return (
-    <div className="attempt-flow">
-      <ol className="attempt-list attempt-grid" start={page * size + 1}>
-        {record.attempts.slice(page * size, (page + 1) * size).map((a, i) => (
-          <li key={page * size + i} data-outcome={a.outcome}>
-            <div className="attempt-heading">
-              <span className="attempt-symbol" aria-hidden="true">
-                {symbols[a.outcome]}
-              </span>
-              <time>{formatTime(a.seconds)}</time>
-            </div>
-            <strong>
-              {heardName(
-                a.target,
-                record.instrument,
-                record.tonic,
-                record.notation,
-              )}
-            </strong>
-            <span className="attempt-status">
-              {a.outcome === "correct"
-                ? "Matched"
-                : a.outcome === "self-reported"
-                  ? "Self-reported"
-                  : a.outcome === "wrong"
-                    ? "Wrong pitch"
-                    : a.outcome === "skipped"
-                      ? "Skipped"
-                      : "Unclear"}
-            </span>
-            {a.detected !== null && a.outcome === "wrong" && (
-              <span>
-                Heard{" "}
-                {heardName(
-                  a.detected,
-                  record.instrument,
-                  record.tonic,
-                  record.notation,
-                )}
-              </span>
-            )}
-            {typeof a.responseMs === "number" && (
-              <small>
-                {seconds(a.responseMs)} response ·{" "}
-                {seconds(a.confirmationMs ?? null)} confirmed
-              </small>
-            )}
-          </li>
-        ))}
-      </ol>
-      {!record.attempts.length && <p>No attempts were recorded.</p>}
-      {pages > 1 && (
-        <nav className="pagination" aria-label="Attempt pages">
-          <button disabled={page === 0} onClick={() => setPage((p) => p - 1)}>
-            Previous attempts
-          </button>
-          <span role="status">
-            {page + 1}/{pages}
-          </span>
-          <button
-            disabled={page + 1 >= pages}
-            onClick={() => setPage((p) => p + 1)}
-          >
-            Next attempts
-          </button>
-        </nav>
-      )}
     </div>
   );
 }

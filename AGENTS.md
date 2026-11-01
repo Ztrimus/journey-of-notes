@@ -8,6 +8,10 @@ Project-level memory for AI coding agents. Update this file whenever a significa
 
 Read `web/docs/report-response-decisions.md` before changing report metrics. New guided microphone sets can store approximate unhinted first-try response evidence using `responseProtocol: prompt-v2`; guided response is not surprise-note reflex speed. Preserve old records without backfilling, exclude corrected first errors/hints/cue changes from the primary average, and compare response protocols separately. Keep attempts distinct from unique targets. Tooltips float without reflow and support hover, focus, touch and Escape. Public copy explains practical use and honest limits, without algorithm names/internal thresholds; the repository and browser code remain public. Share only the public project link/caption, never a learner's records, and never post automatically.
 
+### Compact history — issue #24
+
+Use one date-grouped history timeline; the owner removed the grid/layout switch. Attempts in both results and history use the shared circular note trail with outcome symbol/color, elapsed time and selected details. Keep full Sargam/register and heard-note evidence accessible, comfortable touch targets, explicit list semantics, and pagination focus. Read `web/docs/compact-history-design.md` before reintroducing cards or expanding repeated content. Preserve history/schema/metrics and all backup safeguards. Use scoped, bounded visual verification; do not publish temporary synthetic QA entry points or data.
+
 ---
 
 ## Development Workflow — Non-Negotiable Rules

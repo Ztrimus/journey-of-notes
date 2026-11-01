@@ -2,7 +2,16 @@
 
 Owner: this repository. Updated 2026-11-01. This is the working source of truth for requests from the handoff, typed chat and voice session. Read it before planning or editing; update status and verification after each session. Do not silently drop deferred work. Status: TODO, IN PROGRESS, IMPLEMENTED (needs device trial), VERIFIED (named checks), DEFERRED.
 
-## Current report/About follow-up — issue #22
+## Mobile density follow-up — issue #24
+
+- HISTORY-03: Remove grid layout and switch; compact date-grouped timeline with clickable score circles/titles and retained instrument/evidence. IMPLEMENTED.
+- ATTEMPTS-01: Shared circular note trail in history/results; visible time and outcome symbols, full heard-note/timing details on selection. IMPLEMENTED; microphone-only timing display, no self-report speed claim.
+- HISTORY-04: Compact history heading/backup row; move storage help into disclosure and preserve clear safeguards. IMPLEMENTED.
+- ACCESS-24: List semantics, full note/outcome names, keyboard selection and pagination focus. IMPLEMENTED; real phone/assistive-technology follow-up remains open.
+- REFERENCE-24: Three design articles reviewed and applied; two YouTube pages opened but transcripts unavailable. DOCUMENTED in `compact-history-design.md`.
+- QA-24: 54 tests/build passed; synthetic phone/desktop review and final confirmation recorded in `verification.md`. Associated PR carries Pages deployment evidence.
+
+## Report/About follow-up — issue #22
 
 - REPORT-04: Floating metric tooltips without card expansion. IMPLEMENTED; keyboard focus, click toggle, Escape and 320/390px positioning checked. Pointer-hover persistence and assistive technology remain manual device follow-up.
 - REPORT-05: Compact matched/wrong ring among four primary cards; rounded shares total 100%. Unique-target count/coverage moved to explanation. IMPLEMENTED; zero/all-wrong/hinted/legacy/silent synthetic cases checked.

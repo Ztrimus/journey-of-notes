@@ -993,14 +993,10 @@ function App() {
               <button className="back-link" onClick={() => go("map")}>
                 ← Practice map
               </button>
-              <div className="page-intro">
-                <p className="eyebrow">KEEP YOUR MOMENTUM</p>
-                <h1 tabIndex={-1}>Practice history.</h1>
-                <p>
-                  Saved in this browser. Bring a backup when you move to another
-                  device or website.
-                </p>
-              </div>
+              <h1 tabIndex={-1}>Practice history</h1>
+              <p className="history-storage-note">
+                Saved in this browser · no audio stored.
+              </p>
               <div className="backup-actions">
                 <button disabled={!records.length} onClick={exportData}>
                   Export backup
@@ -1018,10 +1014,20 @@ function App() {
                   />
                 </label>
               </div>
-              <p className="small muted" role="status">
-                {importMessage ||
-                  "Latest 100 sessions retained. Browser clearing or private mode can remove data. No audio is stored."}
-              </p>
+              <details className="backup-help">
+                <summary>Storage &amp; backup help</summary>
+                <p>
+                  The latest 100 sets stay in this browser. Export a backup
+                  before clearing browser data or moving to another device.
+                  Import merges a backup with your saved sets. Private mode may
+                  remove history when closed.
+                </p>
+              </details>
+              {importMessage && (
+                <p className="small muted" role="status">
+                  {importMessage}
+                </p>
+              )}
               <HistoryPanel
                 records={records}
                 onReview={(record) => {

@@ -14,6 +14,7 @@ export interface Options {
   click: boolean;
   threshold: number;
 }
+export type AudioInterruption = "microphone-ended" | "audio-paused";
 
 export class PracticeAudio {
   private context: AudioContext | null = null;
@@ -21,13 +22,20 @@ export class PracticeAudio {
   private timer = 0;
   private frame = 0;
   private cancelled = false;
+  private interruptionSent = false;
+  private cleanups: (() => void)[] = [];
   private snapshot: Snapshot = { seconds: 0, beats: 0, onsets: 0, level: 0 };
 
   async start(
     options: Options,
     update: (snapshot: Snapshot) => void,
-    interrupted: () => void,
+    interrupted: (reason: AudioInterruption) => void,
   ) {
+    const notify = (reason: AudioInterruption) => {
+      if (this.cancelled || this.interruptionSent) return;
+      this.interruptionSent = true;
+      interrupted(reason);
+    };
     if (!window.AudioContext)
       throw new Error(
         "This browser does not support Web Audio. Try a current Safari or Chrome browser.",
@@ -55,9 +63,19 @@ export class PracticeAudio {
         return;
       }
       this.stream = stream;
-      stream
-        .getAudioTracks()
-        .forEach((track) => track.addEventListener("ended", interrupted));
+      const tracks = stream.getAudioTracks();
+      if (
+        !tracks.length ||
+        tracks.some((track) => track.readyState === "ended")
+      )
+        throw new Error(
+          "The microphone connection ended. Reconnect it and try again.",
+        );
+      tracks.forEach((track) => {
+        const ended = () => notify("microphone-ended");
+        track.addEventListener("ended", ended);
+        this.cleanups.push(() => track.removeEventListener("ended", ended));
+      });
       analyser = context.createAnalyser();
       analyser.fftSize = 2048;
       context.createMediaStreamSource(stream).connect(analyser);
@@ -69,10 +87,10 @@ export class PracticeAudio {
     if (this.cancelled) return;
     if (context.state !== "running")
       throw new Error(
-        "Audio is paused by the browser. End this session, then press Start practice again.",
+        "Audio is paused by the browser. Return to this tab and try again.",
       );
     context.onstatechange = () => {
-      if (!this.cancelled && context.state !== "running") interrupted();
+      if (context.state !== "running") notify("audio-paused");
     };
     const start = context.currentTime + (options.click ? 0.12 : 0);
     let nextBeat = start;
@@ -140,10 +158,14 @@ export class PracticeAudio {
     this.cancelled = true;
     clearInterval(this.timer);
     cancelAnimationFrame(this.frame);
+    this.cleanups.forEach((cleanup) => cleanup());
+    this.cleanups = [];
+    if (this.context) this.context.onstatechange = null;
     this.stream?.getTracks().forEach((track) => track.stop());
+    this.stream = null;
     if (this.context) {
-      this.context.onstatechange = null;
       void this.context.close().catch(() => {});
+      this.context = null;
     }
     return { ...this.snapshot };
   }

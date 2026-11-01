@@ -816,10 +816,21 @@ function App() {
                   <div className="waiting-prompt">
                     <span aria-hidden="true">♪</span>
                     <h2>
-                      {practice.error
-                        ? "Let’s try that again."
-                        : "Getting ready to listen…"}
+                      {practice.phase === "paused"
+                        ? "Practice paused"
+                        : practice.error
+                          ? "Let’s try that again."
+                          : "Getting ready to listen…"}
                     </h2>
+                    {practice.phase === "paused" && (
+                      <button
+                        className="primary"
+                        autoFocus
+                        onClick={() => void practice.resume()}
+                      >
+                        Resume practice
+                      </button>
+                    )}
                   </div>
                 )}
               </div>
@@ -861,22 +872,26 @@ function App() {
               {practice.error && (
                 <div className="notice" role="alert">
                   <p>{practice.error}</p>
-                  <button onClick={() => void practice.start(options)}>
-                    Retry microphone
-                  </button>
-                  <button
-                    onClick={() => {
-                      const silent = {
-                        ...options,
-                        method: "self-check" as const,
-                      };
-                      setMethod("self-check");
-                      setOptions(silent);
-                      void practice.start(silent);
-                    }}
-                  >
-                    Practice silently
-                  </button>
+                  {practice.phase !== "paused" && (
+                    <>
+                      <button onClick={() => void practice.start(options)}>
+                        Retry microphone
+                      </button>
+                      <button
+                        onClick={() => {
+                          const silent = {
+                            ...options,
+                            method: "self-check" as const,
+                          };
+                          setMethod("self-check");
+                          setOptions(silent);
+                          void practice.start(silent);
+                        }}
+                      >
+                        Practice silently
+                      </button>
+                    </>
+                  )}
                 </div>
               )}
               <div className="session-actions">
@@ -888,7 +903,7 @@ function App() {
                     Mark practiced
                   </button>
                 )}
-                {practice.accepted && (
+                {practice.phase === "running" && practice.accepted && (
                   <button className="primary" onClick={practice.next}>
                     Next note
                   </button>

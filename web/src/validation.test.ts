@@ -9,6 +9,23 @@ const pitch = (midi: number, confidence = 0.99) => ({
   confidence,
   hz: midiToHz(midi),
 });
+test("interruption breaks a partial hold without manufacturing a second sustained wrong attempt", () => {
+  const correct = new NoteValidator(60, 0.35);
+  correct.ingest(pitch(60), 0.2, 0);
+  correct.ingest(pitch(60), 0.2, 0.25);
+  correct.interrupt();
+  assert.equal(correct.ingest(pitch(60), 0.2, 0.25), null);
+  assert.equal(correct.ingest(pitch(60), 0.2, 0.5), null);
+  assert.equal(correct.ingest(pitch(60), 0.2, 0.61)?.outcome, "correct");
+  const wrong = new NoteValidator(60);
+  wrong.ingest(pitch(62), 0.2, 0);
+  wrong.ingest(pitch(62), 0.2, 0.1);
+  wrong.ingest(pitch(62), 0.2, 0.2);
+  assert.equal(wrong.ingest(pitch(62), 0.2, 0.31)?.outcome, "wrong");
+  wrong.interrupt();
+  assert.equal(wrong.ingest(pitch(62), 0.2, 0.31), null);
+  assert.equal(wrong.ingest(pitch(62), 0.2, 0.7), null);
+});
 function wave(midi: number, rate = 44100, harmonics = false) {
   return Float32Array.from(
     { length: 2048 },

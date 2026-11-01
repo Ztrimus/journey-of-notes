@@ -25,7 +25,11 @@ The visual baseline uses two animation-frame callbacks following the prompt stat
 
 New sets marked `responseProtocol: prompt-v2` capture guided responses as well as random recall. Guided sequences can be anticipated, so their response estimates are never called surprise-note reflex scores. Older guided records without this marker retain no response score; nothing is backfilled. Signals observed before the presentation baseline, unclear audio, skipped targets and self-report button presses do not acquire instrument response scores.
 
-Each attempt retains response and confirmation durations. The report shows the average among first-try correct, unhinted microphone targets with unchanged cues, alongside the sample count. A corrected first error never improves this speed metric. Median (middle value) is in the tooltip. Response comparisons require the same timing protocol and comparable drill/settings. Skill-board reflex trends remain random-only. Wrong/unclear/skipped/self-reported categories and old history remain distinct and readable.
+Each attempt retains eligible response and confirmation durations. The report shows the average among first-try correct, unhinted microphone targets with unchanged cues and uninterrupted presentation, alongside the sample count. A corrected first error never improves this speed metric. Median (middle value) is in the tooltip. Response comparisons require the same timing protocol and comparable drill/settings. Skill-board reflex trends remain random-only. Wrong/unclear/skipped/self-reported categories and old history remain distinct and readable.
+
+## Pausing and resuming — issue #28
+
+Microphone disconnection, browser audio interruption and page hiding pause the current set rather than produce a results page. Capture stops while paused. Resume reconnects from a user gesture and keeps the same note, attempts and active elapsed time; pause duration is excluded. A partial confirmation hold restarts, and an already accepted note remains accepted. An interrupted, not-yet-accepted target receives no response/confirmation score, because the prompt is no longer a continuous timing trial. Later untouched targets remain eligible. End set, leaving the page and app navigation still finish/save normally. See `session-lifecycle.md` for lifecycle guards and verification.
 
 ## Verification
 

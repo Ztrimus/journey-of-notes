@@ -1,6 +1,10 @@
 import type { Pitch } from "./pitch.ts";
 export type Outcome =
-  "correct" | "wrong" | "unclear" | "skipped" | "self-reported";
+  | "correct"
+  | "wrong"
+  | "unclear"
+  | "skipped"
+  | "self-reported";
 export interface Attempt {
   displayMode?: "keyboard" | "staff" | "both";
   noteHints?: boolean;
@@ -23,6 +27,7 @@ export class NoteValidator {
   private emitted = false;
   private complete = false;
   private lastTime: number | null = null;
+  private interrupted = false;
   private target: number;
   private hold: number;
   private targetIndex: number;
@@ -31,8 +36,16 @@ export class NoteValidator {
     this.hold = hold;
     this.targetIndex = targetIndex;
   }
+  interrupt() {
+    this.interrupted = true;
+    this.lastTime = null;
+  }
   ingest(pitch: Pitch | null, level: number, seconds: number): Attempt | null {
     if (this.complete) return null;
+    if (this.interrupted) {
+      this.since = seconds;
+      this.interrupted = false;
+    }
     if (this.lastTime !== null && seconds - this.lastTime > 0.25)
       this.since = seconds;
     this.lastTime = seconds;

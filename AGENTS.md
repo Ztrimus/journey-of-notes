@@ -4,6 +4,10 @@
 
 Project-level memory for AI coding agents. Update this file whenever a significant architectural decision is made or a future sprint is scoped.
 
+### Recoverable session interruptions — issue #28
+
+Microphone track loss, paused browser audio and page hiding pause practice with explicit Resume; they must not finish/save a set. Release capture while paused, keep the current target/attempts and active elapsed time, and reconnect only on Resume. End set, actual page departure and navigation still end/save. Guard callbacks by both run and capture identity and detach listeners before stopping tracks. Interrupted unconfirmed targets lose response timing; accepted evidence remains valid, and later untouched targets can be timed. Read `web/docs/session-lifecycle.md` before changing these paths. Phone/instrument calibration remains separate from lifecycle verification.
+
 ### Compact reports and public copy — issue #22
 
 Read `web/docs/report-response-decisions.md` before changing report metrics. New guided microphone sets can store approximate unhinted first-try response evidence using `responseProtocol: prompt-v2`; guided response is not surprise-note reflex speed. Preserve old records without backfilling, exclude corrected first errors/hints/cue changes from the primary average, and compare response protocols separately. Keep attempts distinct from unique targets. Tooltips float without reflow and support hover, focus, touch and Escape. Public copy explains practical use and honest limits, without algorithm names/internal thresholds; the repository and browser code remain public. Share only the public project link/caption, never a learner's records, and never post automatically.

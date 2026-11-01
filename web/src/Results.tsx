@@ -32,7 +32,7 @@ export function Results({
       : !reflex && record.responseProtocol !== "prompt-v2"
         ? "This saved set has no response measurements. New microphone sets can measure response with hints off."
         : m.correctTimed === 0
-          ? "No eligible response samples: play a first-try correct note with hints off, without changing its view."
+          ? "No eligible response samples: play a first-try correct note with hints off, without changing its view or interrupting the target."
           : reflex
             ? "Random-note response estimate. Read speed together with first-try accuracy."
             : "Guided response estimate: the sequence can be anticipated. Use Note reflex to practise surprise-note responses.";
@@ -73,7 +73,7 @@ export function Results({
                 ? `Average · ${m.correctTimed} first-try correct`
                 : "Not measured in this set"
             }
-            help={`Average time from the note appearing to your first-try correct note. Confirmation hold, retries, hints and changed views are excluded. Approximate and uncalibrated; device/audio delay remains.${m.correctTimed ? ` Middle response (median): ${seconds(m.correctMedianMs)}.` : ""}`}
+            help={`Average time from the note appearing to your first-try correct note. Confirmation hold, retries, hints, changed views and interrupted targets are excluded. Approximate and uncalibrated; device/audio delay remains.${m.correctTimed ? ` Middle response (median): ${seconds(m.correctMedianMs)}.` : ""}`}
           />
           <Metric
             label="Retries"

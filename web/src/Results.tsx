@@ -31,7 +31,7 @@ export function Results({
       : !/[pfvgw]0$/.test(record.lessonId)
         ? "This guided drill measures pitch, not surprise-note response speed. Try Note reflex for timed recall."
         : record.mixedViews
-          ? "Changing the view omits timing for affected targets."
+          ? "Changing hints or view omits timing for affected targets."
           : "Speed needs first-try correct microphone responses with hints off. Device delay remains uncalibrated.";
   return (
     <>

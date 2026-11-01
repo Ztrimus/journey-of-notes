@@ -1801,3 +1801,132 @@ footer {
   line-height: 1.5;
   max-width: 420px;
 }
+
+/* Active drill controls: native radios, no menu or custom keyboard widget. */
+.view-pills {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-inline-size: 0;
+}
+.pill-options {
+  display: flex;
+  border: 1px solid #82927c;
+  border-radius: 999px;
+  padding: 3px;
+  background: var(--paper);
+}
+.pill-options label {
+  position: relative;
+  margin: 0;
+  cursor: pointer;
+  min-width: 0;
+  flex: 1;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 999px;
+}
+.pill-options input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.pill-options span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  min-height: 36px;
+  padding: 7px 11px;
+  border-radius: 999px;
+}
+.pill-options input:checked + span {
+  background: #dce7d4;
+  box-shadow: inset 0 0 0 1px #506d48;
+  color: #1f432e;
+  font-weight: 700;
+}
+.pill-options label:has(input:focus-visible) {
+  outline: 3px solid #285ead;
+  outline-offset: 3px;
+}
+.view-pills:disabled {
+  opacity: 0.6;
+}
+.view-pills:disabled label {
+  cursor: default;
+}
+.session-top {
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+}
+.session-top > div:first-child {
+  flex: 1 1 110px;
+}
+.hint-toggle {
+  min-height: 38px;
+  padding: 6px 10px;
+  font-size: 0.72rem;
+}
+.glow-preference {
+  font-size: 0.75rem;
+}
+/* A low-opacity background wash behind readable content, never a bright strobe. */
+.app-shell {
+  position: relative;
+  z-index: 1;
+}
+.feedback-wash {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  animation: feedback-breathe 1000ms ease-in-out both;
+}
+.feedback-wash-correct {
+  background: #50925f;
+  --feedback-edge: #315f43;
+}
+.feedback-wash-wrong {
+  background: #b86461;
+  --feedback-edge: #9a4845;
+}
+@keyframes feedback-breathe {
+  0% {
+    opacity: 0;
+  }
+  28% {
+    opacity: 0.16;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@media (max-width: 600px) {
+  .session-top .view-pills {
+    order: 3;
+    flex: 1 0 100%;
+  }
+  .session-top .hint-toggle {
+    order: 2;
+    margin-left: auto;
+  }
+  .pill-options span {
+    min-height: 36px;
+    padding: 7px 10px;
+  }
+  .screen-session .set-progress {
+    margin-top: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .feedback-wash {
+    animation: none;
+    background: transparent;
+    opacity: 1;
+    box-shadow: inset 0 0 0 4px var(--feedback-edge);
+  }
+}

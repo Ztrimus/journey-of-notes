@@ -210,3 +210,9 @@ The user approved performance-based rings and requested visual reports/history, 
 Registry modes: piano, flute (legacy ID for Hindustani bansuri), western-flute (C concert), guitar, vocal. Preserve old history IDs/schema. New modes are limited single-note pilot drills, not validated courses. Guitar avoids low E2/chords and labels sounding-pitch sheet convention; vocals require comfortable range and no health assessment. Native SVG guidance never proves physical technique or sound source.
 
 History clear is app-key-only and requires an explicit user confirmation; never erase actual user records in QA. Use isolated QA origins/fixtures. No third-party analytics/replay, OAuth or cloud sync until the owner chooses a personal provider/project and privacy behavior. Read web/docs/pilot-launch-plan.md for exact research/testing and web/docs/TASKS.md for retained work.
+
+### Active feedback controls — issue #17
+
+Use native-radio pills only in active practice; keep keyboard focus in the controls when views/hints change, and focus the prompt on a new target. Live hints apply to the current target and reset to setup preference on advancement. Store initial and per-attempt hint conditions separately; any current-target cue change invalidates its earlier/later timing while preserving pitch evidence. Mixed-cue sets are not comparable baselines.
+
+Feedback glow is decorative, low-opacity, one-second, rate-limited/coalesced and only triggered by clear matched/wrong microphone events. Keep existing status/icon feedback; respect reduced motion and allow disabling the glow in preparation. Never add rapid saturated full-screen flashing. Temporary synthetic QA fixtures must not be published or write to real-user history.

@@ -67,8 +67,7 @@ export function sessionMetrics(record: SessionRecord) {
         first.get(a.targetIndex) === "correct" &&
         typeof a.responseMs === "number" &&
         !a.viewChanged &&
-        !a.noteHints &&
-        !record.noteHints &&
+        !(a.noteHints ?? record.noteHints ?? false) &&
         record.method === "microphone" &&
         /^[pfvgw]0$/.test(record.lessonId),
     )
@@ -170,8 +169,7 @@ export function skillEvidence(records: SessionRecord[], levelId: string) {
           time:
             a.outcome === "correct" &&
             !a.viewChanged &&
-            !a.noteHints &&
-            !r.noteHints &&
+            !(a.noteHints ?? r.noteHints ?? false) &&
             /^[pfvgw]0$/.test(r.lessonId)
               ? (a.responseMs ?? null)
               : null,

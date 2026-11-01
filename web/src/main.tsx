@@ -1,3 +1,4 @@
+import { FeedbackWash, ViewPills } from "./PracticeControls";
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from "react";
 import { createRoot } from "react-dom/client";
 import { noteName } from "./pitch";
@@ -48,6 +49,7 @@ function App() {
   );
   const [display, setDisplay] = useState<DisplayMode>("staff");
   const [hints, setHints] = useState(false);
+  const [glowEnabled, setGlowEnabled] = useState(true);
   const [notation, setNotation] = useState<"western" | "sargam">(() =>
     parseRoute(location.hash).instrument === "flute" ? "sargam" : "western",
   );
@@ -66,6 +68,7 @@ function App() {
   const recordStore = useRef<SessionRecord[]>([]);
   const main = useRef<HTMLElement | null>(null);
   const prompt = useRef<HTMLDivElement | null>(null);
+  const focusedTarget = useRef<string | null>(null);
   const instrument = instruments[route.instrument];
   const levels = useMemo(
     () => orderedLevels(route.instrument, tonic, difficulty),
@@ -197,9 +200,16 @@ function App() {
     }
   }, [route.screen, route.instrument, route.levelId]);
   useEffect(() => {
-    if (route.screen !== "session" || practice.phase !== "running") return;
+    if (route.screen !== "session" || practice.phase !== "running") {
+      focusedTarget.current = null;
+      return;
+    }
     let second = 0;
-    prompt.current?.focus({ preventScroll: true });
+    const targetKey = `${route.instrument}:${route.levelId}:${practice.index}`;
+    if (focusedTarget.current !== targetKey) {
+      prompt.current?.focus({ preventScroll: true });
+      focusedTarget.current = targetKey;
+    }
     const first = requestAnimationFrame(() => {
       second = requestAnimationFrame(() => practice.presented());
     });
@@ -207,7 +217,7 @@ function App() {
       cancelAnimationFrame(first);
       cancelAnimationFrame(second);
     };
-  }, [route.screen, practice.phase, practice.index, display]);
+  }, [route.screen, practice.phase, practice.index, display, practice.hints]);
   function chooseInstrument(id: InstrumentId) {
     if (instruments[id].needsTonic) {
       const latest = recordStore.current.find(
@@ -264,6 +274,9 @@ function App() {
       );
       return false;
     }
+  }
+  function changeHints(value: boolean) {
+    practice.changeHints(value);
   }
   function exportData() {
     const blob = new Blob(
@@ -335,6 +348,7 @@ function App() {
       >
         Skip to content
       </a>
+      {live && glowEnabled && <FeedbackWash signal={practice.glow} />}
       <div className={`app-shell ${live ? "in-session" : ""}`}>
         <header className="site-header">
           {live ? (
@@ -645,6 +659,14 @@ function App() {
                   Show note-name hints
                 </label>
               )}
+              <label className="check glow-preference">
+                <input
+                  type="checkbox"
+                  checked={glowEnabled}
+                  onChange={(e) => setGlowEnabled(e.target.checked)}
+                />{" "}
+                Full-screen feedback glow
+              </label>
               {instrument.needsTonic && method === "microphone" && (
                 <TonicSetup
                   tonic={tonic}
@@ -730,12 +752,22 @@ function App() {
                     {practice.index + 1} / {activeLevel.targets.length}
                   </span>
                 </div>
-                <ViewSelect
-                  id="session-view"
+                <ViewPills
+                  disabled={practice.phase !== "running"}
                   value={display}
                   onChange={changeView}
                   instrument={route.instrument}
                 />
+                {display === "staff" && (
+                  <button
+                    className="hint-toggle"
+                    disabled={practice.phase !== "running"}
+                    aria-pressed={practice.hints}
+                    onClick={() => changeHints(!practice.hints)}
+                  >
+                    {practice.hints ? "Hide hint" : "Show hint"}
+                  </button>
+                )}
               </div>
               <progress
                 className="set-progress"
@@ -755,7 +787,7 @@ function App() {
                     target={activeTarget}
                     instrument={route.instrument}
                     display={display}
-                    hints={hints}
+                    hints={practice.hints}
                     notation={options.notation}
                     tonic={tonic}
                     compact

@@ -61,3 +61,7 @@ The original Android checkout remains separate. Personal GitHub access uses per-
 ## Public pilot follow-up — issue #15
 
 Read [pilot-launch-plan.md](docs/pilot-launch-plan.md) for device/audio testing, launch claims, analytics/provider options, Google sign-in and report-design research. Results and history share compact attempt cards; history offers Grid/Timeline, pagination and a scoped Clear History confirmation. Performance rings show up to 30 comparable first-detected-attempt outcomes, with evidence count; activity is separate. Delayed recall needs a dedicated future probe. No talent labels, third-party analytics, OAuth, cloud sync or source classifier are implemented.
+
+## Active drill feedback — issue #17
+
+Active View uses one-tap native-radio pills. Sheet mode has Show/Hide hint; the next note restores the setup preference. Hint/view changes invalidate that target's response times without erasing pitch outcomes. Confirmed correct/wrong microphone attempts trigger a low-opacity full-viewport green/rose fade; rapid events coalesce. Preparation can disable it, and reduced-motion preferences replace the fade with a static edge cue. Unclear audio and silent self-reports do not trigger pitch feedback glow.

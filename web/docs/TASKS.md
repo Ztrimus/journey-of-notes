@@ -120,3 +120,12 @@ Public preview verified on 2026-10-31: https://ztrimus.github.io/journey-of-note
 No social posts, analytics/replay scripts, OAuth projects, database accounts or microphone recording uploads were created. No private contact address was published. Source recognition remains deferred as instructed earlier. The user approved performance-ring improvements; this supersedes issue #13's proposal-only boundary for quality display and skill board, not its source-classifier boundary.
 
 - VOCAL-02: Optional reference-tone playback/ear-training. TODO: design it so the microphone cannot score speaker playback as the learner; suppress validation and timing while reference audio and its room tail play. Current vocal starters can begin from the learner’s own detected comfortable hum.
+
+## Active drill controls — issue #17, 2026-11-01
+
+- DRILL-01: Gentle green/rose full-viewport glow for confirmed matched/wrong microphone events. IMPLEMENTED: low-opacity one-second fade, pulses at least 1.2s apart; fast events coalesce. No unclear/silent/self-report glow. Optional preparation checkbox; reduced motion uses a static edge cue.
+- DRILL-02: One-tap Music sheet / Keyboard (instrument-specific cue) / Both pills inside active drill. IMPLEMENTED with native radio inputs, visible selected/focus state and keyboard arrow navigation. Preparation retains its compact selector.
+- DRILL-03: Show/Hide hint inside sheet-mode drill, revealing note/octave for the current target. IMPLEMENTED: next target restores the preparation preference. Hint/view changes invalidate the current target's response/confirmation times, preserve pitch outcomes, retain per-attempt metadata and mark mixed conditions.
+- DRILL-QA: Build/46 tests; 320×740 and 390×844 silent UI, keyboard focus, hint reset and synthetic production-component glow checked. Live microphone effect integration, actual phones and reduced-motion OS/assistive-technology matrix remain manual follow-up.
+
+Cue changes preserve the target validator’s hold/dedup state: changing a view or revealing a hint must not manufacture another wrong event for the same sustained note. Target advancement still resets validation.

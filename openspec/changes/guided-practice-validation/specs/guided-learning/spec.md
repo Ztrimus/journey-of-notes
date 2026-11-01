@@ -115,3 +115,17 @@ The app SHALL share paginated color-and-symbol attempt cards between history and
 #### Scenario: Guided practice
 - **WHEN** a known-sequence guided pitch drill ends
 - **THEN** the report shows pitch outcomes and explains that surprise-response speed is not measured.
+
+### Requirement: One-tap live views and current-target hints
+The app SHALL offer native-radio view pills and a sheet-mode hint toggle without leaving the active set.
+
+#### Scenario: Reveal hint
+- **WHEN** a learner reveals a target's note-name/octave hint
+- **THEN** pitch evidence remains, that target's timing is invalidated, and the next target restores the setup hint preference.
+
+### Requirement: Gentle peripheral feedback
+The app SHALL give optional low-opacity full-viewport feedback on confirmed correct/wrong pitch events, coalesce rapid events, preserve text/icons and respect reduced-motion preferences.
+
+#### Scenario: Unclear sound
+- **WHEN** sound is unclear, absent or self-reported
+- **THEN** it does not trigger a correct/wrong pitch glow.

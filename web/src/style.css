@@ -256,7 +256,7 @@ input[type="checkbox"] {
 }
 .home-hero {
   position: relative;
-  min-height: 360px;
+  min-height: 310px;
   padding-right: 260px;
 }
 .home-hero h1 {
@@ -480,18 +480,28 @@ input[type="checkbox"] {
   font-size: 0.8rem;
   margin: 0;
 }
-.settings-grid,
-.view-preference {
+.settings-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 15px;
   margin-bottom: 20px;
 }
-.view-preference {
+.screen-prepare {
+  container-type: inline-size;
+}
+.settings-grid {
   align-items: end;
 }
-.view-preference:has(> div:only-child) {
-  grid-template-columns: 1fr;
+.settings-grid > div {
+  min-width: 0;
+}
+.wide-setting {
+  grid-column: 1 / -1;
+}
+@container (max-width: 20rem) {
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
 }
 .tonic-setup {
   border-top: 1px solid var(--line);
@@ -1095,8 +1105,7 @@ footer {
   .briefing p {
     font-size: 0.77rem;
   }
-  .settings-grid,
-  .view-preference {
+  .settings-grid {
     gap: 12px;
   }
   .tonic-setup h2 {

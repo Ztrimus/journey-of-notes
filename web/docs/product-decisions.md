@@ -98,3 +98,7 @@ Keep optimizations proportionate and measured: reuse the pitch workspace, avoid 
 ## Terminology and fine tuning
 
 The product label is **Music sheet**. A staff technically means the five notation lines, while sheet music is the written music; internal staff keys remain for history compatibility. A cent is 1/100 of an equal-tempered semitone. +29 cents means a pitch is 29% of a semitone higher than its reference, not 29 notes or 29 Hz. Zero is on reference; negative values are flat. C♯5 is about 554.37 Hz; the screenshot’s 563.8 Hz is about +29 cents. Use `1200 * log2(measuredHz/referenceHz)`. The app’s ±45-cent trial threshold is deliberately permissive and is not a professional tuning standard.
+
+## Quality and map follow-up
+
+The current activity ring and set-based connector can grow on wrong attempts. They are not quality measures. The user requested quality/recall definitions and alternative horizontal maps before implementation; read [the discussion proposal](progress-and-map-proposal.md). Instrument-source recognition is also discussion only. Issue #13 changes only the redundant home CTA and responsive preparation-field placement, alongside documentation.

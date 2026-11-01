@@ -198,3 +198,7 @@ Journey of Notes is an independent personal music-practice product owned by Ztri
 ### Phone-access release follow-up — 2026-10-31
 
 Use Music sheet as the visible label; staff is only an internal notation/history identifier. Keep Piano / Flute (Bansuri) / More instruments soon navigation on non-session pages. The requested public preview lives under docs/practice, preserving legacy privacy-policy URLs; rebuild web/dist and copy its contents there for release. This static app uploads no microphone audio and stores history only in the visitor’s browser. Real-device accuracy and timing calibration remain pending.
+
+### Evidence/map discussion boundary — issue #13
+
+Read `web/docs/progress-and-map-proposal.md` before changing progress, recall scoring, connectors, map geometry or acoustic source recognition. These are proposals awaiting product decisions. The user explicitly said not to implement instrument recognition now and asked to decide metrics and map direction before implementation. Issue #13 only fixes the redundant home CTA and Feedback/View layout. Preserve the distinction between activity, measured pitch performance, recall and physical technique.

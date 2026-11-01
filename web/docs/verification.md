@@ -40,6 +40,15 @@ Desktop browser checks confirmed staff-only mode without visible note-name hints
 - Screenshot: mobile-practice-preview.png in outputs. This uses a silent UI trial, not proof of acoustic correctness.
 - Live acoustic accuracy, timing calibration, real mobile Safari/Chrome, assistive technology, storage quota/denial and the full manual accessibility matrix remain pending.
 
-The public Pages release is in preparation. Existing main/docs Pages source and Android privacy-policy URLs are retained; browser-specific privacy information is separate.
+The public Pages release was verified on 2026-10-31: https://ztrimus.github.io/journey-of-notes/practice/. PR #12 merged as 7a7b188b0ff8287dc224370d8ed08de0d886bb42. GitHub Pages reports built for that commit. Public HTML, JS, CSS, existing Android privacy policy and new browser privacy page all returned HTTP 200. The public browser rendered the home and piano map over HTTPS. No public microphone access was activated. Existing main/docs Pages source and Android privacy-policy URLs are retained; browser-specific privacy information is separate.
 
 Release preparation uses `npm run build:pages`, which replaces only docs/practice and preserves the root and policy pages. Personal Git transport uses a per-command gh helper; repository-local signing settings match the original personal checkout. Global Git/authentication settings are unchanged.
+
+## Preparation layout follow-up — issue #13
+
+- Production build, 34 existing tests and whitespace checks pass. This is a layout-only change; no new tests mirror CSS/source structure.
+- Direct home Piano selection reached the map; the redundant Choose your instrument scroll-only button is removed. Desktop hero spacing is shorter.
+- On preparation, Feedback and View share the same y coordinate at the default wide viewport and requested 390px viewport (375px client width with the vertical scrollbar). At requested 320px (305px client width), they stack. In both cases scrollWidth equals clientWidth. The breakpoint follows container width, including text-size effects.
+- Reflex Challenge remains available above Feedback/View. Bansuri Notation remains available below them, default Sargam and disabled unconfirmed-Sa Start preserved. Native labels/control semantics inspected; no microphone action was invoked.
+- Screenshot: preparation-layout-preview.png in outputs. Full assistive-technology and real mobile browser testing remain pending.
+- Source-recognition, quality-score and map proposals are documentation only. `activity()`, pitch validation and map geometry were not changed.

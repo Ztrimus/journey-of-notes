@@ -120,3 +120,10 @@ The board inherited the legacy vertical map's 490px maximum width, squeezing thr
 Local browser checks at 320, 390, 768, 1024, 1440 and 1920px found scrollWidth=clientWidth and no card horizontal overflow. At 1440/1920px, the board spans 1036px in four 245.5px columns; 1024px uses three 303px columns, 768px two 335.5px columns, 390px two 158.5px columns and 320px one 271px column (client widths exclude the scrollbar). Its right edge aligns with the summary at every width. Tab moves through cards in order with a visible 3px outline; Enter opens the selected preparation screen. Console returned no warnings/errors. No microphone or test records were used. Screenshots: journey-map-1440.jpg and journey-map-390.jpg. Real phone hardware, screen readers and user text-scaling remain manual follow-up.
 
 The existing 59 tests and TypeScript/Vite/Pages build pass; no tests duplicating CSS were added. Public deployment evidence is recorded in the associated PR.
+
+
+## Personal story and attribution — issue #32
+
+Refined the opening About story using the owner's account of dance, music, learning and solo riyaz. Added the supplied X/Twitter, LinkedIn and GitHub profile destinations below that story. The copyright text is exactly “© 2026 Saurabh Zinjad”; existing Privacy/About/Feedback navigation remains. Links use native anchors, persistent underlines and wrapping 44px-high targets.
+
+Browser checks at 320, 390 and 1280px found no horizontal overflow and confirmed exact footer text and profile URLs. Tab moved from X to LinkedIn with the existing visible 3px focus outline. Console had no warnings/errors. Screenshot: journey-about-story.jpg. No social post, sign-in, microphone access or practice records were involved. Production/Pages build passes; no new tests were added for copy/native links. The mechanical design scan only reported the unchanged notice border outside this scope. Real assistive-technology/text-scaling checks remain manual follow-up.

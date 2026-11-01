@@ -1507,6 +1507,18 @@ footer {
 .visual-scores .score > strong {
   margin-block: auto;
 }
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 0 0 24px;
+}
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-underline-offset: 0.2em;
+}
 .share-actions {
   display: flex;
   flex-wrap: wrap;

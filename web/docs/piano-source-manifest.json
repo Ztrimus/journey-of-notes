@@ -1,0 +1,782 @@
+{
+  "review_date": "2026-11-01",
+  "playlist": "https://www.youtube.com/playlist?list=PLpOuhygfD7QnP46wUgQudOySX_z2UOhXs",
+  "source": "User-supplied local piano_sub collection; caption review only, no audio/video demonstration review",
+  "subtitle_files": 70,
+  "videos": 29,
+  "distinct_cleaned_transcript_texts": 44,
+  "duplicate_track_copies": 26,
+  "videos_with_differing_variants": 15,
+  "normalization": "Strip WebVTT cue/inline markup, HTML-unescape, collapse whitespace, remove maximal prior-cue suffix/current-cue prefix overlap. Hash cleaned joined text without timestamps. Not verified musical-score transcription.",
+  "variant_review": "Compared nonidentical alternate word sequences after case, apostrophe, punctuation and spelled-number normalization; ignored filler-only differences for review. Track labels do not establish correctness. Semantic conflicts retained in piano-foundations.md.",
+  "entries": [
+    {
+      "playlist_position": 1,
+      "course_lesson": "1",
+      "title": "How To Play Piano for Beginners, Lesson 1 ｜｜ The Piano Keyboard",
+      "url": "https://www.youtube.com/watch?v=QBH6IpRkVDs",
+      "last_caption_time": "00:11:35.589",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 2,
+      "review_status": "Canonical transcript read in full; nontrivial differing alternate wording reviewed",
+      "tracks": [
+        {
+          "filename": "01 - How To Play Piano for Beginners, Lesson 1 ｜｜ The Piano Keyboard [QBH6IpRkVDs].en-en.vtt",
+          "variant": "en-en",
+          "sha256": "238e24c7a1a701340a48df9a181ea9bc0588ab22403ff0a5c5680a06d59fce94",
+          "cleaned_text_sha256": "0601ad82abdc4d5a5175c3e50ac467ad13a15a8c42d4b95b26427c32f3ccf67d"
+        },
+        {
+          "filename": "01 - How To Play Piano for Beginners, Lesson 1 ｜｜ The Piano Keyboard [QBH6IpRkVDs].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "d3384946f960752c47d5430777462b0bea23054890feba8b718594d586a1c26a",
+          "cleaned_text_sha256": "cf54cb402b2bd5b9a6f5f9a7adfa05ae9bf40ac9747bf309a04505ee0ac21887"
+        },
+        {
+          "filename": "01 - How To Play Piano for Beginners, Lesson 1 ｜｜ The Piano Keyboard [QBH6IpRkVDs].en.vtt",
+          "variant": "en",
+          "sha256": "238e24c7a1a701340a48df9a181ea9bc0588ab22403ff0a5c5680a06d59fce94",
+          "cleaned_text_sha256": "0601ad82abdc4d5a5175c3e50ac467ad13a15a8c42d4b95b26427c32f3ccf67d"
+        }
+      ]
+    },
+    {
+      "playlist_position": 2,
+      "course_lesson": "2",
+      "title": "How To Play Piano for Beginners, Lesson 2 ｜｜ Starting to Read Music",
+      "url": "https://www.youtube.com/watch?v=3BULT0-joT0",
+      "last_caption_time": "00:19:38.679",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 2,
+      "review_status": "Canonical transcript read in full; nontrivial differing alternate wording reviewed",
+      "tracks": [
+        {
+          "filename": "02 - How To Play Piano for Beginners, Lesson 2 ｜｜ Starting to Read Music [3BULT0-joT0].en-en.vtt",
+          "variant": "en-en",
+          "sha256": "345566e39cae65fb1cc1eb5d6d203651e3b1ffb7a7e9d951ce14c9288ca1a5b3",
+          "cleaned_text_sha256": "12674b7e93b186f7f6365ee124844bcec65d116aac8eaafc95ea22466541df98"
+        },
+        {
+          "filename": "02 - How To Play Piano for Beginners, Lesson 2 ｜｜ Starting to Read Music [3BULT0-joT0].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "0167a44f0cb748cc8943f46e43d88daac01e0bc89a9f6d518e1709e2985abfcc",
+          "cleaned_text_sha256": "fdcb5f89c7b969a7a06b17d8356d84e19bb787bb9aee6e67d32a87b0e56982b0"
+        },
+        {
+          "filename": "02 - How To Play Piano for Beginners, Lesson 2 ｜｜ Starting to Read Music [3BULT0-joT0].en.vtt",
+          "variant": "en",
+          "sha256": "345566e39cae65fb1cc1eb5d6d203651e3b1ffb7a7e9d951ce14c9288ca1a5b3",
+          "cleaned_text_sha256": "12674b7e93b186f7f6365ee124844bcec65d116aac8eaafc95ea22466541df98"
+        }
+      ]
+    },
+    {
+      "playlist_position": 3,
+      "course_lesson": "3",
+      "title": "How To Play Piano for Beginners, Lesson 3 ｜｜ Reading a Melody",
+      "url": "https://www.youtube.com/watch?v=NUVQIwO1SEI",
+      "last_caption_time": "00:16:22.220",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 2,
+      "review_status": "Canonical transcript read in full; nontrivial differing alternate wording reviewed",
+      "tracks": [
+        {
+          "filename": "03 - How To Play Piano for Beginners, Lesson 3 ｜｜ Reading a Melody [NUVQIwO1SEI].en-en.vtt",
+          "variant": "en-en",
+          "sha256": "63569e2a50186dc5bf08ccb183c441573c5da32970de827408d23acf4258b818",
+          "cleaned_text_sha256": "278ba37322eab17de600f83323316c38a3173ece1323672d690303278ee1e5a3"
+        },
+        {
+          "filename": "03 - How To Play Piano for Beginners, Lesson 3 ｜｜ Reading a Melody [NUVQIwO1SEI].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "74adad2cae221f6d8b0f6c3c43211a18e9d0d60329f7a7a5480d20fb1e6b6a2c",
+          "cleaned_text_sha256": "af20c78e022c3879815511767521027ec506e0cc8775e3687292477cb1aff7fb"
+        },
+        {
+          "filename": "03 - How To Play Piano for Beginners, Lesson 3 ｜｜ Reading a Melody [NUVQIwO1SEI].en.vtt",
+          "variant": "en",
+          "sha256": "63569e2a50186dc5bf08ccb183c441573c5da32970de827408d23acf4258b818",
+          "cleaned_text_sha256": "278ba37322eab17de600f83323316c38a3173ece1323672d690303278ee1e5a3"
+        }
+      ]
+    },
+    {
+      "playlist_position": 4,
+      "course_lesson": "4",
+      "title": "How To Play Piano for Beginners, Lesson 4 ｜｜ The Left Hand And The Scale Of C Major",
+      "url": "https://www.youtube.com/watch?v=f9JI_5y0K68",
+      "last_caption_time": "00:16:25.850",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 2,
+      "review_status": "Canonical transcript read in full; nontrivial differing alternate wording reviewed",
+      "tracks": [
+        {
+          "filename": "04 - How To Play Piano for Beginners, Lesson 4 ｜｜ The Left Hand And The Scale Of C Major [f9JI_5y0K68].en-en.vtt",
+          "variant": "en-en",
+          "sha256": "e77e5be501ab567b23af4dcda493a41ad087f8b2d3cb3daaf124fa6dc14011b0",
+          "cleaned_text_sha256": "7fb081432060e96c334fe4c6cdc26fcbcbe797cafeea363417ec843333e7c3cc"
+        },
+        {
+          "filename": "04 - How To Play Piano for Beginners, Lesson 4 ｜｜ The Left Hand And The Scale Of C Major [f9JI_5y0K68].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "d96c8b669d5a4a77c54e70ceda2fb3363c0467ad756f06ee8655dd333994f62f",
+          "cleaned_text_sha256": "a8643b84100083c632517700cb4c5e90c24f38fb62f2ea4901d20cadbf855fa4"
+        },
+        {
+          "filename": "04 - How To Play Piano for Beginners, Lesson 4 ｜｜ The Left Hand And The Scale Of C Major [f9JI_5y0K68].en.vtt",
+          "variant": "en",
+          "sha256": "e77e5be501ab567b23af4dcda493a41ad087f8b2d3cb3daaf124fa6dc14011b0",
+          "cleaned_text_sha256": "7fb081432060e96c334fe4c6cdc26fcbcbe797cafeea363417ec843333e7c3cc"
+        }
+      ]
+    },
+    {
+      "playlist_position": 5,
+      "course_lesson": "5",
+      "title": "How To Play Piano for Beginners, Lesson 5 ｜｜ Learning a Piece",
+      "url": "https://www.youtube.com/watch?v=1JVtPB8VJXE",
+      "last_caption_time": "00:14:40.089",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 2,
+      "review_status": "Canonical transcript read in full; nontrivial differing alternate wording reviewed",
+      "tracks": [
+        {
+          "filename": "05 - How To Play Piano for Beginners, Lesson 5 ｜｜ Learning a Piece [1JVtPB8VJXE].en-en.vtt",
+          "variant": "en-en",
+          "sha256": "7323721ae37d8a9d7b502f12379f8613bf11e4052ffee68a7cbe34b0d30d8f93",
+          "cleaned_text_sha256": "23aa094877e64888e9678db602c096970e42520e754e5308b2b61238f3e9374c"
+        },
+        {
+          "filename": "05 - How To Play Piano for Beginners, Lesson 5 ｜｜ Learning a Piece [1JVtPB8VJXE].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "3eb06e0569d9418d30efb0756aa1045ecda52b0a6901bb79219eebd1d82e6b25",
+          "cleaned_text_sha256": "538462b057671e9b55f2b667efe498d3ad9d45c9676f3d1e7882de786da525fa"
+        },
+        {
+          "filename": "05 - How To Play Piano for Beginners, Lesson 5 ｜｜ Learning a Piece [1JVtPB8VJXE].en.vtt",
+          "variant": "en",
+          "sha256": "7323721ae37d8a9d7b502f12379f8613bf11e4052ffee68a7cbe34b0d30d8f93",
+          "cleaned_text_sha256": "23aa094877e64888e9678db602c096970e42520e754e5308b2b61238f3e9374c"
+        }
+      ]
+    },
+    {
+      "playlist_position": 6,
+      "course_lesson": "Supplementary A",
+      "title": "How To Play Piano For Beginners ｜｜ Supplementary Lesson A",
+      "url": "https://www.youtube.com/watch?v=DQ4-5GwGUBY",
+      "last_caption_time": "00:19:59.720",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 1,
+      "review_status": "Canonical transcript read in full; identical alternates compared",
+      "tracks": [
+        {
+          "filename": "06 - How To Play Piano For Beginners ｜｜ Supplementary Lesson A [DQ4-5GwGUBY].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "5aa8c5604049de9e2446a2bc63f5c033b096e52b5e0f5709918562506f0cac1b",
+          "cleaned_text_sha256": "404b3f535a439cca4370cb42e655cebabde24686eb5ed8d23ce2ecabac8035d6"
+        },
+        {
+          "filename": "06 - How To Play Piano For Beginners ｜｜ Supplementary Lesson A [DQ4-5GwGUBY].en.vtt",
+          "variant": "en",
+          "sha256": "5aa8c5604049de9e2446a2bc63f5c033b096e52b5e0f5709918562506f0cac1b",
+          "cleaned_text_sha256": "404b3f535a439cca4370cb42e655cebabde24686eb5ed8d23ce2ecabac8035d6"
+        }
+      ]
+    },
+    {
+      "playlist_position": 7,
+      "course_lesson": "6",
+      "title": "How To Play Piano for Beginners, Lesson 6 ｜｜ A New Piece, A New Scale, And Rests",
+      "url": "https://www.youtube.com/watch?v=yeP2qRcHuUM",
+      "last_caption_time": "00:13:12.830",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 2,
+      "review_status": "Canonical transcript read in full; nontrivial differing alternate wording reviewed",
+      "tracks": [
+        {
+          "filename": "07 - How To Play Piano for Beginners, Lesson 6 ｜｜ A New Piece, A New Scale, And Rests [yeP2qRcHuUM].en-en.vtt",
+          "variant": "en-en",
+          "sha256": "efa4f5909c33eb023063bd059a3b7627114644168b78c0f72c18c1a0fdcdb455",
+          "cleaned_text_sha256": "99be2dc7f8c594cb73acf7141c9925852a1972487ff8de5b6bf722f5f3ba3d70"
+        },
+        {
+          "filename": "07 - How To Play Piano for Beginners, Lesson 6 ｜｜ A New Piece, A New Scale, And Rests [yeP2qRcHuUM].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "b9f7af7b1cafccd18f92ec0f9bb40110d1ecdc71f5152a4f493690ceb59fbebc",
+          "cleaned_text_sha256": "0704e781d3f85ac166188186bb623509191ad8a0c80709ffc986bc08bedc2134"
+        },
+        {
+          "filename": "07 - How To Play Piano for Beginners, Lesson 6 ｜｜ A New Piece, A New Scale, And Rests [yeP2qRcHuUM].en.vtt",
+          "variant": "en",
+          "sha256": "efa4f5909c33eb023063bd059a3b7627114644168b78c0f72c18c1a0fdcdb455",
+          "cleaned_text_sha256": "99be2dc7f8c594cb73acf7141c9925852a1972487ff8de5b6bf722f5f3ba3d70"
+        }
+      ]
+    },
+    {
+      "playlist_position": 8,
+      "course_lesson": "7",
+      "title": "How To Play Piano for Beginners, Lesson 7 ｜｜ Quavers (Eighth Notes) And Accidentals",
+      "url": "https://www.youtube.com/watch?v=3UetN01yPTs",
+      "last_caption_time": "00:14:18.660",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 2,
+      "review_status": "Canonical transcript read in full; nontrivial differing alternate wording reviewed",
+      "tracks": [
+        {
+          "filename": "08 - How To Play Piano for Beginners, Lesson 7 ｜｜ Quavers (Eighth Notes) And Accidentals [3UetN01yPTs].en-en.vtt",
+          "variant": "en-en",
+          "sha256": "8c902cc6e0e66061298eaae7a920eea36e8c1fa0f5aae71e64ecc53112156b27",
+          "cleaned_text_sha256": "ed11d0f43743a00d36e9b86639a21c242031f2d4c28599f00abb40f485ee0a5c"
+        },
+        {
+          "filename": "08 - How To Play Piano for Beginners, Lesson 7 ｜｜ Quavers (Eighth Notes) And Accidentals [3UetN01yPTs].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "f9beccd01863351ced148a8f454721972fb534d8603f8b6fce66d6df540b5b7b",
+          "cleaned_text_sha256": "8822149a5e24294f5b8b1573b3610fdb9bf57cb364eccd83d9bd2242a3a543b7"
+        },
+        {
+          "filename": "08 - How To Play Piano for Beginners, Lesson 7 ｜｜ Quavers (Eighth Notes) And Accidentals [3UetN01yPTs].en.vtt",
+          "variant": "en",
+          "sha256": "8c902cc6e0e66061298eaae7a920eea36e8c1fa0f5aae71e64ecc53112156b27",
+          "cleaned_text_sha256": "ed11d0f43743a00d36e9b86639a21c242031f2d4c28599f00abb40f485ee0a5c"
+        }
+      ]
+    },
+    {
+      "playlist_position": 9,
+      "course_lesson": "8",
+      "title": "How To Play Piano for Beginners, Lesson 8 ｜｜ A New Piece, Phrase Marks And Ritenuto",
+      "url": "https://www.youtube.com/watch?v=7x20caWKKkQ",
+      "last_caption_time": "00:12:27.320",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 2,
+      "review_status": "Canonical transcript read in full; nontrivial differing alternate wording reviewed",
+      "tracks": [
+        {
+          "filename": "09 - How To Play Piano for Beginners, Lesson 8 ｜｜ A New Piece, Phrase Marks And Ritenuto [7x20caWKKkQ].en-en.vtt",
+          "variant": "en-en",
+          "sha256": "2f0c56ddd791bdb5c934bab3ffdb91ec65dd86d07a0c1c2d551fb2c17f6cb25e",
+          "cleaned_text_sha256": "8d7e7bab4200eba7ee81c87f66d150ec09edb1aee4273d1969cec226dcf6f0ee"
+        },
+        {
+          "filename": "09 - How To Play Piano for Beginners, Lesson 8 ｜｜ A New Piece, Phrase Marks And Ritenuto [7x20caWKKkQ].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "59e2b5411c41c01e8630adad01ed07415a49d081dcb0c669ac282f14c9b9ad49",
+          "cleaned_text_sha256": "24bd148faf2f7590d41f454e40b43aa5d939b64e88fa46aafc78918f47f28d0a"
+        },
+        {
+          "filename": "09 - How To Play Piano for Beginners, Lesson 8 ｜｜ A New Piece, Phrase Marks And Ritenuto [7x20caWKKkQ].en.vtt",
+          "variant": "en",
+          "sha256": "2f0c56ddd791bdb5c934bab3ffdb91ec65dd86d07a0c1c2d551fb2c17f6cb25e",
+          "cleaned_text_sha256": "8d7e7bab4200eba7ee81c87f66d150ec09edb1aee4273d1969cec226dcf6f0ee"
+        }
+      ]
+    },
+    {
+      "playlist_position": 10,
+      "course_lesson": "9",
+      "title": "How To Play Piano for Beginners, Lesson 9 ｜｜ The Concept Of Musical Key",
+      "url": "https://www.youtube.com/watch?v=aU3VEy-4qwM",
+      "last_caption_time": "00:13:05.439",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 2,
+      "review_status": "Canonical transcript read in full; nontrivial differing alternate wording reviewed",
+      "tracks": [
+        {
+          "filename": "10 - How To Play Piano for Beginners, Lesson 9 ｜｜ The Concept Of Musical Key [aU3VEy-4qwM].en-en.vtt",
+          "variant": "en-en",
+          "sha256": "912916026a349fb2fc6742fe66251c56827e8bf8612e4c1fbd2310cb5a748bcd",
+          "cleaned_text_sha256": "d25d3c358060f8fa108b7aba2a731bef04d96890d817d44cbd59ceb424a13533"
+        },
+        {
+          "filename": "10 - How To Play Piano for Beginners, Lesson 9 ｜｜ The Concept Of Musical Key [aU3VEy-4qwM].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "2f408ba14e9a00390e4401e7678d8f15ebb43cfceb9cc7a29ad8dac5dbff030e",
+          "cleaned_text_sha256": "8790396b84d86122138fc33b6f1cab590e782a7280ed29e5bdef189286d194ec"
+        },
+        {
+          "filename": "10 - How To Play Piano for Beginners, Lesson 9 ｜｜ The Concept Of Musical Key [aU3VEy-4qwM].en.vtt",
+          "variant": "en",
+          "sha256": "912916026a349fb2fc6742fe66251c56827e8bf8612e4c1fbd2310cb5a748bcd",
+          "cleaned_text_sha256": "d25d3c358060f8fa108b7aba2a731bef04d96890d817d44cbd59ceb424a13533"
+        }
+      ]
+    },
+    {
+      "playlist_position": 11,
+      "course_lesson": "10",
+      "title": "How To Play Piano for Beginners, Lesson 10 ｜｜ More Scales, And Playing Staccato",
+      "url": "https://www.youtube.com/watch?v=ZCdfa9GyyuM",
+      "last_caption_time": "00:18:32.049",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 2,
+      "review_status": "Canonical transcript read in full; nontrivial differing alternate wording reviewed",
+      "tracks": [
+        {
+          "filename": "11 - How To Play Piano for Beginners, Lesson 10 ｜｜ More Scales, And Playing Staccato [ZCdfa9GyyuM].en-en.vtt",
+          "variant": "en-en",
+          "sha256": "1524ea3d85ebd11449aa0be848ac7fdae4320d79bda7a834e8cb3a4f60585bcf",
+          "cleaned_text_sha256": "473d688f08a7c0719fb14449eadf9c7490d1c65d049c673b0f7671d31a74ef96"
+        },
+        {
+          "filename": "11 - How To Play Piano for Beginners, Lesson 10 ｜｜ More Scales, And Playing Staccato [ZCdfa9GyyuM].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "c0615825e16a877ef8ad6e85734cca31fadc27395475aef0e21d4057e909d153",
+          "cleaned_text_sha256": "326591d219a243025be5a33a698680c9a61529bc031c4ac510085b4d222dd754"
+        },
+        {
+          "filename": "11 - How To Play Piano for Beginners, Lesson 10 ｜｜ More Scales, And Playing Staccato [ZCdfa9GyyuM].en.vtt",
+          "variant": "en",
+          "sha256": "1524ea3d85ebd11449aa0be848ac7fdae4320d79bda7a834e8cb3a4f60585bcf",
+          "cleaned_text_sha256": "473d688f08a7c0719fb14449eadf9c7490d1c65d049c673b0f7671d31a74ef96"
+        }
+      ]
+    },
+    {
+      "playlist_position": 12,
+      "course_lesson": "11",
+      "title": "How To Play Piano for Beginners, Lesson 11 ｜｜ Three Pieces To Learn",
+      "url": "https://www.youtube.com/watch?v=56bHpksltnA",
+      "last_caption_time": "00:15:02.900",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 2,
+      "review_status": "Canonical transcript read in full; nontrivial differing alternate wording reviewed",
+      "tracks": [
+        {
+          "filename": "12 - How To Play Piano for Beginners, Lesson 11 ｜｜ Three Pieces To Learn [56bHpksltnA].en-en.vtt",
+          "variant": "en-en",
+          "sha256": "b92ed10b088df7f666e58725ef3ba82041ed372ee9ca067b1bb3f1fbd46b9164",
+          "cleaned_text_sha256": "02888f0b8797e4a50c354befa6e40434d0c5fb63e6bb91d6c9a5fd7fe9740247"
+        },
+        {
+          "filename": "12 - How To Play Piano for Beginners, Lesson 11 ｜｜ Three Pieces To Learn [56bHpksltnA].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "48e18d32c05b96105cf89a52dcb8a88316f54fefbdec867961821b51675fc6da",
+          "cleaned_text_sha256": "dff797d43367f186861b3fcbd885d0eae87968db2bbc07f61b930059f5e08de9"
+        },
+        {
+          "filename": "12 - How To Play Piano for Beginners, Lesson 11 ｜｜ Three Pieces To Learn [56bHpksltnA].en.vtt",
+          "variant": "en",
+          "sha256": "b92ed10b088df7f666e58725ef3ba82041ed372ee9ca067b1bb3f1fbd46b9164",
+          "cleaned_text_sha256": "02888f0b8797e4a50c354befa6e40434d0c5fb63e6bb91d6c9a5fd7fe9740247"
+        }
+      ]
+    },
+    {
+      "playlist_position": 13,
+      "course_lesson": "12",
+      "title": "How To Play Piano for Beginners, Lesson 12 ｜｜ Rhythm Reading And New Scales",
+      "url": "https://www.youtube.com/watch?v=lAQL9_Q3rr8",
+      "last_caption_time": "00:17:08.920",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 2,
+      "review_status": "Canonical transcript read in full; nontrivial differing alternate wording reviewed",
+      "tracks": [
+        {
+          "filename": "13 - How To Play Piano for Beginners, Lesson 12 ｜｜ Rhythm Reading And New Scales [lAQL9_Q3rr8].en-en.vtt",
+          "variant": "en-en",
+          "sha256": "b05feed58fbab11d024cc2394ece213dd6c7948d460567c026a254537d1dc6ff",
+          "cleaned_text_sha256": "66577211e312e009eb1069ec3a89a0d1127b6958da73bab6cef91f24e609913c"
+        },
+        {
+          "filename": "13 - How To Play Piano for Beginners, Lesson 12 ｜｜ Rhythm Reading And New Scales [lAQL9_Q3rr8].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "eb36b6e4b53251da7a99782b6626e62449825aec1a4167d228fac78ce22e57b4",
+          "cleaned_text_sha256": "78933a552ecf9eb340fc20966d0d2b9e671bb27746dd1e82011765ca2724f379"
+        },
+        {
+          "filename": "13 - How To Play Piano for Beginners, Lesson 12 ｜｜ Rhythm Reading And New Scales [lAQL9_Q3rr8].en.vtt",
+          "variant": "en",
+          "sha256": "b05feed58fbab11d024cc2394ece213dd6c7948d460567c026a254537d1dc6ff",
+          "cleaned_text_sha256": "66577211e312e009eb1069ec3a89a0d1127b6958da73bab6cef91f24e609913c"
+        }
+      ]
+    },
+    {
+      "playlist_position": 14,
+      "course_lesson": "13",
+      "title": "How To Play Piano for Beginners, Lesson 13 ｜｜ 2⧸4 Time And Semiquavers (16th Notes)",
+      "url": "https://www.youtube.com/watch?v=hKmZNzcTOl0",
+      "last_caption_time": "00:24:03.710",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 1,
+      "review_status": "Canonical transcript read in full; identical alternates compared",
+      "tracks": [
+        {
+          "filename": "14 - How To Play Piano for Beginners, Lesson 13 ｜｜ 2⧸4 Time And Semiquavers (16th Notes) [hKmZNzcTOl0].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "d7101fd8a9eb13fe91857eb19d7ccbb9585a1eb933117f0d3b387afa8cc07a3e",
+          "cleaned_text_sha256": "da9ba7a0fc70a6ae7bb5fec7a356f44a17522838b82ad162dc2181076af832c2"
+        },
+        {
+          "filename": "14 - How To Play Piano for Beginners, Lesson 13 ｜｜ 2⧸4 Time And Semiquavers (16th Notes) [hKmZNzcTOl0].en.vtt",
+          "variant": "en",
+          "sha256": "d7101fd8a9eb13fe91857eb19d7ccbb9585a1eb933117f0d3b387afa8cc07a3e",
+          "cleaned_text_sha256": "da9ba7a0fc70a6ae7bb5fec7a356f44a17522838b82ad162dc2181076af832c2"
+        }
+      ]
+    },
+    {
+      "playlist_position": 15,
+      "course_lesson": "14",
+      "title": "How To Play Piano for Beginners, Lesson 14 ｜｜ Compound Time",
+      "url": "https://www.youtube.com/watch?v=XrecEfB2aCk",
+      "last_caption_time": "00:16:08.743",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 2,
+      "review_status": "Canonical transcript read in full; nontrivial differing alternate wording reviewed",
+      "tracks": [
+        {
+          "filename": "15 - How To Play Piano for Beginners, Lesson 14 ｜｜ Compound Time [XrecEfB2aCk].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "3f35353d2f3db3646ae949897d195f9249ce0642d6351050a131e687e3fe31c6",
+          "cleaned_text_sha256": "1337b5302f84e264f8c8ec86daec6ada800690a25238519b56e04f9be732fb30"
+        },
+        {
+          "filename": "15 - How To Play Piano for Beginners, Lesson 14 ｜｜ Compound Time [XrecEfB2aCk].en.vtt",
+          "variant": "en",
+          "sha256": "42cc64c3ae7f01468a8259a604a6d9835c515a174ece84686b0cc9380141d608",
+          "cleaned_text_sha256": "fdda0994df6a87bb3596181f0d4a0e4947b5cd384428b098def13c0c416e41f7"
+        }
+      ]
+    },
+    {
+      "playlist_position": 16,
+      "course_lesson": "15",
+      "title": "How To Play Piano for Beginners, Lesson 15 ｜｜ Minuet in G",
+      "url": "https://www.youtube.com/watch?v=cBYZZzVYw_M",
+      "last_caption_time": "00:19:01.490",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 1,
+      "review_status": "Canonical transcript read in full; identical alternates compared",
+      "tracks": [
+        {
+          "filename": "16 - How To Play Piano for Beginners, Lesson 15 ｜｜ Minuet in G [cBYZZzVYw_M].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "ab331483208f4b841efee973b4327b0efac66df9775bec6a1519e613e3135a5d",
+          "cleaned_text_sha256": "da0e5636b6d74994e131b85cee75ad21142f3430ef11320a3fc9458e22809c64"
+        },
+        {
+          "filename": "16 - How To Play Piano for Beginners, Lesson 15 ｜｜ Minuet in G [cBYZZzVYw_M].en.vtt",
+          "variant": "en",
+          "sha256": "ab331483208f4b841efee973b4327b0efac66df9775bec6a1519e613e3135a5d",
+          "cleaned_text_sha256": "da0e5636b6d74994e131b85cee75ad21142f3430ef11320a3fc9458e22809c64"
+        }
+      ]
+    },
+    {
+      "playlist_position": 17,
+      "course_lesson": "16",
+      "title": "How To Play Piano for Beginners, Lesson 16 ｜｜ Broken Chord Exercises",
+      "url": "https://www.youtube.com/watch?v=-D9HVd0ZaPk",
+      "last_caption_time": "00:14:42.570",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 1,
+      "review_status": "Canonical transcript read in full; identical alternates compared",
+      "tracks": [
+        {
+          "filename": "17 - How To Play Piano for Beginners, Lesson 16 ｜｜ Broken Chord Exercises [-D9HVd0ZaPk].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "586c5dc77ec12f64d5a781f00f75b1e34b4f5d286e71e682b7e8987d5de0726e",
+          "cleaned_text_sha256": "f053a7d4a4fe2d5c949c1d157f59aed5ac9d7e38936a7389b8f7b22c6ce26b7a"
+        },
+        {
+          "filename": "17 - How To Play Piano for Beginners, Lesson 16 ｜｜ Broken Chord Exercises [-D9HVd0ZaPk].en.vtt",
+          "variant": "en",
+          "sha256": "586c5dc77ec12f64d5a781f00f75b1e34b4f5d286e71e682b7e8987d5de0726e",
+          "cleaned_text_sha256": "f053a7d4a4fe2d5c949c1d157f59aed5ac9d7e38936a7389b8f7b22c6ce26b7a"
+        }
+      ]
+    },
+    {
+      "playlist_position": 18,
+      "course_lesson": "17",
+      "title": "How To Play Piano for Beginners, Lesson 17 ｜｜ Learning A Blues Piece",
+      "url": "https://www.youtube.com/watch?v=U2WLBHb8vYI",
+      "last_caption_time": "00:15:11.160",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 1,
+      "review_status": "Canonical transcript read in full; identical alternates compared",
+      "tracks": [
+        {
+          "filename": "18 - How To Play Piano for Beginners, Lesson 17 ｜｜ Learning A Blues Piece [U2WLBHb8vYI].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "e49f0b22834c5bb45d1a22e20bc821360559badfeec237edd54f45b1ca33d12b",
+          "cleaned_text_sha256": "7fabeaef4cbd6d4c708e3cef58641e43de8968f320d22d4171735f573396cb2a"
+        },
+        {
+          "filename": "18 - How To Play Piano for Beginners, Lesson 17 ｜｜ Learning A Blues Piece [U2WLBHb8vYI].en.vtt",
+          "variant": "en",
+          "sha256": "e49f0b22834c5bb45d1a22e20bc821360559badfeec237edd54f45b1ca33d12b",
+          "cleaned_text_sha256": "7fabeaef4cbd6d4c708e3cef58641e43de8968f320d22d4171735f573396cb2a"
+        }
+      ]
+    },
+    {
+      "playlist_position": 19,
+      "course_lesson": "18",
+      "title": "How To Play Piano for Beginners, Lesson 18 ｜｜ How To Play Für Elise",
+      "url": "https://www.youtube.com/watch?v=4ss1cIIM-JY",
+      "last_caption_time": "00:19:40.980",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 1,
+      "review_status": "Canonical transcript read in full; identical alternates compared",
+      "tracks": [
+        {
+          "filename": "19 - How To Play Piano for Beginners, Lesson 18 ｜｜ How To Play Für Elise [4ss1cIIM-JY].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "cd2e2cf7389970e8d9616cffbfd82585d0c7d1653c6260b85fe20cd802446ccb",
+          "cleaned_text_sha256": "58d89dc040913ba90d7927b72292038984b92f993ab0b89f343b9d36031ead97"
+        },
+        {
+          "filename": "19 - How To Play Piano for Beginners, Lesson 18 ｜｜ How To Play Für Elise [4ss1cIIM-JY].en.vtt",
+          "variant": "en",
+          "sha256": "cd2e2cf7389970e8d9616cffbfd82585d0c7d1653c6260b85fe20cd802446ccb",
+          "cleaned_text_sha256": "58d89dc040913ba90d7927b72292038984b92f993ab0b89f343b9d36031ead97"
+        }
+      ]
+    },
+    {
+      "playlist_position": 20,
+      "course_lesson": "19",
+      "title": "How To Play Piano For Beginners, Lesson 19 ｜｜ New Scales And Scale Theory",
+      "url": "https://www.youtube.com/watch?v=5spgARK9bgA",
+      "last_caption_time": "00:18:58.958",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 2,
+      "review_status": "Canonical transcript read in full; nontrivial differing alternate wording reviewed",
+      "tracks": [
+        {
+          "filename": "20 - How To Play Piano For Beginners, Lesson 19 ｜｜ New Scales And Scale Theory [5spgARK9bgA].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "eef316c6d9fe57fef8f7d697f01455b388a8d010107c374139b178362421ac65",
+          "cleaned_text_sha256": "7d0bf404516504cf705cdcd28fbfb3fcd2b257e694b656974ddaef5a40eaf73b"
+        },
+        {
+          "filename": "20 - How To Play Piano For Beginners, Lesson 19 ｜｜ New Scales And Scale Theory [5spgARK9bgA].en.vtt",
+          "variant": "en",
+          "sha256": "5f202f36ba2faa0ef37e1600f0ad0cc0975630850fb957577229da09ebe55b0f",
+          "cleaned_text_sha256": "4bf064a9d570ec453451107651b3751f5c315ea821c30e962311d5e239fe4cd4"
+        }
+      ]
+    },
+    {
+      "playlist_position": 21,
+      "course_lesson": "20",
+      "title": "How To Play Piano for Beginners, Lesson 20 ｜｜ A New Piece, Prelude in F",
+      "url": "https://www.youtube.com/watch?v=F5QyIK0SxJ4",
+      "last_caption_time": "00:24:23.050",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 1,
+      "review_status": "Canonical transcript read in full; identical alternates compared",
+      "tracks": [
+        {
+          "filename": "21 - How To Play Piano for Beginners, Lesson 20 ｜｜ A New Piece, Prelude in F [F5QyIK0SxJ4].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "6dd82add17fd127f66ae0f6ea7e6ff7c3decdd5501017d1ecf9a82ed6a204204",
+          "cleaned_text_sha256": "e55ee4eeb8c19177060a61a73cfe65565918555ffe10f1a9bb42dfb4a0e601d4"
+        },
+        {
+          "filename": "21 - How To Play Piano for Beginners, Lesson 20 ｜｜ A New Piece, Prelude in F [F5QyIK0SxJ4].en.vtt",
+          "variant": "en",
+          "sha256": "6dd82add17fd127f66ae0f6ea7e6ff7c3decdd5501017d1ecf9a82ed6a204204",
+          "cleaned_text_sha256": "e55ee4eeb8c19177060a61a73cfe65565918555ffe10f1a9bb42dfb4a0e601d4"
+        }
+      ]
+    },
+    {
+      "playlist_position": 22,
+      "course_lesson": "21",
+      "title": "How To Play Piano for Beginners, Lesson 21 ｜｜ What To Do Next",
+      "url": "https://www.youtube.com/watch?v=zGNZ-lmxo4c",
+      "last_caption_time": "00:11:21.910",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 1,
+      "review_status": "Canonical transcript read in full; identical alternates compared",
+      "tracks": [
+        {
+          "filename": "22 - How To Play Piano for Beginners, Lesson 21 ｜｜ What To Do Next [zGNZ-lmxo4c].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "a3e88088696cfbf0c67084142005057fb70237149ca88560438865593ba34054",
+          "cleaned_text_sha256": "8c3fe8ae20ff294b2bf7d51779a8503e47a2fd4bf12aa838ac382c8a892261f4"
+        },
+        {
+          "filename": "22 - How To Play Piano for Beginners, Lesson 21 ｜｜ What To Do Next [zGNZ-lmxo4c].en.vtt",
+          "variant": "en",
+          "sha256": "a3e88088696cfbf0c67084142005057fb70237149ca88560438865593ba34054",
+          "cleaned_text_sha256": "8c3fe8ae20ff294b2bf7d51779a8503e47a2fd4bf12aa838ac382c8a892261f4"
+        }
+      ]
+    },
+    {
+      "playlist_position": 23,
+      "course_lesson": null,
+      "title": "8 Piano Lessons Every Adult Beginner Needs",
+      "url": "https://www.youtube.com/watch?v=bJ1kJfs7bGc",
+      "last_caption_time": "00:36:48.920",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 1,
+      "review_status": "Canonical transcript read in full; identical alternates compared",
+      "tracks": [
+        {
+          "filename": "23 - 8 Piano Lessons Every Adult Beginner Needs [bJ1kJfs7bGc].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "6aee76719ae750da47dec4e70c47dc4fb51e77fc460a78cfffa663ca5b516fc2",
+          "cleaned_text_sha256": "0d46da9789b3dad55866a01a956e0da774f8959d9330d264951a02dbb4982512"
+        },
+        {
+          "filename": "23 - 8 Piano Lessons Every Adult Beginner Needs [bJ1kJfs7bGc].en.vtt",
+          "variant": "en",
+          "sha256": "6aee76719ae750da47dec4e70c47dc4fb51e77fc460a78cfffa663ca5b516fc2",
+          "cleaned_text_sha256": "0d46da9789b3dad55866a01a956e0da774f8959d9330d264951a02dbb4982512"
+        }
+      ]
+    },
+    {
+      "playlist_position": 24,
+      "course_lesson": null,
+      "title": "10 Problems of Self-Taught Pianists (...With Solutions)",
+      "url": "https://www.youtube.com/watch?v=rJwY4JEG9_Y",
+      "last_caption_time": "00:16:56.560",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 1,
+      "review_status": "Canonical transcript read in full; identical alternates compared",
+      "tracks": [
+        {
+          "filename": "24 - 10 Problems of Self-Taught Pianists (...With Solutions) [rJwY4JEG9_Y].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "103e5adce87c3025997f07a1e20f30b3e6549e1173ca05b0be0fa4b88cb6ec9c",
+          "cleaned_text_sha256": "0acdce4720b7e3b9445d67409be171a2d77f786f798d12e84432e7917d758334"
+        },
+        {
+          "filename": "24 - 10 Problems of Self-Taught Pianists (...With Solutions) [rJwY4JEG9_Y].en.vtt",
+          "variant": "en",
+          "sha256": "103e5adce87c3025997f07a1e20f30b3e6549e1173ca05b0be0fa4b88cb6ec9c",
+          "cleaned_text_sha256": "0acdce4720b7e3b9445d67409be171a2d77f786f798d12e84432e7917d758334"
+        }
+      ]
+    },
+    {
+      "playlist_position": 25,
+      "course_lesson": null,
+      "title": "The Piano Learning Strategy Adult Students MUST Know",
+      "url": "https://www.youtube.com/watch?v=CrNNfGoz1Hc",
+      "last_caption_time": "00:12:02.244",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 2,
+      "review_status": "Canonical transcript read in full; nontrivial differing alternate wording reviewed",
+      "tracks": [
+        {
+          "filename": "25 - The Piano Learning Strategy Adult Students MUST Know [CrNNfGoz1Hc].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "f2b63a5a442379d9b57d03b0410284512dbf7997eb5e20990555e3dad9afff13",
+          "cleaned_text_sha256": "df46e3e2f55f94b2258627fb228b08c1ce47cceab74b203ccdddd5f5da81e0bb"
+        },
+        {
+          "filename": "25 - The Piano Learning Strategy Adult Students MUST Know [CrNNfGoz1Hc].en.vtt",
+          "variant": "en",
+          "sha256": "19bdf06c4440e566ef8070064f61ae772cbfc53dc6bbfbf81efe44f8c1a46d57",
+          "cleaned_text_sha256": "ce6cfe516594c190c033e250ec14724e84006a216a00c38af238f3e94316a5ae"
+        }
+      ]
+    },
+    {
+      "playlist_position": 26,
+      "course_lesson": null,
+      "title": "Piano Beginners' Top 5 questions — Answered!",
+      "url": "https://www.youtube.com/watch?v=fRqxI7WStvw",
+      "last_caption_time": "00:04:32.400",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 1,
+      "review_status": "Canonical transcript read in full; identical alternates compared",
+      "tracks": [
+        {
+          "filename": "26 - Piano Beginners' Top 5 questions — Answered! [fRqxI7WStvw].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "6d1a663485dfc05a28d7d2f099db82811a6231a234afc617a6fa1de2ad0396b2",
+          "cleaned_text_sha256": "e17fe04abbc991b8d0e4332bfa08269ec86709a7b3baca15d49d8f0b3452dd53"
+        },
+        {
+          "filename": "26 - Piano Beginners' Top 5 questions — Answered! [fRqxI7WStvw].en.vtt",
+          "variant": "en",
+          "sha256": "6d1a663485dfc05a28d7d2f099db82811a6231a234afc617a6fa1de2ad0396b2",
+          "cleaned_text_sha256": "e17fe04abbc991b8d0e4332bfa08269ec86709a7b3baca15d49d8f0b3452dd53"
+        }
+      ]
+    },
+    {
+      "playlist_position": 27,
+      "course_lesson": null,
+      "title": "Three Easy Jazzy Pieces, Part 1⧸3 ｜｜ Easy Jazz Piano Piece With Score",
+      "url": "https://www.youtube.com/watch?v=SNRcWLDalnk",
+      "last_caption_time": "00:15:36.480",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 1,
+      "review_status": "Canonical transcript read in full; identical alternates compared",
+      "tracks": [
+        {
+          "filename": "27 - Three Easy Jazzy Pieces, Part 1⧸3 ｜｜ Easy Jazz Piano Piece With Score [SNRcWLDalnk].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "28355afd92e8a79d4ed664969f9253edd12ba5defbf3886c3e88738dd8d802ac",
+          "cleaned_text_sha256": "bf629177e3ecfe22cd1e4a5baba78aa8eee84fd4d25ad72616d8219b3777cc53"
+        },
+        {
+          "filename": "27 - Three Easy Jazzy Pieces, Part 1⧸3 ｜｜ Easy Jazz Piano Piece With Score [SNRcWLDalnk].en.vtt",
+          "variant": "en",
+          "sha256": "28355afd92e8a79d4ed664969f9253edd12ba5defbf3886c3e88738dd8d802ac",
+          "cleaned_text_sha256": "bf629177e3ecfe22cd1e4a5baba78aa8eee84fd4d25ad72616d8219b3777cc53"
+        }
+      ]
+    },
+    {
+      "playlist_position": 28,
+      "course_lesson": null,
+      "title": "Three Easy Jazzy Pieces, Part 2⧸3 ｜｜ Easy Jazz Piano Piece With Score",
+      "url": "https://www.youtube.com/watch?v=H0w-TWWFqOE",
+      "last_caption_time": "00:18:34.720",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 1,
+      "review_status": "Canonical transcript read in full; identical alternates compared",
+      "tracks": [
+        {
+          "filename": "28 - Three Easy Jazzy Pieces, Part 2⧸3 ｜｜ Easy Jazz Piano Piece With Score [H0w-TWWFqOE].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "7879d31e4e0b2165bc6a45a70f7defc1881198d46b98166abaee78e7346d2d34",
+          "cleaned_text_sha256": "3cec76d02e9ed65106e51bcfbb78b3b74ac44687e47c457d4be9d1067b30dd41"
+        },
+        {
+          "filename": "28 - Three Easy Jazzy Pieces, Part 2⧸3 ｜｜ Easy Jazz Piano Piece With Score [H0w-TWWFqOE].en.vtt",
+          "variant": "en",
+          "sha256": "7879d31e4e0b2165bc6a45a70f7defc1881198d46b98166abaee78e7346d2d34",
+          "cleaned_text_sha256": "3cec76d02e9ed65106e51bcfbb78b3b74ac44687e47c457d4be9d1067b30dd41"
+        }
+      ]
+    },
+    {
+      "playlist_position": 29,
+      "course_lesson": null,
+      "title": "Three Easy Jazzy Pieces, Part 3⧸3 ｜｜ Easy Jazz Piano Piece With Score",
+      "url": "https://www.youtube.com/watch?v=_6V4pLp0S4A",
+      "last_caption_time": "00:18:14.940",
+      "review_anchor_variant": "en",
+      "distinct_cleaned_texts": 1,
+      "review_status": "Canonical transcript read in full; identical alternates compared",
+      "tracks": [
+        {
+          "filename": "29 - Three Easy Jazzy Pieces, Part 3⧸3 ｜｜ Easy Jazz Piano Piece With Score [_6V4pLp0S4A].en-orig.vtt",
+          "variant": "en-orig",
+          "sha256": "53244d0f412a2145ea4dfe6e7d4f6cbab75de837a5bc1f25aadddd5e66d69ce1",
+          "cleaned_text_sha256": "baccaa9744d89fff9c4346de59e8815dfac32c2082b8f889d4013b48431be76a"
+        },
+        {
+          "filename": "29 - Three Easy Jazzy Pieces, Part 3⧸3 ｜｜ Easy Jazz Piano Piece With Score [_6V4pLp0S4A].en.vtt",
+          "variant": "en",
+          "sha256": "53244d0f412a2145ea4dfe6e7d4f6cbab75de837a5bc1f25aadddd5e66d69ce1",
+          "cleaned_text_sha256": "baccaa9744d89fff9c4346de59e8815dfac32c2082b8f889d4013b48431be76a"
+        }
+      ]
+    }
+  ]
+}

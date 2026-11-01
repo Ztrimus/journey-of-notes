@@ -4,6 +4,8 @@ Updated 2026-10-31. Journey of Notes is an independent personal musician's pract
 
 ## Order of work
 
+**Latest piano research (2026-11-01, issue #21):** [piano-foundations.md](piano-foundations.md) retains all 29 supplied video transcripts' teaching, conflicts and limitations; [piano-practice-plan.md](piano-practice-plan.md) maps repeatable workouts, focused review and future evidence. The owner confirmed a USB/MIDI digital keyboard, making MIDI feasibility a sensible next investigation. No new drills, notation engine, MIDI input, scores or deployment were implemented. Keep phrase look-ahead separate from hidden random reflex targets; keep pitch correctness separate from physical technique and expression.
+
 **Latest bansuri research (2026-11-01, issue #19):** [Foundations and all-lesson source review](bansuri-foundations.md) and [practice/evaluator proposal](bansuri-practice-plan.md) retain the supplied subtitle knowledge and current implementation gaps. First sound, steady tone and connected hole changes are proposed independent workouts; automatic clarity scoring remains research. Both hand orientations with left hand nearest the blowing hole by default is an accepted requirement, not yet implemented. The proposal does not replace the released evaluator or change historical scores. See TASKS.md for what is complete versus still proposed.
 
 1. Make the practice loop honest, legible and comfortable on a phone.

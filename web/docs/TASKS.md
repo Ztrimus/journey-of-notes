@@ -10,7 +10,21 @@ Owner: this repository. Updated 2026-11-01. This is the working source of truth 
 4. P1: real-device audio/pitch/latency evaluation and a free HTTPS release.
 5. P2: expand lessons/instruments and advanced evidence methods.
 
-## Current research and discussion — bansuri, issue #19
+## Current research — piano, issue #21
+
+Documentation only; preserve all prior bansuri work. Review every video in the supplied `piano_sub` collection, retain practice knowledge for future development, and propose repeatable workouts without changing the live app.
+
+| ID | Task | Status |
+|---|---|---|
+| PIANO-R01 | Inventory every file and compare caption variants | COMPLETE: 70 tracks, 29 videos, 44 distinct cleaned texts, 26 duplicate copies, 15 videos with differing versions |
+| PIANO-R02 | Read all video transcripts and compare nonidentical alternate material | COMPLETE: every canonical video transcript read; nontrivial alternate wording compared, including translated/mixed-language errors |
+| PIANO-R03 | Retain lesson-by-lesson provenance, technique knowledge and audiovisual gaps | COMPLETE: piano-foundations.md and piano-source-manifest.json; no full subtitle/score redistribution |
+| PIANO-R04 | Map repeatable practice families and appropriate evidence to current app capabilities | PROPOSAL COMPLETE: piano-practice-plan.md; no runtime/scoring/deployment change |
+| PIANO-R05 | Update source review, links and agent memory; verify coverage/documentation | COMPLETE: all 70 source hashes/coverage, manifest counts, local links/fences and whitespace checked; documentation-only, no app tests rerun |
+
+Owner confirmed a digital piano/keyboard with USB/MIDI. Retained next-work candidates: PIANO-P01 actual keyboard/browser MIDI feasibility; PIANO-P02 independent clef/spelling and constrained original reading drills; PIANO-P03 timed rhythm/rest evidence, then connected sequences/polyphony as supported. No MIDI connection or new assessment has been implemented. Exact instrument model, pedal behavior and phone compatibility remain to be tested.
+
+## Retained research and discussion — bansuri, issue #19
 
 Scope: study and document the supplied Divine Bansuri subtitles, then brainstorm the practice design. Documentation only; new drills, evaluators, scores and UI remain proposals for discussion. The live app is unchanged. Read `bansuri-foundations.md` and `bansuri-practice-plan.md` before the next bansuri implementation.
 

@@ -36,6 +36,8 @@ A sequence finishing means the learner reached its end, not that they mastered t
 
 ## Proposed piano syllabus
 
+**Piano follow-up, 2026-11-01:** [the complete subtitle review](piano-foundations.md) and [practice-gym proposal](piano-practice-plan.md) expand and supersede this early piano stage outline for current planning. Use repeatable workouts and explicit microphone/MIDI/human evidence boundaries; the current owner has a USB/MIDI digital keyboard, but no MIDI adapter or new evaluator is implemented. Source-based physical/expressive instructions still need demonstration review.
+
 | Stage | Learning objective | Practice and feedback | Prototype state |
 |---|---|---|---|
 | 0 | Know the keyboard and finger numbers | Locate two/three black-key groups; identify middle C and thumb=1. Technique self-check. | Text guidance and key image; fuller visual lesson planned |

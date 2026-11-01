@@ -2,6 +2,10 @@
 
 Owner: this repository. Updated 2026-11-01. This is the working source of truth for requests from the handoff, typed chat and voice session. Read it before planning or editing; update status and verification after each session. Do not silently drop deferred work. Status: TODO, IN PROGRESS, IMPLEMENTED (needs device trial), VERIFIED (named checks), DEFERRED.
 
+## Hover correction — issue #26
+
+- UI-08: Remove hover lift/shadow from plain links (including brand/History), disclosure summaries and borderless text buttons. Keep bounded-control feedback, focus indicators and reduced-motion rules. IMPLEMENTED; scoped browser/build verification below and deployment evidence in the associated PR.
+
 ## Mobile density follow-up — issue #24
 
 - HISTORY-03: Remove grid layout and switch; compact date-grouped timeline with clickable score circles/titles and retained instrument/evidence. IMPLEMENTED.

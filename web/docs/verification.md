@@ -98,3 +98,8 @@ Cue changes preserve the target validator’s hold/dedup state: changing a view 
 - Final keyboard/click/320px confirmation and console checks found no errors/warnings. Native ordered lists carry explicit list roles for Safari's list-style behavior. Actual phone browsers, screen readers and text-zoom checks remain manual follow-up. No social/analytics/recording behavior changed.
 - Impeccable mechanical detector ran once. It flagged the existing .notice border-left declaration, unchanged by this task; no new component finding was reported. This is not an accessibility or design-quality certification.
 - Local screenshots: journey-history-mobile.jpg and journey-attempts-mobile.jpg in the workspace outputs directory; synthetic data, not real performance evidence.
+
+
+## Flat text hover — issue #26
+
+An isolated native-element preview verified actual :hover states for the brand link, History link, report summary, Back link, quiet action and history title: each computed transform and box-shadow was none. Bordered button/card controls still computed a -2px lift and the existing soft shadow. Keyboard Tab retained a 3px focus outline. At 390px the hovered summary stayed flat with no horizontal overflow. Existing fine-pointer and reduced-motion guards remain in CSS; no OS reduced-motion or assistive-technology check was run. No records or microphone access were used. The temporary preview is removed before Pages packaging. Production/Pages build and the existing 54-test suite pass; deployment evidence is in the associated PR.

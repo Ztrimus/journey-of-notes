@@ -12,6 +12,8 @@ Read `web/docs/report-response-decisions.md` before changing report metrics. New
 
 Use one date-grouped history timeline; the owner removed the grid/layout switch. Attempts in both results and history use the shared circular note trail with outcome symbol/color, elapsed time and selected details. Keep full Sargam/register and heard-note evidence accessible, comfortable touch targets, explicit list semantics, and pagination focus. Read `web/docs/compact-history-design.md` before reintroducing cards or expanding repeated content. Preserve history/schema/metrics and all backup safeguards. Use scoped, bounded visual verification; do not publish temporary synthetic QA entry points or data.
 
+Hover feedback (issue #26): lift/shadow belongs only to bounded buttons/cards/circular controls and the bordered file action. Plain anchors, disclosure summaries and borderless text buttons stay flat. Keep borderless button variants excluded from the shared lift selector; retain focus outlines and reduced-motion handling. Never create a floating rectangle around unbounded text.
+
 ---
 
 ## Development Workflow — Non-Negotiable Rules

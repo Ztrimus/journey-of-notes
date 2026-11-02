@@ -2,6 +2,10 @@
 
 Owner: this repository. Updated 2026-11-01. This is the working source of truth for requests from the handoff, typed chat and voice session. Read it before planning or editing; update status and verification after each session. Do not silently drop deferred work. Status: TODO, IN PROGRESS, IMPLEMENTED (needs device trial), VERIFIED (named checks), DEFERRED.
 
+## Default combined view — issue #34
+
+- VIEW-04: Both is the default on initial load, instrument selection and each new preparation screen. Explicit view choices remain available. Supersedes the earlier music-sheet default. IMPLEMENTED; production build and preparation UI checked.
+
 ## Personal story and attribution — issue #32
 
 - ABOUT-02: Refine the opening About story around the owner's joy in music/dance, learning, solo-practice feedback and riyaz; retain honest capability limits. IMPLEMENTED.

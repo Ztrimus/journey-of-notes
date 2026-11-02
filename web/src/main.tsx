@@ -48,7 +48,7 @@ function App() {
   const [method, setMethod] = useState<"microphone" | "self-check">(
     "microphone",
   );
-  const [display, setDisplay] = useState<DisplayMode>("staff");
+  const [display, setDisplay] = useState<DisplayMode>("both");
   const [hints, setHints] = useState(false);
   const [glowEnabled, setGlowEnabled] = useState(true);
   const [notation, setNotation] = useState<"western" | "sargam">(() =>
@@ -187,7 +187,7 @@ function App() {
   useEffect(() => {
     if (route.screen === "prepare") {
       setMethod("microphone");
-      setDisplay("staff");
+      setDisplay("both");
       setHints(false);
       setNotation(instruments[route.instrument].notation);
     }
@@ -228,7 +228,7 @@ function App() {
       setTonicConfirmed(false);
     }
     setMethod("microphone");
-    setDisplay("staff");
+    setDisplay("both");
     setNotation(instruments[id].notation);
     go("map", id);
   }

@@ -1,3 +1,6 @@
+import { viewLabels } from "./viewLabels";
+import { GuitarSetup } from "./GuitarSetup";
+import { ReferenceTone } from "./ReferenceTone";
 import { ShareProject } from "./ShareProject";
 import { FeedbackWash, ViewPills } from "./PracticeControls";
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from "react";
@@ -59,6 +62,7 @@ function App() {
   );
   const [tonicConfirmed, setTonicConfirmed] = useState(false);
   const [tonicListening, setTonicListening] = useState(false);
+  const [preparationBusy, setPreparationBusy] = useState(false);
   const [records, setRecords] = useState<SessionRecord[]>([]);
   const [summary, setSummary] = useState<SessionRecord | null>(null);
   const [storageMessage, setStorageMessage] = useState("");
@@ -237,6 +241,7 @@ function App() {
     go("prepare", route.instrument, level.id);
   }
   function start() {
+    if (preparationBusy || tonicListening) return;
     if (instrument.needsTonic && method === "microphone" && !tonicConfirmed)
       return;
     const lesson = isReflex(chosen.id)
@@ -329,6 +334,7 @@ function App() {
   const activeLevel = options?.lesson;
   const activeTarget = activeLevel?.targets[practice.index];
   const blocked =
+    preparationBusy ||
     tonicListening ||
     (instrument.needsTonic && method === "microphone" && !tonicConfirmed);
   const todaySets = records.filter(
@@ -388,7 +394,14 @@ function App() {
             </nav>
           )}
           {live && (
-            <button className="quiet-button" onClick={() => practice.finish()}>
+            <button
+              className="quiet-button"
+              onClick={() =>
+                practice.phase === "idle"
+                  ? go("prepare", route.instrument, route.levelId)
+                  : practice.finish()
+              }
+            >
               End set
             </button>
           )}
@@ -712,6 +725,7 @@ function App() {
               </label>
               {instrument.needsTonic && method === "microphone" && (
                 <TonicSetup
+                  disabled={preparationBusy}
                   tonic={tonic}
                   confirmed={tonicConfirmed}
                   onChange={setTonic}
@@ -719,6 +733,23 @@ function App() {
                   onListening={setTonicListening}
                   vocal={route.instrument === "vocal"}
                 />
+              )}
+              {route.instrument === "guitar" ? (
+                <GuitarSetup
+                  key={chosen.id}
+                  lesson={chosen}
+                  reflex={isReflex(chosen.id)}
+                  onBusy={setPreparationBusy}
+                />
+              ) : (
+                !isReflex(chosen.id) && (
+                  <ReferenceTone
+                    key={chosen.id}
+                    midi={chosen.targets[0].midi}
+                    disabled={tonicListening}
+                    onBusy={setPreparationBusy}
+                  />
+                )
               )}
               <button
                 className="primary start-set"
@@ -729,13 +760,15 @@ function App() {
                 Start practice <span aria-hidden="true">→</span>
               </button>
               <p id="start-help" className="small muted">
-                {tonicListening
-                  ? "Finish or stop Sa detection before starting."
-                  : blocked
-                    ? "Confirm your comfortable starting note above to enable practice."
-                    : method === "microphone"
-                      ? "Your browser asks for microphone permission after you press Start."
-                      : "No microphone. You will mark each note practiced yourself."}
+                {preparationBusy
+                  ? "Stop the tuner or finish the example before starting."
+                  : tonicListening
+                    ? "Finish or stop Sa detection before starting."
+                    : blocked
+                      ? "Confirm your comfortable starting note above to enable practice."
+                      : method === "microphone"
+                        ? "Your browser asks for microphone permission after you press Start."
+                        : "No microphone. You will mark each note practiced yourself."}
               </p>
               <details className="explanation">
                 <summary>Before you play</summary>
@@ -1125,16 +1158,8 @@ function ViewSelect({
         value={value}
         onChange={(e) => onChange(e.target.value as DisplayMode)}
       >
-        <option value="staff">Music sheet</option>
-        <option value="keyboard">
-          {instrument === "piano"
-            ? "Key diagram"
-            : instrument === "flute"
-              ? "Hole diagram"
-              : instrument === "guitar"
-                ? "Fretboard"
-                : "Note cue"}
-        </option>
+        <option value="staff">{viewLabels(instrument).sheet}</option>
+        <option value="keyboard">{viewLabels(instrument).diagram}</option>
         <option value="both">Both</option>
       </select>
     </div>

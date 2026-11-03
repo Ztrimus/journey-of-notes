@@ -1,3 +1,5 @@
+import { GuitarTab } from "./GuitarTab";
+import { guitarFinger } from "./guitar";
 import { HandCue, BansuriDiagram, GuitarDiagram } from "./InstrumentVisuals";
 import type { Target } from "./curriculum";
 import { noteName } from "./pitch";
@@ -221,14 +223,11 @@ export function TargetDisplay({
         ((instrument === "flute" || instrument === "vocal") &&
         notation === "sargam" ? (
           <Sargam target={target.midi} tonic={tonic} />
+        ) : instrument === "guitar" ? (
+          <GuitarTab target={target} />
         ) : (
           <Staff target={target.midi} />
         ))}
-      {instrument === "guitar" && display !== "keyboard" && (
-        <p className="small muted">
-          Sheet shows sounding (concert) pitch in this pilot.
-        </p>
-      )}
       {display !== "staff" && instrument === "piano" && (
         <Keyboard target={target.midi} />
       )}
@@ -241,7 +240,8 @@ export function TargetDisplay({
       {instrument === "guitar" && (
         <p className="small">
           String {target.string ?? "—"} ·{" "}
-          {target.fret === 0 ? "Open" : `Fret ${target.fret ?? "—"}`}
+          {target.fret !== 0 && `Fret ${target.fret ?? "—"} · `}
+          {guitarFinger(target)}
         </p>
       )}
       {!compact && instrument === "flute" && (

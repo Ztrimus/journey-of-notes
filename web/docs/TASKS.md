@@ -2,6 +2,16 @@
 
 Owner: this repository. Updated 2026-11-01. This is the working source of truth for requests from the handoff, typed chat and voice session. Read it before planning or editing; update status and verification after each session. Do not silently drop deferred work. Status: TODO, IN PROGRESS, IMPLEMENTED (needs device trial), VERIFIED (named checks), DEFERRED.
 
+## Guitar iteration — issue #36
+
+- F01/F02: TAB and suggested guitar fretting fingers, open strings and existing fretboard guidance. DONE; standard tuning/no capo, usable with either playing hand, physical placement unverified.
+- F04: Preparation-only generated pitch reference and guided guitar note preview; capture/Start exclusion and cancellation. DONE; no reflex previews or guitar-timbre claim.
+- F05: Experimental selected-string tuner covers all six strings in synthetic tests; stops on collapse/hidden/interrupt/navigation/timeout. IMPLEMENTED; physical guitar/browser evaluation remains OPEN.
+- QA-36: 66 tests, production build and isolated synthetic/silent browser journeys verified. Details in `guitar-practice.md`; real phone/AT/instrument timing remains OPEN.
+- CLEAN-36: Shared view labels, throttled snapshot allocation, reused range/workspace and no extra RAF after stop; local analysis benchmark recorded. DONE; broader refactoring follows measured need.
+- FLOW-36: End set exits initial microphone failure back to preparation without a fabricated history record. DONE; browser permission-denial exit checked.
+- F03/F06/Q01–Q03: Strumming expectations, piano scale meaning and friend's guitar/device setup. OPEN awaiting owner's friend reply; retained in the external iteration ledger.
+
 ## Default combined view — issue #34
 
 - VIEW-04: Both is the default on initial load, instrument selection and each new preparation screen. Explicit view choices remain available. Supersedes the earlier music-sheet default. IMPLEMENTED; production build and preparation UI checked.

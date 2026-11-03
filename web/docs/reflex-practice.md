@@ -8,6 +8,8 @@ The first recall level generates ten targets for each set, with no immediate sam
 
 ## Prompt choices
 
+Guitar uses TAB (string/fret) in place of its earlier Western sheet cue, plus the optional fretboard diagram and suggested fretting finger. Both remains the default. New guitar comparisons use `cueProtocol: guitar-tab-v1` so older sheet-reading evidence stays separate. See `guitar-practice.md` for tuning/reference preparation and verification.
+
 The default compact cue reads **hand → finger → octave → note**, following the user's final requested order. Decorative visual cues support persistent text labels and finger numbers. The note remains visually prominent. A highlighted piano key is preserved.
 
 Both is the default, showing the music sheet and instrument diagram together. Choose Music sheet, the instrument diagram, or Both before a set or through the active drill pills. Sheet-only mode hides visible note/octave answers by default, with optional note-name hints. Staff placement uses scientific pitch notation, automatic treble/bass clef, ledger lines and sharp signs; clef does not determine hand. Quarter notes identify pitch here, not a timed rhythm requirement. The staff image has a descriptive accessible name. View and hint changes invalidate timing for the affected target while preserving pitch evidence; the next target restores the setup hint preference.

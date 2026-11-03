@@ -197,7 +197,7 @@ export function starterLevels(
         1,
         "High E · one string",
         [64, 64, 64],
-        "Standard tuning: gently pluck the open first (thinnest) string, E4. Mute the others. The pilot sheet shows sounding pitch, rather than conventional octave-transposed guitar notation.",
+        "Standard tuning: gently pluck the open first (thinnest) string, E4. Mute the others. TAB shows the string and fret to play.",
         [0, 0, 0].map(() => ({ midi: 64, string: 1, fret: 0 })),
       ),
       make(

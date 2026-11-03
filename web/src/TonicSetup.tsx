@@ -4,6 +4,7 @@ import { TonicSampler } from "./bansuri";
 import { noteName } from "./pitch";
 export function TonicSetup({
   vocal = false,
+  disabled = false,
   tonic,
   confirmed,
   onChange,
@@ -11,6 +12,7 @@ export function TonicSetup({
   onListening,
 }: {
   vocal?: boolean;
+  disabled?: boolean;
   tonic: number;
   confirmed: boolean;
   onChange: (midi: number) => void;
@@ -106,7 +108,11 @@ export function TonicSetup({
           : "For a typical Hindustani bansuri, middle Sa uses the three upper finger holes closed. Confirm your flute’s convention; all-holes-closed can be a different note."}
       </p>
       <div className="tonic-actions">
-        <button type="button" onClick={listening ? stop : detect}>
+        <button
+          type="button"
+          disabled={disabled && !listening}
+          onClick={listening ? stop : detect}
+        >
           {listening
             ? "Stop listening"
             : vocal
@@ -128,7 +134,7 @@ export function TonicSetup({
       <select
         id="tonic"
         value={tonic}
-        disabled={listening}
+        disabled={listening || disabled}
         onChange={(e) => {
           onChange(Number(e.target.value));
           onConfirm(false);
@@ -145,7 +151,7 @@ export function TonicSetup({
         <input
           type="checkbox"
           checked={confirmed}
-          disabled={listening}
+          disabled={listening || disabled}
           onChange={(e) => onConfirm(e.target.checked)}
         />
         {vocal

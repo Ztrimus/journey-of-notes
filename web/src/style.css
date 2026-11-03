@@ -2083,3 +2083,61 @@ footer {
     box-shadow: inset 0 0 0 4px var(--feedback-edge);
   }
 }
+
+/* Guitar preparation tools reuse the existing disclosure and button patterns. */
+.guitar-setup {
+  margin: 16px 0;
+}
+.guitar-setup details {
+  padding: 12px 0;
+  border-block-end: 1px solid var(--line);
+}
+.guitar-setup summary {
+  min-height: 44px;
+  align-content: center;
+  cursor: pointer;
+}
+.guitar-setup details[open] summary {
+  margin-bottom: 12px;
+}
+.guitar-tab {
+  display: block;
+  width: 100%;
+  max-width: 350px;
+  max-height: 120px;
+  margin: 8px auto;
+  color: var(--forest);
+}
+.tuner-actions {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-block: 12px;
+}
+.tuner-reading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  min-height: 44px;
+  align-items: center;
+}
+.tuner-reading.in-tune {
+  color: var(--forest);
+}
+.tuner-reading.flat,
+.tuner-reading.sharp {
+  color: var(--danger);
+}
+.reference-tone {
+  margin-block: 12px;
+}
+.reference-tone small {
+  display: block;
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 0.72rem;
+  margin-top: 6px;
+}
+.reference-tone [role="status"]:empty {
+  display: none;
+}

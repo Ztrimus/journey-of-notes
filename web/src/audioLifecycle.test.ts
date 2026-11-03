@@ -83,6 +83,7 @@ async function withAudio(run: (h: any) => Promise<void>) {
       track,
       tracks,
       contexts,
+      frames,
       tick(seconds: number) {
         contexts.at(-1).currentTime = seconds;
         const pending = [...frames.values()];
@@ -165,4 +166,15 @@ test("quiet microphone capture keeps updating beyond one second without auto-end
     engine.stop();
     assert.ok(times.at(-1)! > 11);
     assert.equal(interruptions, 0);
+  }));
+
+test("stopping inside an audio update does not queue a new animation frame", async () =>
+  withAudio(async ({ frames }) => {
+    const engine = new PracticeAudio();
+    await engine.start(
+      options,
+      () => engine.stop(),
+      () => {},
+    );
+    assert.equal(frames.size, 0);
   }));

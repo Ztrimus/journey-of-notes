@@ -116,6 +116,8 @@ export function usePractice(onFinish: (record: SessionRecord) => void) {
       instrument: r.lesson.instrument,
       method: r.method,
       responseProtocol: "prompt-v2",
+      cueProtocol:
+        r.lesson.instrument === "guitar" ? "guitar-tab-v1" : undefined,
       displayMode: r.initialDisplay,
       noteHints: r.initialHints,
       notation: r.notation,

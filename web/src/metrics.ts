@@ -126,7 +126,8 @@ export function comparable(a: SessionRecord, b: SessionRecord) {
     a.displayMode === b.displayMode &&
     a.noteHints === b.noteHints &&
     a.tonic === b.tonic &&
-    a.notation === b.notation
+    a.notation === b.notation &&
+    a.cueProtocol === b.cueProtocol
   );
 }
 export function mergeHistory(

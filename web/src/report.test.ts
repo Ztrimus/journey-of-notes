@@ -131,3 +131,23 @@ test("response comparisons keep timing protocols and drill conditions separate",
   ])
     assert.equal(comparableResponse(a, { ...a, ...extra }), false);
 });
+
+test("TAB guitar evidence survives backup import and stays separate from legacy sheet cues", () => {
+  const legacy = record({
+    instrument: "guitar",
+    lessonId: "g1",
+    responseProtocol: "prompt-v2",
+  });
+  const tab = { ...legacy, id: "tab", cueProtocol: "guitar-tab-v1" as const };
+  assert.equal(comparableResponse(legacy, tab), false);
+  assert.equal(comparableResponse(tab, { ...tab, id: "next" }), true);
+  const parsed = parseHistory(JSON.stringify([legacy, tab]));
+  assert.equal(
+    parsed.find((r) => r.id === "tab")?.cueProtocol,
+    "guitar-tab-v1",
+  );
+  assert.ok(parsed.some((r) => r.cueProtocol === undefined));
+  assert.throws(() =>
+    parseHistory(JSON.stringify([{ ...tab, cueProtocol: "unknown" }])),
+  );
+});

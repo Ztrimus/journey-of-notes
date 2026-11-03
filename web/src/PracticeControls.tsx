@@ -1,3 +1,4 @@
+import { viewLabels } from "./viewLabels";
 import type { DisplayMode } from "./reflex";
 import type { GlowSignal } from "./practiceFeedback";
 export function ViewPills({
@@ -11,22 +12,15 @@ export function ViewPills({
   instrument: string;
   disabled?: boolean;
 }) {
-  const diagram =
-    instrument === "piano"
-      ? "Keyboard"
-      : instrument === "flute"
-        ? "Holes"
-        : instrument === "guitar"
-          ? "Fretboard"
-          : "Note cue";
+  const labels = viewLabels(instrument);
   return (
     <fieldset className="view-pills" disabled={disabled}>
       <legend className="sr-only">Prompt view</legend>
       <div className="pill-options">
         {(
           [
-            ["staff", "Music sheet"],
-            ["keyboard", diagram],
+            ["staff", labels.sheet],
+            ["keyboard", labels.diagram],
             ["both", "Both"],
           ] as const
         ).map(([mode, label]) => (

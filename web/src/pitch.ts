@@ -15,18 +15,21 @@ export function noteName(midi: number): string {
   );
 }
 
+const DEFAULT_PITCH_RANGE = { minHz: 100, maxHz: 2000 };
+
 // YIN-style cumulative mean-normalized difference. Single pitched source only.
 // Returns null rather than inventing a note when periodicity is weak.
 export function detectPitch(
   samples: Float32Array,
   sampleRate: number,
   workspace?: Float32Array,
+  range = DEFAULT_PITCH_RANGE,
 ): Pitch | null {
   const maxLag = Math.min(
-    Math.floor(sampleRate / 100),
+    Math.floor(sampleRate / range.minHz),
     Math.floor(samples.length / 2) - 1,
   );
-  const minLag = Math.max(2, Math.floor(sampleRate / 2000));
+  const minLag = Math.max(2, Math.floor(sampleRate / range.maxHz));
   if (maxLag <= minLag) return null;
   const size = samples.length - maxLag;
   const mean = samples.reduce((sum, x) => sum + x, 0) / samples.length;
@@ -57,7 +60,7 @@ export function detectPitch(
       const refined =
         lag + (denominator ? (left - right) / (2 * denominator) : 0);
       const hz = sampleRate / refined;
-      if (hz < 100 || hz > 2000) return null;
+      if (hz < range.minHz || hz > range.maxHz) return null;
       return { hz, midi: hzToMidi(hz), confidence: 1 - center };
     }
   }

@@ -13,6 +13,7 @@ export interface Options {
   microphone: boolean;
   click: boolean;
   threshold: number;
+  analysis?: "guitar-tuner";
 }
 export type AudioInterruption = "microphone-ended" | "audio-paused";
 
@@ -46,6 +47,8 @@ export class PracticeAudio {
     await context.resume();
     if (this.cancelled) return;
     let analyser: AnalyserNode | undefined;
+    const tuner = options.analysis === "guitar-tuner";
+    const sampleSize = tuner ? 4096 : 2048;
     if (options.microphone) {
       if (!navigator.mediaDevices?.getUserMedia)
         throw new Error(
@@ -77,7 +80,7 @@ export class PracticeAudio {
         this.cleanups.push(() => track.removeEventListener("ended", ended));
       });
       analyser = context.createAnalyser();
-      analyser.fftSize = 2048;
+      analyser.fftSize = sampleSize;
       context.createMediaStreamSource(stream).connect(analyser);
       // Keep the analysis graph active without feeding microphone audio to speakers.
       const silent = context.createGain();
@@ -96,8 +99,9 @@ export class PracticeAudio {
     let nextBeat = start;
     let scheduled = 0;
     const detector = new OnsetDetector();
-    const samples = new Float32Array(2048);
-    const pitchWorkspace = new Float32Array(1025);
+    const samples = new Float32Array(sampleSize);
+    const pitchWorkspace = new Float32Array(sampleSize / 2 + 1);
+    const pitchRange = tuner ? { minHz: 65, maxHz: 450 } : undefined;
     const schedule = () => {
       while (nextBeat < context.currentTime + 0.1) {
         if (options.click) {
@@ -135,21 +139,26 @@ export class PracticeAudio {
         if (now >= start && detector.process(level, now, options.threshold))
           this.snapshot.onsets++;
       }
-      this.snapshot = {
-        ...this.snapshot,
-        seconds,
-        level,
-        beats: now < start ? 0 : Math.floor((seconds * options.bpm) / 60) + 1,
-      };
-      if (now - lastUpdate > 0.06) {
+      if (now - lastUpdate > (tuner ? 0.1 : 0.06)) {
+        this.snapshot = {
+          ...this.snapshot,
+          seconds,
+          level,
+          beats: now < start ? 0 : Math.floor((seconds * options.bpm) / 60) + 1,
+        };
         this.snapshot.pitch =
           analyser && level > 0.012
-            ? detectPitch(samples, context.sampleRate, pitchWorkspace)
+            ? detectPitch(
+                samples,
+                context.sampleRate,
+                pitchWorkspace,
+                pitchRange,
+              )
             : null;
         update({ ...this.snapshot });
         lastUpdate = now;
       }
-      this.frame = requestAnimationFrame(render);
+      if (!this.cancelled) this.frame = requestAnimationFrame(render);
     };
     render();
   }

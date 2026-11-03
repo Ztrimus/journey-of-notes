@@ -4,6 +4,10 @@
 
 Project-level memory for AI coding agents. Update this file whenever a significant architectural decision is made or a future sprint is scoped.
 
+### Guitar practice — issue #36
+
+Read `web/docs/guitar-practice.md` before extending guitar cues/audio. Guitar uses TAB + fretboard and suggested fretting fingers, with standard tuning/no capo. `cueProtocol: guitar-tab-v1` separates new comparisons from legacy sheet cues; preserve old records/imports. Tuner's extended low-note profile is preparation-only; keep normal drill processing unchanged. Reference playback and capture must be mutually exclusive and released before scored practice. Reflex has no target previews. Six-string tuner coverage is synthetic-tested; real instrument/phone validation remains open. Strumming and piano-scale requirements await friend clarification.
+
 ### Recoverable session interruptions — issue #28
 
 Microphone track loss, paused browser audio and page hiding pause practice with explicit Resume; they must not finish/save a set. Release capture while paused, keep the current target/attempts and active elapsed time, and reconnect only on Resume. End set, actual page departure and navigation still end/save. Guard callbacks by both run and capture identity and detach listeners before stopping tracks. Interrupted unconfirmed targets lose response timing; accepted evidence remains valid, and later untouched targets can be timed. Read `web/docs/session-lifecycle.md` before changing these paths. Phone/instrument calibration remains separate from lifecycle verification.
